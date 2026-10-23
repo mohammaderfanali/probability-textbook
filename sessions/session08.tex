@@ -1,0 +1,639 @@
+% !TEX root = ../jalase08.tex
+%% ============================================================
+%%  جلسهٔ ۸ — توزیع نمایی و بی‌حافظگی، توزیع گاوسی (نرمال)،
+%%  لاپلاس و کوشی
+%% ============================================================
+\chapter{نمایی، گاوسی و چند توزیع پیوستهٔ دیگر}
+\label{ch:s8}
+
+\sessioncard{دوشنبه ۲۷ مهر}
+{توزیع نمایی و بی‌حافظگی؛ توزیع گاوسی (نرمال) و تابع $\Phi$؛ توزیع‌های لاپلاس و کوشی و مقایسهٔ \lr{tail} توزیع‌ها}
+{\lr{Pishro-Nik} بخش‌های \lr{4.2.2}، \lr{4.2.3}، \lr{4.3.2} و مسئله‌های ۱۷ تا ۱۹ فصل ۴ \,؛\, \lr{Ross} بخش‌های \lr{5.4}، \lr{5.5} و \lr{5.6} \,؛\, \lr{Bertsekas} بخش‌های \lr{3.3} و \lr{3.4}}
+{\begin{itemize}
+  \item توزیع نمایی را به‌عنوان «هندسیِ پیوسته» و «زمان اولین پیشامد پواسون» بشناسید و بی‌حافظگی آن را دقیق بیان و اثبات کنید؛
+  \item توزیع گاوسی را با دو پارامتر $\mu$ و $\sigma$ تعریف کنید و ثابت کنید مساحت زیر آن ۱ است؛
+  \item با تابع $\Phi$ و استانداردسازی، احتمال‌های مربوط به هر متغیر گاوسی را حساب کنید؛
+  \item توزیع‌های لاپلاس و کوشی را بشناسید و \lr{tail} توزیع‌های نمایی، گاوسی و کوشی را با هم مقایسه کنید.
+\end{itemize}}
+
+در جلسهٔ ۷ متغیر تصادفی پیوسته، تابع چگالی احتمال و توزیع یکنواخت را دیدیم. در این جلسه خانوادهٔ توزیع‌های پیوسته را کامل‌تر می‌کنیم: \emph{نمایی}، که نسخهٔ پیوستهٔ توزیع هندسی است و مثل آن حافظه ندارد؛ \emph{گاوسی}، مهم‌ترین توزیع کل احتمال و آمار؛ و دو توزیع \emph{لاپلاس} و \emph{کوشی} که در کنار گاوسی نشان می‌دهند \lr{tail} یک توزیع چقدر می‌تواند متفاوت باشد.
+
+%% ------------------------------------------------------------
+\section{توزیع نمایی}
+\label{sec:exp}
+%% ------------------------------------------------------------
+
+در جلسهٔ ۶ توزیع هندسی «تعداد آزمایش‌ها تا اولین موفقیت» بود. اما خیلی وقت‌ها زمان گسسته نیست: منتظر مشتری بعدی، تماس تلفنی بعدی، خرابی بعدی یک قطعه یا واپاشی بعدی یک اتم هستیم و این انتظار می‌تواند هر عدد حقیقی مثبتی باشد. توزیع \emph{نمایی} مدل استاندارد چنین «زمان انتظاری» است.
+
+\begin{definition}[label=def:exp]{توزیع نمایی}
+متغیر پیوستهٔ $X$ \term{نمایی}{exponential} با پارامتر $\lambda>0$ است و می‌نویسیم $X\sim\mathrm{Exp}(\lambda)$، اگر
+\[ f_X(x)=\begin{cases}\lambda e^{-\lambda x} & x\ge0\\ 0 & x<0\end{cases} \]
+\end{definition}
+
+ضریب $\lambda$ از شرط مساحت ۱ می‌آید. اگر $f_X(x)=c\,e^{-\lambda x}$ برای $x\ge0$:
+\[ 1=\int_0^\infty c\,e^{-\lambda x}\,dx=c\Bigl[-\frac1\lambda e^{-\lambda x}\Bigr]_0^\infty=\frac c\lambda\quad\Longrightarrow\quad c=\lambda. \]
+
+\begin{proposition}[label=prop:exp-cdf]{\lr{CDF} و \lr{tail} توزیع نمایی}
+اگر $X\sim\mathrm{Exp}(\lambda)$، برای $x\ge0$:
+\[ F_X(x)=1-e^{-\lambda x},\qquad \P(X>x)=e^{-\lambda x}, \]
+و $F_X(x)=0$ برای $x<0$. در نتیجه برای $0\le a\le b$: \ $\P(a\le X\le b)=e^{-\lambda a}-e^{-\lambda b}$.
+\end{proposition}
+
+\begin{proof}
+برای $x\ge0$: \ $F_X(x)=\int_0^x\lambda e^{-\lambda u}\,du=\bigl[-e^{-\lambda u}\bigr]_0^x=1-e^{-\lambda x}$.
+\end{proof}
+
+\begin{figblock}
+\begin{tikzpicture}[x=1.15cm, y=1.55cm]
+  \begin{scope}
+    \draw[-{Stealth}, graytext] (-0.2,0) -- (4.4,0) node[right] {$x$};
+    \draw[-{Stealth}, graytext] (0,-0.05) -- (0,2.25) node[above] {$f_X(x)$};
+    \draw[accent, very thick, domain=0:4.1, samples=60] plot (\x,{2*exp(-2*\x)});
+    \draw[setA, very thick, domain=0:4.1, samples=60] plot (\x,{exp(-\x)});
+    \draw[excolor, very thick, domain=0:4.1, samples=60] plot (\x,{0.5*exp(-0.5*\x)});
+    \foreach \y in {0.5,1,2} { \draw[graytext] (-0.05,\y) -- (0.05,\y); \node[left, font=\scriptsize] at (0,\y) {$\y$}; }
+    \foreach \x in {1,2,3,4} \node[below, font=\scriptsize] at (\x,0) {$\x$};
+    \node[accent!80!black, font=\small, anchor=west] at (0.35,1.6) {$\lambda=2$};
+    \node[setA!80!black, font=\small, anchor=west] at (0.9,0.62) {$\lambda=1$};
+    \node[excolor, font=\small, anchor=west] at (2.4,0.38) {$\lambda=\tfrac12$};
+  \end{scope}
+  \begin{scope}[xshift=6.4cm]
+    \draw[-{Stealth}, graytext] (-0.2,0) -- (4.4,0) node[right] {$x$};
+    \draw[-{Stealth}, graytext] (0,-0.05) -- (0,1.5) node[above] {$F_X(x)$};
+    \draw[graytext!60, densely dashed] (0,1) -- (4.2,1);
+    \node[left, font=\scriptsize] at (0,1) {$1$};
+    \draw[accent, very thick, domain=0:4.1, samples=60] plot (\x,{1-exp(-2*\x)});
+    \draw[setA, very thick, domain=0:4.1, samples=60] plot (\x,{1-exp(-\x)});
+    \draw[excolor, very thick, domain=0:4.1, samples=60] plot (\x,{1-exp(-0.5*\x)});
+    \foreach \x in {1,2,3,4} \node[below, font=\scriptsize] at (\x,0) {$\x$};
+  \end{scope}
+\end{tikzpicture}
+
+\figcaption[fig:exp]{\lr{PDF} (چپ) و \lr{CDF} (راست) توزیع نمایی برای سه مقدار $\lambda$. چگالی در صفر برابر $\lambda$ است و نمایی کم می‌شود؛ هرچه $\lambda$ بزرگ‌تر، انتظار کوتاه‌تر.}
+\end{figblock}
+
+
+
+\subsection{نمایی، هندسیِ پیوسته است}
+
+نمایی را می‌توان «هندسیِ پیوسته‌شده» دانست. زمان را به تکه‌های کوچک به طول $\Delta$ تقسیم کنید و در هر تکه یک سکه بیندازید که با احتمال $p=\lambda\Delta$ شیر می‌آید (مثلاً «در این میلی‌ثانیه مشتری وارد شد»). اگر $Y\sim\mathrm{Geom}(\lambda\Delta)$ شمارهٔ اولین تکهٔ موفق باشد، زمان اولین موفقیت $X=Y\Delta$ است.
+
+\begin{theorem}[label=thm:geom-to-exp]{نمایی، حدِ هندسی }
+فرض کنید $Y\sim\mathrm{Geom}(\lambda\Delta)$ و $X_\Delta=Y\Delta$. برای هر $x>0$:
+\[ \lim_{\Delta\to0^+}\P(X_\Delta\le x)=1-e^{-\lambda x}. \]
+یعنی وقتی تکه‌ها ریزتر می‌شوند، زمان اولین موفقیت به $\mathrm{Exp}(\lambda)$ میل می‌کند.
+\end{theorem}
+
+\begin{proof}
+طبق \lr{tail} توزیع هندسی (جلسهٔ ۶)، $\P(Y\le n)=1-(1-p)^n$ برای عدد صحیح $n$. پس
+\[ \P(X_\Delta\le x)=\P\Bigl(Y\le\frac x\Delta\Bigr)=1-(1-\lambda\Delta)^{\lfloor x/\Delta\rfloor}. \]
+چون $\frac x\Delta-1<\lfloor\frac x\Delta\rfloor\le\frac x\Delta$ و $(1-\lambda\Delta)^{1/\Delta}\to e^{-\lambda}$ وقتی $\Delta\to0^+$، توان به $e^{-\lambda x}$ میل می‌کند.
+\end{proof}
+
+\begin{figblock}
+\begin{tikzpicture}[x=1.6cm, y=2.4cm]
+  \foreach \k in {1,...,16} {
+    \pgfmathsetmacro{\h}{0.75^(\k-1)}
+    \pgfmathsetmacro{\xa}{0.25*(\k-1)}
+    \pgfmathsetmacro{\xb}{0.25*\k}
+    \draw[setA, fill=setA!25] (\xa,0) rectangle (\xb,\h);
+  }
+  \draw[accent, very thick, domain=0:4.1, samples=60] plot (\x,{exp(-\x)});
+  \draw[-{Stealth}, graytext] (-0.1,0) -- (4.4,0) node[right] {$x$};
+  \draw[-{Stealth}, graytext] (0,-0.03) -- (0,1.2);
+  \foreach \x in {1,2,3,4} \node[below, font=\scriptsize] at (\x,0) {$\x$};
+  \node[left, font=\scriptsize] at (0,1) {$1$};
+  \node[font=\small, setA!80!black, anchor=west] at (2.2,0.95) {\rl{مستطیل‌ها: هندسی با $\Delta=0.25$}};
+  \node[font=\small, accent!80!black, anchor=west] at (2.2,0.75) {\rl{منحنی: چگالی $\mathrm{Exp}(1)$}};
+\end{tikzpicture}
+
+\figcaption[fig:geom-exp]{احتمال‌های $\mathrm{Geom}(\lambda\Delta)$ را روی تکه‌هایی به پهنای $\Delta$ پخش کرده‌ایم (ارتفاع هر مستطیل = احتمال تقسیم بر پهنا، تا مساحت‌ها احتمال باشند). حتی با $\Delta=0.25$ پلکان تقریباً روی چگالی نمایی نشسته است.}
+\end{figblock}
+
+\subsection{نمایی و پواسون}
+
+در جلسهٔ ۶ دیدیم که اگر پیشامدها با نرخ $\lambda$ رخ دهند، تعداد آن‌ها در بازه‌ای به طول $t$ توزیع $\mathrm{Poisson}(\lambda t)$ دارد. زمان \emph{اولین} پیشامد چه توزیعی دارد؟
+
+\begin{example}[label=ex:first-customer]{اولین مشتری}
+تعداد مشتری‌هایی که در بازه‌ای به طول $t$ وارد فروشگاه می‌شوند $\mathrm{Poisson}(\lambda t)$ است و فروشگاه در لحظهٔ $0$ باز می‌شود. $X$ را زمان ورود اولین مشتری بگیرید. نشان دهید $X\sim\mathrm{Exp}(\lambda)$.
+\begin{solution}
+پیشامد $\{X>t\}$ یعنی «در بازهٔ $[0,t]$ هیچ مشتری‌ای نیامده». اگر $N_{[0,t]}\sim\mathrm{Poisson}(\lambda t)$ تعداد ورودها در این بازه باشد:
+\[ \P(X>t)=\P(N_{[0,t]}=0)=e^{-\lambda t}\frac{(\lambda t)^0}{0!}=e^{-\lambda t}. \]
+پس $F_X(t)=1-e^{-\lambda t}$ برای $t\ge0$، که \lr{CDF} توزیع $\mathrm{Exp}(\lambda)$ است. با همین استدلال، فاصلهٔ زمانی بین هر دو مشتری متوالی هم $\mathrm{Exp}(\lambda)$ است.
+\end{solution}
+\end{example}
+
+\begin{intuition}
+همان تصویری که در جلسهٔ ۶ برای فرایند برنولی داشتیم، حالا در زمان پیوسته تکرار می‌شود:
+\begin{center}
+\renewcommand{\arraystretch}{1.35}
+\begin{tabular}{c|c|c}
+& \rl{شمارش در یک پنجره} & \rl{زمان انتظار تا پیشامد بعدی}\\\hline
+\rl{زمان گسسته (فرایند برنولی)} & $\mathrm{Bin}(n,p)$ & $\mathrm{Geom}(p)$\\
+\rl{زمان پیوسته (فرایند پواسون)} & $\mathrm{Poisson}(\lambda t)$ & $\mathrm{Exp}(\lambda)$
+\end{tabular}
+\end{center}
+\end{intuition}
+
+\begin{example}[label=ex:phone]{مکالمهٔ تلفنی}
+مدت یک مکالمهٔ تلفنی (به دقیقه) $\mathrm{Exp}(\tfrac1{10})$ است. کسی درست قبل از شما وارد باجهٔ تلفن شده است. احتمال اینکه (الف) بیش از ۱۰ دقیقه، و (ب) بین ۱۰ و ۲۰ دقیقه منتظر بمانید چقدر است؟
+\begin{solution}
+(الف) $\P(X>10)=e^{-10/10}=e^{-1}\approx0.368$.\\
+(ب) $\P(10<X<20)=e^{-1}-e^{-2}\approx0.233$.
+\end{solution}
+\end{example}
+
+\subsection{بی‌حافظگی}
+
+توزیع هندسی حافظه نداشت: اگر $m$ پرتاب ناموفق بوده باشد، تعداد پرتاب‌های باقی‌مانده باز هم هندسی بود. چون نمایی حدِ هندسی است، انتظار داریم همین خاصیت را داشته باشد:
+
+\begin{theorem}[label=thm:exp-memoryless]{بی‌حافظگی توزیع نمایی}
+اگر $X\sim\mathrm{Exp}(\lambda)$، برای هر $s,t\ge0$:
+\[ \boxed{\ \P(X>s+t\mid X>s)=\P(X>t)=e^{-\lambda t}\ } \]
+\end{theorem}
+
+\begin{proof}
+چون $\{X>s+t\}\subseteq\{X>s\}$:
+\[ \P(X>s+t\mid X>s)=\frac{\P(X>s+t)}{\P(X>s)}=\frac{e^{-\lambda(s+t)}}{e^{-\lambda s}}=e^{-\lambda t}=\P(X>t). \]
+\end{proof}
+
+\begin{intuition}
+اگر تا لحظهٔ $s$ مشتری‌ای نیامده، زمانِ \emph{باقی‌ماندهٔ} انتظار، $X-s$، باز هم $\mathrm{Exp}(\lambda)$ است: مهم نیست تا الان چقدر صبر کرده‌ایم. یک لامپ با عمر نمایی که ۱۰۰۰ ساعت روشن بوده، از لامپ نو «فرسوده‌تر» نیست. (برای لامپ‌های واقعی این فقط تقریب است، ولی برای واپاشی اتم‌ها و ورود مشتری‌ها مدل بسیار خوبی است.)
+\end{intuition}
+
+\paragraph{چگالی شرطی.} برای دیدنِ بی‌حافظگی روی نمودار، چگالی را \emph{به شرط} یک پیشامد $A$ (با $\P(A)>0$) تعریف می‌کنیم:
+\[ f_X(x\mid A)\defeq\lim_{h\to0^+}\frac{\P(x\le X\le x+h\mid A)}{h}. \]
+
+\begin{example}[label=ex:cond-density]{چگالی نمایی به شرط $X\ge a$}
+اگر $X\sim\mathrm{Exp}(\lambda)$ و $A=\{X\ge a\}$ با $a>0$، چگالی شرطی $f_X(x\mid A)$ را بیابید.
+\begin{solution}
+اگر $x<a$، بازهٔ کوچک $[x,x+h]$ (برای $h$ به قدر کافی کوچک) با $A$ اشتراکی ندارد و $f_X(x\mid A)=0$. اگر $x\ge a$، بازهٔ $[x,x+h]$ داخل $A$ است و
+\[ f_X(x\mid A)=\lim_{h\to0^+}\frac{\P(x\le X\le x+h)}{h\,\P(A)}=\frac{f_X(x)}{\P(X\ge a)}=\frac{\lambda e^{-\lambda x}}{e^{-\lambda a}}=\lambda e^{-\lambda(x-a)}. \]
+پس
+\[ f_X(x\mid X\ge a)=\begin{cases}0 & x<a\\ \lambda e^{-\lambda(x-a)} & x\ge a\end{cases}\qquad\text{\rl{یعنی}}\qquad f_X(x\mid X\ge a)=f_X(x-a). \]
+\end{solution}
+\end{example}
+
+\begin{figblock}
+\begin{tikzpicture}[x=1.3cm, y=1.6cm]
+  \draw[-{Stealth}, graytext] (-0.2,0) -- (5.4,0) node[right] {$x$};
+  \draw[-{Stealth}, graytext] (0,-0.05) -- (0,1.35);
+  \fill[setA!12] plot[domain=1.5:5.1, samples=50] (\x,{exp(-\x)}) -- (5.1,0) -- (1.5,0) -- cycle;
+  \draw[setA, very thick, domain=0:5.1, samples=60] plot (\x,{exp(-\x)});
+  \draw[accent, very thick, domain=1.5:5.1, samples=60] plot (\x,{exp(-(\x-1.5))});
+  \draw[accent, very thick] (0,0) -- (1.5,0);
+  \fill[setA] (0,1) circle (2pt); \fill[accent] (1.5,1) circle (2pt);
+  \draw[accent, densely dotted] (1.5,0) -- (1.5,1);
+  \node[below, font=\small] at (1.5,0) {$a$};
+  \node[left, font=\scriptsize] at (0,1) {$\lambda$};
+  \node[setA!80!black, font=\small, anchor=south west] at (0.7,0.55) {$f_X(x)$};
+  \node[accent!80!black, font=\small, anchor=west] at (2.3,0.62) {$f_X(x\mid X\ge a)=f_X(x-a)$};
+\end{tikzpicture}
+
+\figcaption[fig:exp-memoryless]{بی‌حافظگی روی نمودار: اگر بدانیم $X\ge a$، بخشِ سمت راست $a$ از چگالی (سایه‌خورده) بر $\P(X\ge a)$ تقسیم می‌شود و نتیجه \emph{دقیقاً} همان نمودار اصلی است که به اندازهٔ $a$ به راست رفته است. چگالی نمایی «خودمتشابه» است.}
+\end{figblock}
+
+\begin{example}[label=ex:post-office]{صف بانک}
+بانکی دو باجه دارد و هر دو باجه مشغول‌اند: پشت هر کدام یک مشتری ایستاده است. شما وارد می‌شوید و منتظر می‌مانید تا \emph{اولین} باجه خالی شود و بعد پشت همان باجه می‌روید. کار هر مشتری در باجه $\mathrm{Exp}(\lambda)$ طول می‌کشد و مشتری‌ها مستقل از هم‌اند. احتمال اینکه شما \emph{آخرین} نفر از این سه نفر باشید که از بانک بیرون می‌رود چقدر است؟
+\begin{solution}
+لحظه‌ای را در نظر بگیرید که اولین باجه خالی می‌شود و شما پشت آن می‌روید. در این لحظه:
+\begin{itemize}
+  \item یکی از دو مشتری قبلی رفته است؛
+  \item مشتری دیگر هنوز پشت باجهٔ دوم است و \emph{مدتی} است که کارش شروع شده؛
+  \item کار شما \emph{تازه} شروع شده است.
+\end{itemize}
+طبق بی‌حافظگی، مهم نیست کار آن مشتری چقدر طول کشیده است: زمانِ \emph{باقی‌ماندهٔ} کار او هم $\mathrm{Exp}(\lambda)$ است، درست مثل کار شما. پس از این لحظه به بعد وضعیت کاملاً متقارن است: دو نفر که انگار هر دو همین الان شروع کرده‌اند. هر کدام با احتمال $\tfrac12$ زودتر تمام می‌کند، و شما آخرین نفر هستید اگر و تنها اگر او زودتر تمام کند. پس جواب
+\[ \P(\fa{شما آخرین نفر باشید})=\tfrac12 \]
+است، بدون هیچ انتگرالی! (اگر زمان کار نمایی نبود، مشتری‌ای که مدتی کارش شروع شده احتمالاً زودتر تمام می‌کرد و جواب بیشتر از $\tfrac12$ می‌شد.)
+\end{solution}
+\end{example}
+
+\begin{theorem}[label=thm:exp-unique]{نمایی تنها توزیع پیوستهٔ بی‌حافظه است}
+فرض کنید $X$ متغیری پیوسته با مقادیر نامنفی باشد، $\P(X>t)>0$ برای هر $t$، و برای هر $s,t\ge0$:
+$\P(X>s+t\mid X>s)=\P(X>t)$. آنگاه $X\sim\mathrm{Exp}(\lambda)$ برای یک $\lambda>0$.
+\end{theorem}
+
+\begin{proof}
+$G(t)\defeq\P(X>t)$ را تعریف کنید؛ $G(0)=1$ (چون $\P(X=0)=0$). مثل جلسهٔ ۶، بی‌حافظگی یعنی
+\[ G(s+t)=G(s)\,G(t)\qquad\text{\rl{برای هر $s,t\ge0$}}. \]
+فرض کنید $G(1)=e^{-\lambda}$ (با $0<G(1)<1$، پس $\lambda>0$). با استقرا $G(n)=G(1)^n$ و $G(1)=G(\tfrac1n)^n$، پس برای هر عدد گویای مثبت $\tfrac mn$:
+\[ G\bigl(\tfrac mn\bigr)=G\bigl(\tfrac1n\bigr)^m=G(1)^{m/n}=e^{-\lambda m/n}. \]
+یعنی $G(t)=e^{-\lambda t}$ برای همهٔ $t$های گویا. حالا $G(t)=1-F_X(t)$ غیرصعودی است؛ پس برای هر $t$ حقیقی و هر دو عدد گویای $r_1<t<r_2$ داریم $e^{-\lambda r_2}=G(r_2)\le G(t)\le G(r_1)=e^{-\lambda r_1}$. با نزدیک کردن $r_1$ و $r_2$ به $t$ نتیجه می‌شود $G(t)=e^{-\lambda t}$ برای همهٔ $t\ge0$. پس $F_X(t)=1-e^{-\lambda t}$.
+\end{proof}
+
+\begin{note}
+پس داستان کامل است: در زمان گسسته، \emph{تنها} توزیع بی‌حافظه هندسی است و در زمان پیوسته، \emph{تنها} توزیع بی‌حافظه نمایی. هر دو از معادلهٔ $G(s+t)=G(s)G(t)$ می‌آیند که می‌گوید «احتمال زنده ماندن» باید تابعی نمایی از زمان باشد. توزیع یکنواخت، مثلاً، حافظه دارد (جلسهٔ ۷).
+\end{note}
+
+\begin{example}[label=ex:race]{رقابت دو نمایی}
+$X\sim\mathrm{Exp}(\lambda_1)$ و $Y\sim\mathrm{Exp}(\lambda_2)$ مستقل‌اند (پیشامدهای مربوط به $X$ از پیشامدهای مربوط به $Y$ مستقل‌اند). مثلاً $X$ زمان رسیدن اتوبوس خط ۱ و $Y$ زمان رسیدن اتوبوس خط ۲ است. $\P(X<Y)$ را بیابید.
+\begin{solution}
+پیشامد $\{X<Y\}$ یعنی «اتوبوس خط ۱ زودتر برسد». مشکل این است که هر دو زمان تصادفی‌اند. ایده: \key{یکی از آن‌ها را «ثابت» فرض کن، مسئله ساده می‌شود؛ بعد روی همهٔ مقدارهای ممکنش جمع بزن} (همان قانون احتمال کل جلسهٔ ۴).
+
+\textbf{گام ۱: اگر $X$ را می‌دانستیم.} فرض کنید اتوبوس خط ۱ دقیقاً در لحظهٔ $x$ برسد. آنگاه خط ۱ برنده است اگر و تنها اگر خط ۲ تا لحظهٔ $x$ هنوز نرسیده باشد. چون $Y$ از $X$ مستقل است، دانستن $X$ چیزی دربارهٔ $Y$ عوض نمی‌کند و این احتمال همان tail توزیع $Y$ است:
+\[ \P(Y>x)=e^{-\lambda_2x}. \]
+
+\textbf{گام ۲: $X$ را به بازه‌های کوچک بشکن.} اما $X$ پیوسته است و $\P(X=x)=0$؛ پس نمی‌توانیم مستقیم روی «$X=x$» شرط بگذاریم. به جای آن، محور زمان را به بازه‌های کوچک $[x,x+dx]$ تقسیم می‌کنیم. این بازه‌ها مجزا هستند و $X$ حتماً در یکی از آن‌ها می‌افتد. احتمال افتادن در هر بازه، طبق تعبیر \lr{PDF} (جلسهٔ ۷)، تقریباً «ارتفاع $\times$ پهنا» است:
+\[ \P(x\le X\le x+dx)\approx f_X(x)\,dx=\lambda_1e^{-\lambda_1x}\,dx. \]
+اگر $X$ در این بازهٔ کوچک باشد، طبق گام ۱ خط ۱ با احتمال تقریباً $e^{-\lambda_2x}$ برنده است.
+
+\begin{center}
+\begin{tikzpicture}[x=1.25cm]
+  \draw[-{Stealth}, thick, graytext] (0,0) -- (8.6,0) node[right, font=\small] {\rl{زمان}};
+  \foreach \i in {0,...,16} \draw[graytext!60] (\i*0.5,-0.08) -- (\i*0.5,0.08);
+  \fill[accent!45] (2.5,-0.15) rectangle (3,0.15);
+  \node[below=4pt, font=\small] at (2.5,-0.1) {$x$};
+  \node[below=4pt, font=\small] at (3.15,-0.1) {$x+dx$};
+  \node[above=6pt, font=\small, accent!80!black] at (2.75,0.1) {\rl{$X$ اینجاست: احتمال $\approx\lambda_1e^{-\lambda_1x}dx$}};
+  \draw[setA, very thick, -{Stealth}] (3,-0.75) -- (8.4,-0.75);
+  \node[font=\small, setA!80!black, anchor=west] at (3.6,-1.15) {\rl{خط ۲ هنوز نرسیده: $Y>x$، احتمال $e^{-\lambda_2x}$}};
+  \node[below, font=\small] at (0,-0.1) {$0$};
+\end{tikzpicture}
+\end{center}
+
+\textbf{گام ۳: جمع بزن.} طبق قانون احتمال کل روی این بازه‌های مجزا، احتمال هر بازه را در احتمال برنده شدن در آن بازه ضرب می‌کنیم و جمع می‌زنیم. وقتی بازه‌ها را ریزتر کنیم ($dx\to0$)، جمع به انتگرال تبدیل می‌شود:
+\[ \P(X<Y)=\int_0^\infty\underbrace{\lambda_1e^{-\lambda_1x}\,dx}_{\fa{$X$ حدود $x$ باشد}}\cdot\underbrace{e^{-\lambda_2x}}_{\fa{$Y$ بعد از $x$ باشد}}
+=\lambda_1\int_0^\infty e^{-(\lambda_1+\lambda_2)x}\,dx=\frac{\lambda_1}{\lambda_1+\lambda_2}. \]
+
+\textbf{بررسی جواب.}
+\begin{itemize}
+  \item اگر $\lambda_1=\lambda_2$ باشد، جواب $\tfrac12$ است؛ این از تقارن هم واضح است، چون دو اتوبوس هیچ فرقی با هم ندارند.
+  \item اگر $\lambda_1$ خیلی بزرگ باشد (خط ۱ خیلی پرتردد است)، جواب به ۱ میل می‌کند؛ و اگر $\lambda_1\to0$، به صفر.
+  \item \textbf{یک عدد:} اگر خط ۱ به طور متوسط هر ۱۰ دقیقه و خط ۲ هر ۵ دقیقه یک اتوبوس داشته باشد، $\lambda_1=\tfrac1{10}$ و $\lambda_2=\tfrac15$. پس احتمال اینکه خط ۱ زودتر برسد
+  \[ \P(X<Y)=\frac{1/10}{1/10+1/5}=\frac13 \]
+  است: خط ۲ که دو برابر پرتردد است، در دو سوم مواقع برنده می‌شود.
+\end{itemize}
+
+
+\end{solution}
+\end{example}
+
+%% ------------------------------------------------------------
+\section{توزیع گاوسی (نرمال)}
+\label{sec:gauss}
+%% ------------------------------------------------------------
+
+منحنی زنگوله‌ای را قبلاً دو بار دیده‌ایم: در جلسهٔ ۵، وقتی $n$ بزرگ شد، نمودار دوجمله‌ای شکل زنگوله پیدا کرد (تقریب دموآور--لاپلاس)، و در جلسهٔ ۶ نمودار پواسون با $\lambda$ بزرگ هم همین‌طور شد. این تصادفی نیست. توزیعی که این زنگوله را توصیف می‌کند، \emph{توزیع گاوسی} یا \emph{نرمال}، مهم‌ترین توزیع در احتمال، آمار و مهندسی است.
+
+\begin{definition}[label=def:gauss]{توزیع گاوسی}
+متغیر پیوستهٔ $X$ \term{گاوسی}{Gaussian} یا \term{نرمال}{normal} با پارامترهای $\mu\in\R$ و $\sigma>0$ است و می‌نویسیم $X\sim\mathcal N(\mu,\sigma^2)$، اگر
+\[ f_X(x)=\frac{1}{\sigma\sqrt{2\pi}}\;e^{-\frac{(x-\mu)^2}{2\sigma^2}},\qquad x\in\R. \]
+\end{definition}
+
+\subsection{دو پارامتر: مرکز و پهنا}
+
+\begin{itemize}
+  \item \textbf{$\mu$، مرکز.} $f_X$ فقط به $(x-\mu)^2$ بستگی دارد؛ پس نسبت به $x=\mu$ متقارن است: $f_X(\mu+t)=f_X(\mu-t)$. بیشترین مقدار نمایی وقتی است که توان صفر باشد؛ پس قلهٔ نمودار در $x=\mu$ است. تغییر $\mu$ کل نمودار را بدون تغییر شکل جابه‌جا می‌کند.
+  \item \textbf{$\sigma$، پهنا.} با بزرگ شدن $\sigma$ نمودار به اندازهٔ $\sigma$ در جهت افقی کش می‌آید و به اندازهٔ $1/\sigma$ در جهت عمودی کوتاه می‌شود (ارتفاع قله $\frac{1}{\sigma\sqrt{2\pi}}$ است)، طوری که مساحت ثابت بماند. با مشتق دوم می‌توان دید نقطه‌های عطف نمودار دقیقاً در $\mu\pm\sigma$ هستند؛ یعنی $\sigma$ فاصلهٔ مرکز تا جایی است که «شانه»های زنگوله شروع می‌شوند.
+\end{itemize}
+
+\begin{note}
+\textbf{نام پارامترها.} معمولاً $\mu$ را \emph{میانگین}، $\sigma^2$ را \emph{واریانس} و $\sigma$ را \emph{انحراف معیار} می‌نامند. این نام‌ها را در جلسه‌های آینده، وقتی «امید ریاضی» و «واریانس» را برای هر متغیر تصادفی تعریف کنیم، توجیه می‌کنیم و نشان می‌دهیم که برای $\mathcal N(\mu,\sigma^2)$ واقعاً میانگین $\mu$ و واریانس $\sigma^2$ است. فعلاً کافی است $\mu$ را «مرکز» و $\sigma$ را «پهنا» بدانید. دقت کنید که در نماد $\mathcal N(\mu,\sigma^2)$ پارامتر دوم $\sigma^2$ است، نه $\sigma$: مثلاً $\mathcal N(0,4)$ یعنی $\sigma=2$.
+\end{note}
+
+\begin{figblock}
+\begin{tikzpicture}[x=0.85cm, y=4.6cm]
+  \draw[-{Stealth}, graytext] (-6.3,0) -- (6.5,0) node[right] {$x$};
+  \draw[-{Stealth}, graytext] (0,-0.03) -- (0,0.92) node[above] {$f_X(x)$};
+  \foreach \x in {-6,-4,-2,2,4,6} \node[below, font=\scriptsize] at (\x,0) {$\x$};
+  \draw[setA, very thick, domain=-6:6, samples=120] plot (\x,{exp(-\x*\x/2)/sqrt(2*pi)});
+  \draw[excolor, very thick, domain=-6:6, samples=120] plot (\x,{exp(-\x*\x/8)/(2*sqrt(2*pi))});
+  \draw[accent, very thick, domain=0:4, samples=120] plot (\x,{exp(-(\x-2)*(\x-2)/0.5)/(0.5*sqrt(2*pi))});
+  \draw[setA, densely dotted] (-1,0) -- (-1,0.242); \draw[setA, densely dotted] (1,0) -- (1,0.242);
+  \node[below, font=\scriptsize, setA!80!black] at (-1,0) {$-\sigma$}; \node[below, font=\scriptsize, setA!80!black] at (1,0) {$\sigma$};
+  \node[setA!80!black, font=\small, anchor=east] at (-0.9,0.42) {$\mathcal N(0,1)$};
+  \node[excolor, font=\small, anchor=east] at (-2.6,0.16) {$\mathcal N(0,4)$};
+  \node[accent!80!black, font=\small, anchor=west] at (2.55,0.7) {$\mathcal N(2,\tfrac14)$};
+\end{tikzpicture}
+
+\figcaption[fig:gauss-family]{سه توزیع گاوسی. $\mathcal N(0,4)$ دو برابر پهن‌تر و نصف ارتفاعِ $\mathcal N(0,1)$ است؛ $\mathcal N(2,\tfrac14)$ به مرکز ۲ رفته و دو برابر باریک‌تر و بلندتر شده است. خط‌چین‌ها نقطه‌های عطفِ $\mathcal N(0,1)$ در $\pm\sigma$ هستند.}
+\end{figblock}
+
+\subsection{چرا مساحت زیر منحنی ۱ است؟}
+
+برای اینکه $f_X$ یک \lr{PDF} باشد، باید نامنفی باشد (که هست) و $\int_{-\infty}^{\infty}f_X=1$. ضریبِ عجیبِ $\frac{1}{\sigma\sqrt{2\pi}}$ دقیقاً برای همین است. مشکل اینجاست که $e^{-x^2/2}$ \emph{پادمشتقِ مقدماتی ندارد}: هیچ ترکیبی از چندجمله‌ای‌ها، نمایی‌ها، لگاریتم‌ها و توابع مثلثاتی مشتقش $e^{-x^2/2}$ نمی‌شود. پس نمی‌توانیم مثل نمایی، پادمشتق بگیریم و حد بگذاریم. ترفندی زیبا (منسوب به پواسون) کار را حل می‌کند.
+
+\begin{theorem}[label=thm:gauss-integral]{انتگرال گاوسی}
+\[ \int_{-\infty}^{\infty}e^{-x^2/2}\,dx=\sqrt{2\pi},\qquad\text{\rl{و در نتیجه}}\qquad \int_{-\infty}^{\infty}\frac{1}{\sigma\sqrt{2\pi}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}}\,dx=1. \]
+\end{theorem}
+
+\begin{proof}
+\textbf{گام ۱: کافی است حالت استاندارد را ثابت کنیم.} با تغییر متغیر $z=\frac{x-\mu}{\sigma}$ داریم $dx=\sigma\,dz$ و
+\[ \int_{-\infty}^{\infty}\frac{1}{\sigma\sqrt{2\pi}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}}\,dx=\frac{1}{\sqrt{2\pi}}\int_{-\infty}^{\infty}e^{-z^2/2}\,dz. \]
+پس باید نشان دهیم $I\defeq\int_{-\infty}^{\infty}e^{-x^2/2}dx=\sqrt{2\pi}$.
+
+\textbf{گام ۲: به جای $I$، $I^2$ را حساب کن.} حاصل‌ضرب دو انتگرالِ یکسان را با دو نام متغیر متفاوت می‌نویسیم:
+\[ I^2=\int_{-\infty}^{\infty}e^{-x^2/2}\,dx\cdot\int_{-\infty}^{\infty}e^{-y^2/2}\,dy=\iint_{\R^2}e^{-\frac{x^2+y^2}{2}}\,dx\,dy. \]
+این \emph{حجم} زیر سطح زنگوله‌ای $z=e^{-(x^2+y^2)/2}$ روی کل صفحه است.
+
+\textbf{گام ۳: صفحه را حلقه‌حلقه کن.} مقدارِ تابع فقط به فاصلهٔ $r=\sqrt{x^2+y^2}$ از مبدأ بستگی دارد: روی هر دایره به مرکز مبدأ ثابت است. پس صفحه را به حلقه‌های نازک به شعاع $r$ و پهنای $dr$ تقسیم می‌کنیم. مساحت هر حلقه تقریباً «محیط $\times$ پهنا» یعنی $2\pi r\,dr$ است و ارتفاع سطح روی آن $e^{-r^2/2}$. با جمع زدن حجم‌ها:
+\[ I^2=\int_0^\infty e^{-r^2/2}\cdot2\pi r\,dr=2\pi\Bigl[-e^{-r^2/2}\Bigr]_0^\infty=2\pi(0-(-1))=2\pi. \]
+چون $I>0$، نتیجه می‌شود $I=\sqrt{2\pi}$.
+\end{proof}
+
+\subsection{گاوسی استاندارد و تابع $\Phi$}
+
+\begin{definition}[label=def:std-normal]{گاوسی استاندارد}
+$\mathcal N(0,1)$ را \term{گاوسی استاندارد}{standard normal} می‌نامیم و معمولاً با $Z$ نشان می‌دهیم. \lr{PDF} و \lr{CDF} آن را با نمادهای ویژه‌ای می‌نویسیم:
+\[ \varphi(z)=\frac{1}{\sqrt{2\pi}}e^{-z^2/2},\qquad \Phi(z)=\P(Z\le z)=\int_{-\infty}^{z}\frac{1}{\sqrt{2\pi}}e^{-u^2/2}\,du. \]
+\end{definition}
+
+چون $e^{-u^2/2}$ پادمشتق مقدماتی ندارد، $\Phi$ هم فرمول بسته ندارد. مقادیرش در جدول‌ها آمده و همهٔ نرم‌افزارها آن را دارند (مثلاً \lr{normcdf} در \lr{MATLAB} یا \lr{scipy.stats.norm.cdf} در پایتون). چند مقدار که زیاد لازم می‌شوند:
+\begin{center}
+\renewcommand{\arraystretch}{1.25}
+\begin{tabular}{c|ccccccccc}
+$z$ & $0$ & $0.5$ & $1$ & $1.5$ & $1.96$ & $2$ & $2.5$ & $3$\\\hline
+$\Phi(z)$ & $0.5$ & $0.6915$ & $0.8413$ & $0.9332$ & $0.9750$ & $0.9772$ & $0.9938$ & $0.9987$
+\end{tabular}
+\end{center}
+
+\begin{proposition}[label=prop:phi]{خواص $\Phi$}
+\begin{enumerate}
+  \item $\Phi(0)=\tfrac12$، \ $\lim_{z\to-\infty}\Phi(z)=0$ و $\lim_{z\to\infty}\Phi(z)=1$؛
+  \item برای هر $z$: \ $\Phi(-z)=1-\Phi(z)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+خاصیت (۲) از تقارن $\varphi(-u)=\varphi(u)$ می‌آید: مساحت زیر منحنی از $-\infty$ تا $-z$ با مساحت از $z$ تا $\infty$ برابر است، یعنی $\Phi(-z)=1-\Phi(z)$. با $z=0$ نتیجه می‌شود $\Phi(0)=\tfrac12$.
+\end{proof}
+
+پس جدول را فقط برای $z\ge0$ لازم داریم. مثلاً $\Phi(-1)=1-0.8413=0.1587$.
+
+\subsection{استانداردسازی}
+
+مهم‌ترین خاصیت گاوسی این است که با جابه‌جا کردن و مقیاس کردن، گاوسی باقی می‌ماند. به همین دلیل یک جدول برای $\Phi$ برای \emph{همهٔ} توزیع‌های گاوسی کافی است.
+
+\begin{theorem}[label=thm:gauss-linear]{تبدیل خطی گاوسی}
+اگر $X\sim\mathcal N(\mu,\sigma^2)$ و $\alpha\ne0$ و $\beta$ دو عدد ثابت باشند، آنگاه
+\[ \alpha X+\beta\ \sim\ \mathcal N\bigl(\alpha\mu+\beta,\ \alpha^2\sigma^2\bigr), \]
+یعنی مرکز جدید $\alpha\mu+\beta$ و پهنای جدید $|\alpha|\sigma$ است.
+\end{theorem}
+
+\begin{proof}
+حالت $\alpha>0$ را ثابت می‌کنیم (حالت $\alpha<0$ مشابه است). با $Y=\alpha X+\beta$، مثل جلسهٔ ۷ از \lr{CDF} شروع می‌کنیم:
+\[ F_Y(y)=\P(\alpha X+\beta\le y)=\P\Bigl(X\le\frac{y-\beta}{\alpha}\Bigr)=F_X\Bigl(\frac{y-\beta}{\alpha}\Bigr). \]
+با مشتق‌گیری (قاعدهٔ زنجیره‌ای):
+\[ f_Y(y)=\frac1\alpha\,f_X\Bigl(\frac{y-\beta}{\alpha}\Bigr)=\frac{1}{\alpha\sigma\sqrt{2\pi}}\exp\Bigl(-\frac{(\frac{y-\beta}{\alpha}-\mu)^2}{2\sigma^2}\Bigr)=\frac{1}{(\alpha\sigma)\sqrt{2\pi}}\exp\Bigl(-\frac{(y-(\alpha\mu+\beta))^2}{2(\alpha\sigma)^2}\Bigr), \]
+که \lr{PDF} گاوسی با مرکز $\alpha\mu+\beta$ و پهنای $\alpha\sigma$ است.
+\end{proof}
+
+\begin{keyformula}
+\[ X\sim\mathcal N(\mu,\sigma^2)\quad\Longleftrightarrow\quad Z=\frac{X-\mu}{\sigma}\sim\mathcal N(0,1) \]
+\[ F_X(x)=\Phi\Bigl(\frac{x-\mu}{\sigma}\Bigr),\qquad \P(a<X\le b)=\Phi\Bigl(\frac{b-\mu}{\sigma}\Bigr)-\Phi\Bigl(\frac{a-\mu}{\sigma}\Bigr) \]
+\end{keyformula}
+
+به $Z=\frac{X-\mu}{\sigma}$ \emph{استانداردسازی} می‌گوییم: $Z$ می‌گوید $X$ «چند $\sigma$» از مرکزش فاصله دارد.
+
+\begin{proposition}[label=prop:689599]{قاعدهٔ ۶۸--۹۵--۹۹٫۷}
+اگر $X\sim\mathcal N(\mu,\sigma^2)$، برای هر $k>0$: \ $\P(|X-\mu|\le k\sigma)=2\Phi(k)-1$. به‌خصوص
+\[ \P(|X-\mu|\le\sigma)\approx0.683,\qquad \P(|X-\mu|\le2\sigma)\approx0.954,\qquad \P(|X-\mu|\le3\sigma)\approx0.997. \]
+\end{proposition}
+
+\begin{proof}
+$\P(\mu-k\sigma\le X\le\mu+k\sigma)=\Phi(k)-\Phi(-k)=\Phi(k)-(1-\Phi(k))=2\Phi(k)-1$.
+\end{proof}
+
+\begin{figblock}
+\begin{tikzpicture}[x=1.05cm, y=6.5cm]
+  \fill[accent!12] plot[domain=-3:3, samples=80] (\x,{exp(-\x*\x/2)/sqrt(2*pi)}) -- (3,0) -- (-3,0) -- cycle;
+  \fill[accent!28] plot[domain=-2:2, samples=80] (\x,{exp(-\x*\x/2)/sqrt(2*pi)}) -- (2,0) -- (-2,0) -- cycle;
+  \fill[accent!50] plot[domain=-1:1, samples=60] (\x,{exp(-\x*\x/2)/sqrt(2*pi)}) -- (1,0) -- (-1,0) -- cycle;
+  \draw[-{Stealth}, graytext] (-4.2,0) -- (4.4,0) node[right] {$x$};
+  \draw[primary, very thick, domain=-4:4, samples=120] plot (\x,{exp(-\x*\x/2)/sqrt(2*pi)});
+  \foreach \x/\l in {-3/{\mu-3\sigma}, -2/{\mu-2\sigma}, -1/{\mu-\sigma}, 0/{\mu}, 1/{\mu+\sigma}, 2/{\mu+2\sigma}, 3/{\mu+3\sigma}}
+     \node[below, font=\scriptsize] at (\x,0) {$\l$};
+  \draw[{Stealth}-{Stealth}] (-1,0.27) -- (1,0.27) node[midway, above, font=\scriptsize] {$68.3\%$};
+  \draw[{Stealth}-{Stealth}] (-2,0.47) -- (2,0.47) node[midway, above, font=\scriptsize] {$95.4\%$};
+  \draw[{Stealth}-{Stealth}] (-3,0.55) -- (3,0.55) node[midway, above, font=\scriptsize] {$99.7\%$};
+  \foreach \x in {-3,-2,-1,1,2,3} \draw[graytext, densely dotted] (\x,0) -- (\x,0.55);
+\end{tikzpicture}
+
+\figcaption[fig:689599]{قاعدهٔ ۶۸--۹۵--۹۹٫۷: تقریباً همهٔ احتمال در فاصلهٔ $3\sigma$ از مرکز است.}
+\end{figblock}
+
+\begin{intuition}
+\textbf{چرا گاوسی همه‌جا هست؟} هر کمیتی که از \emph{جمعِ تعداد زیادی اثرِ کوچک و تقریباً مستقل} ساخته شود، تقریباً گاوسی است:
+\begin{itemize}
+  \item \textbf{خطای اندازه‌گیری:} جمع خطاهای کوچک ابزار، دما، لرزش و \dots؛ گاوس دقیقاً برای مدل کردن خطا در محاسبهٔ مدار سیارک‌ها به این توزیع رسید؛
+  \item \textbf{نویز حرارتی} در مدارهای الکترونیکی: جمع اثر حرکت تعداد بسیار زیادی الکترون؛
+  \item \textbf{قد انسان‌ها} و بسیاری از صفت‌های زیستی: جمع اثر ژن‌ها و عوامل محیطی زیاد؛
+  \item \textbf{دوجمله‌ای با $n$ بزرگ:} جمع $n$ برنولیِ مستقل (جلسهٔ ۵). شکل زیر $\mathrm{Bin}(20,\tfrac12)$ را با گاوسیِ هم‌مرکز و هم‌پهنا مقایسه می‌کند.
+\end{itemize}
+این پدیده را \emph{قضیهٔ حد مرکزی} می‌نامند و در جلسه‌های آینده دقیق بیانش می‌کنیم.
+\end{intuition}
+
+\begin{figblock}
+\begin{tikzpicture}[x=0.5cm, y=20cm]
+  \draw[-{Stealth}, graytext] (1.5,0) -- (19,0) node[right] {$k$};
+  \foreach \k/\p in {3/0.0011,4/0.0046,5/0.0148,6/0.0370,7/0.0739,8/0.1201,9/0.1602,10/0.1762,11/0.1602,12/0.1201,13/0.0739,14/0.0370,15/0.0148,16/0.0046,17/0.0011} {
+    \draw[setA, line width=1.5pt] (\k,0) -- (\k,\p); \fill[setA] (\k,\p) circle (1.7pt); }
+  \draw[accent, very thick, domain=2:18, samples=100] plot (\x,{exp(-(\x-10)*(\x-10)/10)/sqrt(10*pi)});
+  \foreach \k in {5,10,15} \node[below, font=\scriptsize] at (\k,0) {$\k$};
+  \node[setA!80!black, font=\small, anchor=west] at (13.2,0.15) {$\mathrm{Bin}(20,\tfrac12)$};
+  \node[accent!80!black, font=\small, anchor=west] at (13.2,0.12) {$\mathcal N(10,5)$};
+\end{tikzpicture}
+
+\figcaption[fig:bin-normal]{احتمال‌های $\mathrm{Bin}(20,\tfrac12)$ تقریباً روی چگالیِ $\mathcal N(10,5)$ نشسته‌اند؛ همان تقریب دموآور--لاپلاس جلسهٔ ۵.}
+\end{figblock}
+
+\subsection{\lr{tail} گاوسی}
+
+\lr{tail} گاوسی خیلی سریع به صفر می‌رود. یک کران بالای ساده:
+
+\begin{proposition}[label=prop:gauss-tail]{کران \lr{tail} گاوسی}
+برای $Z\sim\mathcal N(0,1)$ و هر $x>0$:
+\[ \P(Z\ge x)=1-\Phi(x)\ \le\ \frac{1}{x\sqrt{2\pi}}\,e^{-x^2/2}. \]
+\end{proposition}
+
+\begin{proof}
+روی بازهٔ انتگرال $u\ge x>0$، پس $\frac ux\ge1$ و
+\[ \P(Z\ge x)=\frac{1}{\sqrt{2\pi}}\int_x^\infty e^{-u^2/2}du\le\frac{1}{\sqrt{2\pi}}\int_x^\infty\frac ux\,e^{-u^2/2}du=\frac{1}{x\sqrt{2\pi}}\Bigl[-e^{-u^2/2}\Bigr]_x^\infty=\frac{1}{x\sqrt{2\pi}}e^{-x^2/2}. \]
+ضریب $\frac ux$ را برای این اضافه کردیم که انتگرال پادمشتق داشته باشد.
+\end{proof}
+
+مثلاً برای $x=3$ کران $0.0015$ می‌دهد و مقدار دقیق $0.00135$ است. پس \lr{tail} گاوسی مثل $e^{-x^2/2}$ کم می‌شود؛ خیلی سریع‌تر از \lr{tail} نمایی. در بخش بعد دو توزیع می‌بینیم که شکلشان شبیه گاوسی است ولی \lr{tail} آن‌ها کاملاً فرق دارد.
+
+%% ------------------------------------------------------------
+\section{توزیع لاپلاس}
+\label{sec:laplace}
+%% ------------------------------------------------------------
+
+اگر نمودار نمایی، $\lambda e^{-\lambda x}u(x)$ (که $u(x)$ تابع پله است)، را نسبت به محور عمودی قرینه کنیم و ارتفاعش را نصف کنیم تا مساحت ۱ بماند، به توزیع لاپلاس می‌رسیم. به همین دلیل به آن \emph{نمایی دوطرفه} هم می‌گویند.
+
+\begin{definition}[label=def:laplace]{توزیع لاپلاس}
+متغیر پیوستهٔ $X$ \term{لاپلاس}{Laplace} با مرکز $\mu$ و پارامتر $\lambda>0$ است، اگر
+\[ f_X(x)=\frac{\lambda}{2}\,e^{-\lambda|x-\mu|},\qquad x\in\R. \]
+\end{definition}
+
+\textbf{چرا انتگرالش ۱ است؟} نمودار نسبت به $\mu$ متقارن است و هر نیمه‌اش نصفِ یک چگالی نمایی است:
+\[ \int_{-\infty}^{\infty}\frac\lambda2e^{-\lambda|x-\mu|}dx=2\int_{\mu}^{\infty}\frac\lambda2e^{-\lambda(x-\mu)}dx=\int_0^\infty\lambda e^{-\lambda t}dt=1. \]
+با همین تقسیم به دو نیمه، \lr{CDF} هم به دست می‌آید:
+\[ F_X(x)=\begin{cases}\tfrac12\,e^{\lambda(x-\mu)} & x<\mu\\[3pt] 1-\tfrac12\,e^{-\lambda(x-\mu)} & x\ge\mu\end{cases} \]
+
+\begin{figblock}
+\begin{tikzpicture}[x=1cm, y=5.2cm]
+  \draw[-{Stealth}, graytext] (-4.3,0) -- (4.5,0) node[right] {$x$};
+  \draw[-{Stealth}, graytext] (0,-0.03) -- (0,0.62);
+  \foreach \x in {-4,-2,2,4} \node[below, font=\scriptsize] at (\x,0) {$\x$};
+  \draw[setA, very thick, domain=-4.2:4.2, samples=120] plot (\x,{exp(-\x*\x/2)/sqrt(2*pi)});
+  \draw[accent, very thick, domain=-4.2:0, samples=60] plot (\x,{0.5*exp(\x)});
+  \draw[accent, very thick, domain=0:4.2, samples=60] plot (\x,{0.5*exp(-\x)});
+  \node[accent!80!black, font=\small, anchor=west] at (0.3,0.52) {\rl{لاپلاس} $(\lambda=1)$};
+  \node[setA!80!black, font=\small, anchor=west] at (1.3,0.3) {$\mathcal N(0,1)$};
+\end{tikzpicture}
+
+\figcaption[fig:laplace]{لاپلاس در مقایسه با گاوسی استاندارد: قلهٔ لاپلاس \emph{تیز} است (در $x=0$ مشتق ندارد) و \lr{tail} آن مثل $e^{-|x|}$ کم می‌شود، که از $e^{-x^2/2}$ گاوسی کندتر است.}
+\end{figblock}
+
+\begin{example}[label=ex:laplace]{لاپلاس از روی نمایی}
+(الف) فرض کنید $E\sim\mathrm{Exp}(\lambda)$ و مستقل از آن سکهٔ سالمی می‌اندازیم؛ اگر شیر آمد $X=E$ و اگر خط آمد $X=-E$. نشان دهید $X$ لاپلاس با $\mu=0$ است. (ب) برعکس، اگر $X$ لاپلاس با $\mu=0$ باشد، نشان دهید $|X|\sim\mathrm{Exp}(\lambda)$. (ج) برای $\lambda=1$، $\P(|X|>3)$ را با مقدار متناظر برای $\mathcal N(0,1)$ مقایسه کنید.
+\begin{solution}
+(الف) با قانون احتمال کل روی نتیجهٔ سکه (اگر $X=-E$ باشد، $X$ مثبت نمی‌شود):
+\[ x\ge0:\quad \P(X>x)=\tfrac12\,\P(E>x)+\tfrac12\cdot0=\tfrac12\,e^{-\lambda x}, \]
+\[ x<0:\quad \P(X\le x)=\tfrac12\,\P(-E\le x)=\tfrac12\,\P(E\ge-x)=\tfrac12\,e^{\lambda x}. \]
+این‌ها دقیقاً همان \lr{CDF} لاپلاس با $\mu=0$ هستند.\\
+(ب) برای $t\ge0$:
+\[ \P(|X|>t)=\P(X>t)+\P(X<-t)=\tfrac12e^{-\lambda t}+\tfrac12e^{-\lambda t}=e^{-\lambda t}, \]
+که \lr{tail} توزیع $\mathrm{Exp}(\lambda)$ است.\\
+(ج) $\P(|X|>3)=e^{-3}\approx0.050$، در حالی که برای گاوسی استاندارد $2(1-\Phi(3))\approx0.0027$: حدود ۱۸ برابر کمتر.
+\end{solution}
+\end{example}
+
+\begin{note}
+\textbf{کاربردها.} لاپلاس برای کمیت‌هایی مناسب است که \emph{بیشتر وقت‌ها خیلی نزدیک صفرند} ولی گاهی جهش بزرگ دارند. مثلاً در فشرده‌سازی تصویر، اختلافِ مقدار دو پیکسل کنار هم معمولاً تقریباً صفر است (رنگ‌ها آرام تغییر می‌کنند) ولی در لبه‌ها بزرگ می‌شود؛ این اختلاف‌ها به خوبی با لاپلاس مدل می‌شوند. در حریم خصوصی تفاضلی هم برای پنهان کردن داده‌های افراد، به نتیجهٔ یک پرسش آماری نویز لاپلاس اضافه می‌کنند.
+\end{note}
+
+%% ------------------------------------------------------------
+\section{توزیع کوشی}
+\label{sec:cauchy}
+%% ------------------------------------------------------------
+
+\begin{definition}[label=def:cauchy]{توزیع کوشی}
+متغیر پیوستهٔ $X$ \term{کوشی}{Cauchy} با مرکز $x_0$ و پارامتر مقیاس $\gamma>0$ است، اگر
+\[ f_X(x)=\frac{1}{\pi\gamma}\cdot\frac{1}{1+\bigl(\frac{x-x_0}{\gamma}\bigr)^2},\qquad x\in\R. \]
+حالت $x_0=0$ و $\gamma=1$، یعنی $f_X(x)=\frac{1}{\pi(1+x^2)}$، را \emph{کوشی استاندارد} می‌نامیم.
+\end{definition}
+
+\textbf{چرا انتگرالش ۱ است؟} برخلاف گاوسی، اینجا پادمشتق داریم: $(\arctan x)'=\frac1{1+x^2}$. با تغییر متغیر $t=\frac{x-x_0}{\gamma}$:
+\[ \int_{-\infty}^{\infty}\frac{1}{\pi\gamma}\cdot\frac{dx}{1+(\frac{x-x_0}{\gamma})^2}=\frac1\pi\int_{-\infty}^{\infty}\frac{dt}{1+t^2}=\frac1\pi\Bigl[\arctan t\Bigr]_{-\infty}^{\infty}=\frac1\pi\Bigl(\frac\pi2-\Bigl(-\frac\pi2\Bigr)\Bigr)=1. \]
+به همین ترتیب \lr{CDF} کوشی $F_X(x)=\frac12+\frac1\pi\arctan\frac{x-x_0}{\gamma}$ است.
+
+\begin{note}
+\textbf{معنی پارامترها.} نمودار نسبت به $x_0$ متقارن است و قله‌اش در $x_0$ با ارتفاع $\frac{1}{\pi\gamma}$ قرار دارد. در $x_0\pm\gamma$ مقدار چگالی دقیقاً \emph{نصف} قله است؛ پس $\gamma$ «نصفِ پهنا در نصفِ ارتفاع» است. این‌جا نمی‌توانیم $x_0$ را «میانگین» بنامیم: در جلسهٔ ۹ خواهیم دید که کوشی اصلاً میانگین ندارد!
+\end{note}
+
+
+
+\begin{example}[label=ex:cauchy-tail]{\lr{tail} کوشی}
+برای کوشی استاندارد $\P(|X|>t)$ را حساب کنید و برای $t$ بزرگ تقریب بزنید. $\P(|X|>10)$ را با گاوسی استاندارد مقایسه کنید.
+\begin{solution}
+با تقارن:
+\[ \P(|X|>t)=2\bigl(1-F_X(t)\bigr)=1-\frac2\pi\arctan t. \]
+برای $t$ بزرگ، $\arctan t=\frac\pi2-\arctan\frac1t\approx\frac\pi2-\frac1t$؛ پس
+\[ \P(|X|>t)\approx\frac{2}{\pi t}. \]
+مثلاً $\P(|X|>10)\approx0.063$: یعنی تقریباً در ۱ مورد از ۱۶ مورد، کوشی از ۱۰ بزرگ‌تر می‌شود. برای گاوسی استاندارد این احتمال حدود $1.5\times10^{-23}$ است!
+\end{solution}
+\end{example}
+
+\begin{note}
+\textbf{کوشی کجا ظاهر می‌شود؟} اگر $X$ و $Y$ دو گاوسی استاندارد مستقل باشند، $\frac XY$ کوشی است (اثباتش به چگالی توأم نیاز دارد و بعداً می‌آید). در فیزیک، شکل خط‌های طیفی و منحنی تشدید (\lr{resonance}) یک نوسانگر کوشی است و در آنجا به آن توزیع \emph{لورنتس} می‌گویند. \lr{heavy tail} کوشی باعث می‌شود میانگینِ نمونه‌های کوشی هیچ‌وقت «آرام نگیرد»؛ این را در جلسهٔ ۹، وقتی امید ریاضی را تعریف کنیم، دقیق می‌بینیم.
+\end{note}
+
+%% ------------------------------------------------------------
+\section{مقایسهٔ \lr{tail} توزیع‌ها}
+\label{sec:tails}
+%% ------------------------------------------------------------
+
+تا اینجا سه رفتار مختلف برای \emph{\lr{tail}} یک چگالی دیدیم: سرعتی که $f_X(x)$ وقتی $|x|\to\infty$ به صفر می‌رود.
+\begin{center}
+\renewcommand{\arraystretch}{1.45}
+\begin{tabular}{l|c|c|c|c}
+\rl{توزیع} & \rl{رفتار چگالی در \lr{tail}} & $\P(|X|>3)$ & $\P(|X|>10)$ & \rl{نوع \lr{tail}}\\\hline
+\rl{گاوسی استاندارد} & $e^{-O(x^2)}$ & $0.0027$ & $1.5\times10^{-23}$ & \lr{light tail}\\
+\rl{لاپلاس} ($\lambda=1$) \rl{و نمایی} & $e^{-O(x)}$ & $0.050$ & $4.5\times10^{-5}$ & \lr{light tail}\\
+\rl{کوشی استاندارد} & $O(1/x^2)$ & $0.205$ & $0.063$ & \lr{heavy tail}
+\end{tabular}
+\end{center}
+می‌گوییم توزیعی که \lr{tail} آن مثل نمایی یا سریع‌تر کم می‌شود \emph{\lr{light tail}} دارد و توزیعی که \lr{tail} آن مثل یک توان $1/x^a$ کم می‌شود \emph{\lr{heavy tail}} دارد (مثل متغیر $\P(X\ge n)=\frac1n$ در جلسهٔ ۵). این تفاوت در عمل خیلی مهم است: اگر خطای یک سیستم را گاوسی فرض کنیم ولی در واقع \lr{heavy tail} داشته باشد، احتمال رخدادهای «خیلی بزرگ» (سیل، سقوط بازار، ازدحام ناگهانی شبکه) را میلیون‌ها برابر کمتر از واقعیت تخمین می‌زنیم.
+
+\subsection{جمع‌بندی توزیع‌های این جلسه}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.7}
+\small
+\begin{tabular}{l|l|l|p{5.4cm}}
+\textbf{توزیع} & \textbf{برد} & \textbf{\lr{PDF}} & \textbf{داستان / نکته}\\\hline
+$\mathrm{Exp}(\lambda)$ & $[0,\infty)$ & $\lambda e^{-\lambda x}$ & \rl{زمان انتظار تا پیشامد بعدی؛ بی‌حافظه}\\
+$\mathcal N(\mu,\sigma^2)$ & $\R$ & $\frac{1}{\sigma\sqrt{2\pi}}e^{-\frac{(x-\mu)^2}{2\sigma^2}}$ & \rl{جمع اثرهای کوچک زیاد؛ \lr{CDF} با $\Phi$}\\
+\rl{لاپلاس} & $\R$ & $\frac\lambda2e^{-\lambda|x-\mu|}$ & \rl{نمایی دوطرفه؛ قلهٔ تیز}\\
+\rl{کوشی} & $\R$ & $\frac{1}{\pi\gamma}\frac{1}{1+(\frac{x-x_0}{\gamma})^2}$ & \rl{شبیه گاوسی ولی با \lr{heavy tail}}
+\end{tabular}
+\end{center}
+
+%% ------------------------------------------------------------
+\section*{جمع‌بندی جلسهٔ هشتم}
+\addcontentsline{toc}{section}{خلاصه و تمرین‌ها}
+%% ------------------------------------------------------------
+
+\begin{summary}
+\begin{itemize}
+  \item \textbf{نمایی:} $f_X=\lambda e^{-\lambda x}$ و $\P(X>x)=e^{-\lambda x}$ برای $x\ge0$. حدِ $\Delta\cdot\mathrm{Geom}(\lambda\Delta)$ است و زمان اولین پیشامدِ یک شمارش پواسون با نرخ $\lambda$.
+  \item \textbf{بی‌حافظگی:} $\P(X>s+t\mid X>s)=\P(X>t)$ و $f_X(x\mid X\ge a)=f_X(x-a)$. نمایی \emph{تنها} توزیع پیوستهٔ بی‌حافظه است، همان‌طور که هندسی تنها توزیع گسستهٔ بی‌حافظه بود.
+  \item \textbf{گاوسی:} $\mathcal N(\mu,\sigma^2)$ با مرکز $\mu$ و پهنای $\sigma$ (که بعداً می‌بینیم میانگین و انحراف معیار هستند). مساحت زیر منحنی با ترفند $I^2$ و حلقه‌ها ۱ است: $\int e^{-x^2/2}=\sqrt{2\pi}$.
+  \item \textbf{استانداردسازی:} $Z=\frac{X-\mu}{\sigma}\sim\mathcal N(0,1)$، $F_X(x)=\Phi(\frac{x-\mu}{\sigma})$ و $\Phi(-z)=1-\Phi(z)$. تبدیل خطی گاوسی، گاوسی است. قاعدهٔ ۶۸--۹۵--۹۹٫۷.
+  \item \textbf{لاپلاس و کوشی:} لاپلاس نمایی دوطرفه است ($|X-\mu|$ نمایی است)؛ انتگرال کوشی با $\arctan$ حساب می‌شود و \lr{tail} آن مثل $\frac{2}{\pi t}$ کم می‌شود. رفتار \lr{tail}: گاوسی $e^{-x^2}$، لاپلاس و نمایی $e^{-x}$، کوشی $1/x^2$.
+\end{itemize}
+\end{summary}
+
+\subsection*{تمرین‌های پیشنهادی}
+
+\begin{exercise}
+اگر $X\sim\mathrm{Exp}(\lambda)$، احتمال‌های $\P(X>\frac2\lambda)$ و $\P(\frac1\lambda<X<\frac2\lambda)$ را بیابید. چرا این جواب‌ها به $\lambda$ بستگی ندارند؟
+\answer{$e^{-2}\approx0.135$ \ و \ $e^{-1}-e^{-2}\approx0.233$}
+\end{exercise}
+
+\begin{exercise}
+اگر $X\sim\mathrm{Exp}(\lambda)$ و $Y=\lceil X\rceil$ (کوچک‌ترین عدد صحیحِ بزرگ‌تر یا مساوی $X$)، نشان دهید $Y$ هندسی است و پارامترش را بیابید. (این «گسسته کردنِ» نمایی، عکسِ قضیهٔ \ref{thm:geom-to-exp} است.)
+\answer{$Y\sim\mathrm{Geom}(1-e^{-\lambda})$}
+\end{exercise}
+
+\begin{exercise}
+عمر یک لامپ (به ساعت) $\mathrm{Exp}(\frac1{1000})$ است. لامپی ۱۵۰۰ ساعت روشن بوده است. احتمال اینکه دست‌کم ۵۰۰ ساعت دیگر کار کند چقدر است؟ یک بار با بی‌حافظگی و یک بار مستقیم از تعریف احتمال شرطی حساب کنید.
+\answer{$e^{-0.5}\approx0.607$}
+\end{exercise}
+
+\begin{exercise}
+$X\sim\mathrm{Exp}(\lambda_1)$ و $Y\sim\mathrm{Exp}(\lambda_2)$ مستقل‌اند. با محاسبهٔ $\P(\min(X,Y)>t)$ نشان دهید $\min(X,Y)\sim\mathrm{Exp}(\lambda_1+\lambda_2)$. (مثلاً اگر دو خط اتوبوس با نرخ‌های $\lambda_1$ و $\lambda_2$ داشته باشیم، زمان انتظار برای «اولین اتوبوس» چه توزیعی دارد؟) این را با تمرین $\min$ دو متغیر هندسی در جلسهٔ ۶ مقایسه کنید.
+\answer{$\min(X,Y)\sim\mathrm{Exp}(\lambda_1+\lambda_2)$}
+\end{exercise}
+
+\begin{exercise}
+تماس‌ها با یک مرکز پشتیبانی با نرخ ۳ تماس در ساعت می‌رسند (فرایند پواسون). احتمال اینکه در نیم ساعت آینده هیچ تماسی نرسد چقدر است؟ یک بار با توزیع پواسونِ تعداد تماس‌ها و یک بار با توزیع نماییِ زمان اولین تماس حساب کنید.
+\answer{$e^{-1.5}\approx0.223$}
+\end{exercise}
+
+\begin{exercise}
+با استفاده از انتگرال گاوسی و تغییر متغیر، نشان دهید برای هر $a>0$: \ $\int_{-\infty}^{\infty}e^{-ax^2}dx=\sqrt{\pi/a}$. سپس ثابت $c$ را طوری بیابید که $f(x)=c\,e^{-x^2+2x}$ یک \lr{PDF} باشد. این چه توزیعی است؟
+\answer{$c=\frac{1}{e\sqrt\pi}$؛ \ $\mathcal N(1,\tfrac12)$}
+\end{exercise}
+
+\begin{exercise}
+اگر $X\sim\mathcal N(3,9)$، احتمال‌های $\P(2<X<5)$، $\P(X>0)$ و $\P(|X-3|>6)$ را بیابید.
+\answer{$\approx0.378$، \ $\approx0.841$ \ و \ $\approx0.046$}
+\end{exercise}
+
+\begin{exercise}
+قد دانشجویان یک دانشکده (به سانتی‌متر) $\mathcal N(172,\,8^2)$ است. چند درصد دانشجویان بلندتر از ۱۸۸ سانتی‌مترند؟ قدِ چند سانتی‌متر است که فقط ۲٫۵٪ دانشجویان از آن بلندترند؟
+\answer{$\approx2.3\%$؛ \ $\approx187.7$ سانتی‌متر}
+\end{exercise}
+
+\begin{exercise}
+برای لاپلاس با $\mu=0$ و $\lambda=1$، احتمال $\P(-1<X<2)$ را با \lr{CDF} حساب کنید.
+\answer{$\approx0.748$}
+\end{exercise}
+
+\begin{exercise}
+برای کوشی استاندارد، (الف) $\P(-1<X<1)$ را بیابید. (ب) عدد $x$ را طوری بیابید که $\P(X\le x)=0.975$ و آن را با عدد متناظر گاوسی استاندارد ($1.96$) مقایسه کنید. (ج) نشان دهید $x_0+\gamma X$ کوشی با مرکز $x_0$ و پارامتر $\gamma$ است.
+\answer{(الف) $\tfrac12$؛ \ (ب) $x\approx12.7$}
+\end{exercise}

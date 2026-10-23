@@ -1,0 +1,27 @@
+%% ------------------------------------------------------------
+%%  دستورهای کمکی
+%% ------------------------------------------------------------
+% اصطلاح جدید:  \term{فضای نمونه}{Sample Space}
+\newcommand{\term}[2]{{\semifont\color{primary}#1}\,{\small(\lr{#2})}}
+% تأکید در متن فارسی (قلم فارسی ایتالیک ندارد؛ به جای آن رنگ و وزن)
+\renewcommand{\emph}[1]{{\semifont\color{primary!85!black}#1}}
+\newcommand{\key}[1]{{\semifont\color{accent!80!black}#1}}
+\newcommand{\en}[1]{\lr{#1}}
+
+% ---------- ریاضی ----------
+\renewcommand{\P}{\mathbb{P}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\setc}[2]{\left\{#1 \,:\, #2\right\}}
+\newcommand{\card}[1]{\left|#1\right|}
+\newcommand{\given}{\,\middle|\,}
+\newcommand{\cond}[2]{\P\left(#1 \given #2\right)}
+\newcommand{\ind}{\mathbf{1}}
+\newcommand{\defeq}{\coloneqq}
+% عبارت فارسی داخل فرمول، با ترتیب درست کلمات:  $\P(\fa{دقیقاً $k$ شیر})$
+% (فارسی و ریاضی را به شکل x\text{...}y در هم نیامیزید؛ ترتیب کلمات برعکس می‌شود)
+\newcommand{\fa}[1]{\text{\rl{#1}}}

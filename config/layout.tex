@@ -1,0 +1,103 @@
+%% ------------------------------------------------------------
+%%  صفحه‌آرایی: عنوان جلسه‌ها و بخش‌ها، سرصفحه و پاصفحه، فهرست
+%%  نکتهٔ فنی: در محیط راست‌به‌چپ، tikzها را داخل \lr{...} و متن فارسی
+%%  داخل گره‌ها را در \rl{...} می‌گذاریم.
+%% ------------------------------------------------------------
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+
+\hypersetup{
+  colorlinks=true, linkcolor=primary, citecolor=defcolor, urlcolor=defcolor,
+  pdftitle={Probability and Statistics - Lecture Notes},
+  bookmarksnumbered=true
+}
+
+\AtBeginDocument{\renewcommand{\contentsname}{فهرست مطالب}}
+
+% برچسب فصل‌ها: در جزوهٔ دانشگاه «جلسهٔ»؛ در سند دیگری می‌توان قبل از \input{config/layout}
+% آن را تعریف کرد، مثلاً \newcommand{\chapterlabel}{فصل}
+\providecommand{\chapterlabel}{جلسهٔ}
+
+% ---------- عنوان جلسه (chapter) ----------
+% xepersian/bidi فرمان‌های chapter را بازتعریف می‌کند؛ پس سرِ فصل را مستقیم می‌سازیم.
+\newcommand{\sessionbadge}{%
+  \lr{\begin{tikzpicture}[baseline=(b.base)]
+    \node[fill=primary, text=white, rounded corners=4pt, inner xsep=13pt, inner ysep=7pt,
+          font=\headfont\LARGE](b) {\rl{\chapterlabel{} \thechapter}};
+    \fill[accent] ([yshift=-4pt]b.south west) rectangle ([yshift=-7pt]b.south east);
+  \end{tikzpicture}}}
+
+\makeatletter
+\AtBeginDocument{% بعد از تعریف‌های bidi اجرا شود
+\def\@makechapterhead#1{%
+  \vspace*{-18pt}%
+  {\parindent\z@ \normalfont
+   \leavevmode\sessionbadge\par\vspace{12pt}%
+   \leavevmode{\color{primary}\headfont\fontsize{23}{36}\selectfont #1\par}%
+   \vspace{6pt}\leavevmode\textcolor{primary!20}{\rule{\linewidth}{1.2pt}}\par
+   \vspace{14pt}}}
+\def\@makeschapterhead#1{%
+  \vspace*{-18pt}%
+  {\parindent\z@ \normalfont
+   \leavevmode{\color{primary}\headfont\fontsize{23}{36}\selectfont #1\par}%
+   \vspace{6pt}\leavevmode\textcolor{accent}{\rule{0.22\linewidth}{2.4pt}}\par
+   \vspace{18pt}}}
+
+% ---------- فهرست مطالب ----------
+\newcommand{\tocbadge}[1]{%
+  \lr{\tikz[baseline=(n.base)]\node[fill=primary,text=white,rounded corners=2pt,
+      inner xsep=5pt, inner ysep=3pt](n){\rl{\headfont \chapterlabel{} #1}};}\quad}
+\renewcommand*\l@chapter[2]{%
+  \addpenalty{-\@highpenalty}\addvspace{7pt}%
+  {\parindent\z@\leavevmode{\headfont\color{primary}%
+   \let\numberline\tocbadge #1\nobreak\hfill #2}\par}\nopagebreak\vspace{3pt}}
+}% end AtBeginDocument
+\makeatother
+
+% ---------- بخش و زیربخش ----------
+\titleformat{\section}
+  {\normalfont\headfont\Large\color{primary}}
+  {\lr{\tikz[baseline=(n.base)]\node[fill=primary,text=white,rounded corners=2pt,
+      inner sep=3.5pt,minimum width=2.1em](n){\rl{\thesection}};}}
+  {0.6em}{}
+  [\vspace{-3pt}\leavevmode\textcolor{accent}{\rule{\linewidth}{0.9pt}}]
+\titlespacing*{\section}{0pt}{20pt}{8pt}
+
+\titleformat{\subsection}
+  {\normalfont\headfont\large\color{primary!85!black}}
+  {{\color{accent}\thesubsection}}{0.6em}{}
+\titlespacing*{\subsection}{0pt}{14pt}{5pt}
+
+\titleformat{\subsubsection}
+  {\normalfont\semifont\color{primary!80!black}}
+  {}{0em}{{\color{accent}$\blacktriangleleft$}\ }
+\titlespacing*{\subsubsection}{0pt}{10pt}{3pt}
+
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{1}
+
+% ---------- سرصفحه و پاصفحه ----------
+\newcommand{\pagebadge}{\lr{\tikz\node[circle,fill=primary,text=white,inner sep=1.5pt,
+                        minimum size=1.8em,font=\small\bfseries]{\rl{\thepage}};}}
+\setlength{\headheight}{23pt}      % fancyhdr: حداقل ارتفاع لازم برای سرصفحهٔ فارسی
+\addtolength{\topmargin}{-7pt}     % تا جای متن عوض نشود
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\chaptermark}[1]{\markboth{\chapterlabel{} \thechapter:\ #1}{}}
+\renewcommand{\sectionmark}[1]{\markright{\thesection\quad #1}}
+\fancyhead[R]{\small\color{graytext}\leftmark}
+\fancyhead[L]{\small\color{graytext}\coursetitle}
+\fancyfoot[C]{\pagebadge}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\headrule}{{\color{primary!30}\hrule height\headrulewidth width\headwidth}}
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyfoot[C]{\pagebadge}
+  \renewcommand{\headrulewidth}{0pt}}
+
+% ---------- فهرست‌ها ----------
+\setlist{itemsep=2pt,topsep=4pt,parsep=0pt}
+\setlist[itemize,1]{label={\color{accent}\small$\blacktriangleleft$}}
+\setlist[itemize,2]{label={\color{primary}\scriptsize$\bullet$}}
+\setlist[enumerate,1]{label={\color{primary}\bfseries\arabic*.}}
+\setlist[enumerate,2]{label={\color{primary}(\alph*)}}

@@ -1,0 +1,36 @@
+%% ============================================================
+%%  جزوهٔ جلسهٔ ۱۰ (مستقل)
+%%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase10
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+\input{config/packages}
+\input{config/fonts}
+\input{config/colors}
+\input{config/layout}
+\input{config/boxes}
+\input{config/macros}
+\input{frontmatter/session-cover}
+
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\hypersetup{pdftitle={Probability and Statistics - Session 10}}
+
+\begin{document}
+
+\sessioncover{۱۰}{واریانس، میانه و مد}{دوشنبه ۴ آبان ۱۴۰۵}
+  {{مفهوم واریانس: پراکندگی حول میانگین},
+   {فرمول اول و فرمول دوم واریانس},
+   {ویژگی‌های واریانس},
+   {واریانس جمع و نقش وابستگی},
+   {واریانس همهٔ توزیع‌های تا اینجا},
+   {میانه و مد}}
+
+\mainmatter
+\setcounter{chapter}{9}   % تا شماره‌گذاری‌ها «۱۰.x» باشد
+\input{sessions/session10}
+
+\end{document}

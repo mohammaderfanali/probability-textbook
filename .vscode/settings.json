@@ -1,0 +1,31 @@
+{
+  // ساخت PDF با XeLaTeX (دو بار) و سپس xdvipdfmx
+  // فایل‌های کمکی در build/ ساخته می‌شوند و PDF هم در همان‌جا برای پیش‌نمایش VS Code.
+  // (برای نسخهٔ نهایی در پوشهٔ pdf/ از build.ps1 استفاده کنید.)
+  "latex-workshop.latex.outDir": "%DIR%/build",
+  "latex-workshop.latex.tools": [
+    {
+      "name": "xelatex-nopdf",
+      "command": "xelatex",
+      "args": ["-no-pdf", "-synctex=1", "-interaction=nonstopmode", "-file-line-error",
+               "-output-directory=%OUTDIR%", "%DOCFILE%"]
+    },
+    {
+      "name": "xdvipdfmx",
+      "command": "xdvipdfmx",
+      "args": ["-q", "-o", "%OUTDIR%/%DOCFILE%.pdf", "%OUTDIR%/%DOCFILE%.xdv"]
+    }
+  ],
+  "latex-workshop.latex.recipes": [
+    { "name": "XeLaTeX (jozve)", "tools": ["xelatex-nopdf", "xelatex-nopdf", "xdvipdfmx"] }
+  ],
+  "latex-workshop.latex.recipe.default": "XeLaTeX (jozve)",
+  "latex-workshop.latex.rootFile.useSubFile": false,
+  "latex-workshop.latex.autoBuild.run": "never",
+  "latex-workshop.view.pdf.viewer": "tab",
+  "files.encoding": "utf8",
+  "editor.wordWrap": "on",
+  "editor.unicodeHighlight.invisibleCharacters": false,
+  "editor.unicodeHighlight.ambiguousCharacters": false,
+  "files.exclude": { "build": true }
+}

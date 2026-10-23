@@ -1,0 +1,37 @@
+%% ------------------------------------------------------------
+%%  قلم‌ها
+%%  قلم فارسی: Estedad (مجوز آزاد OFL) — داخل پوشهٔ fonts/ قرار دارد
+%%  تا پروژه روی هر سیستمی (و Overleaf) بدون نصب قلم کامپایل شود.
+%%  برای تغییر قلم کافی است فقط همین فایل را ویرایش کنید؛ مثلاً:
+%%     \settextfont{XB Niloofar}   یا   \settextfont{Vazirmatn}
+%% ------------------------------------------------------------
+\usepackage{xepersian}
+
+\settextfont[
+  Path=fonts/, Extension=.ttf,
+  UprightFont=*-Regular, BoldFont=*-Bold,
+  Scale=0.92
+]{Estedad}
+
+% قلم‌های کمکی فارسی (برای عنوان‌ها و متن‌های ظریف)
+\defpersianfont\headfont[
+  Path=fonts/, Extension=.ttf,
+  UprightFont=*-ExtraBold, BoldFont=*-Black
+]{Estedad}
+\defpersianfont\semifont[
+  Path=fonts/, Extension=.ttf,
+  UprightFont=*-SemiBold, BoldFont=*-Bold, Scale=0.92
+]{Estedad}
+\defpersianfont\lightfont[
+  Path=fonts/, Extension=.ttf,
+  UprightFont=*-Light, BoldFont=*-Medium, Scale=0.92
+]{Estedad}
+
+% قلم لاتین (متن انگلیسی داخل \lr{...}) — Latin Modern همراه همهٔ توزیع‌ها هست
+\setlatintextfont{Latin Modern Roman}
+
+% جداکنندهٔ شماره‌ها (مثلاً «تعریف ۲.۳»)
+\SepMark{.}
+
+% فاصلهٔ بین خطوط برای خوانایی بهتر متن فارسی
+\linespread{1.32}

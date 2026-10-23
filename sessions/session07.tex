@@ -1,0 +1,306 @@
+% !TEX root = ../jalase07.tex
+%% ============================================================
+%%  جلسهٔ ۷ — متغیر تصادفی پیوسته، تابع چگالی احتمال (PDF)،
+%%  و توزیع یکنواخت
+%% ============================================================
+\chapter{متغیرهای تصادفی پیوسته}
+\label{ch:s7}
+
+\sessioncard{شنبه ۲۵ مهر}
+{متغیر تصادفی پیوسته؛ تابع چگالی احتمال \lr{(PDF)} و رابطه‌اش با \lr{CDF}؛ توزیع یکنواخت}
+{\lr{Pishro-Nik} بخش‌های \lr{4.1}، \lr{4.1.1} و \lr{4.2.1} \,؛\, \lr{Ross} بخش‌های \lr{5.1} و \lr{5.3} \,؛\, \lr{Bertsekas} بخش‌های \lr{3.1} و \lr{3.2}}
+{\begin{itemize}
+  \item متغیر تصادفی پیوسته را با پیوستگی \lr{CDF} تعریف کنید و توضیح دهید چرا احتمال هر نقطه صفر است؛
+  \item تابع چگالی احتمال را تعریف کنید، خواص آن را بدانید و بین \lr{PDF} و \lr{CDF} رفت و برگشت کنید؛
+  \item توزیع یکنواخت پیوسته را تعریف کنید و مسئله‌های «احتمال $=$ طول» را با آن حل کنید.
+\end{itemize}}
+
+در جلسه‌های ۵ و ۶ فقط با متغیرهای \emph{گسسته} کار کردیم: برنولی، دوجمله‌ای، هندسی و پواسون. اما خیلی از کمیت‌ها، مثل زمان، طول، ولتاژ یا دما، می‌توانند هر عددی در یک بازه باشند. در این جلسه ابزار کار با چنین متغیرهایی را می‌سازیم: به جای \lr{PMF} از \emph{چگالی} احتمال استفاده می‌کنیم و به جای جمع، از انتگرال. سپس ساده‌ترین توزیع پیوسته، یعنی \emph{یکنواخت}، را می‌بینیم که نسخهٔ پیوستهٔ «مدل هم‌شانس» است.
+
+%% ------------------------------------------------------------
+\section{متغیر تصادفی پیوسته}
+\label{sec:continuous}
+%% ------------------------------------------------------------
+
+همهٔ متغیرهایی که تا اینجا دیدیم \emph{گسسته} بودند. اما خیلی از کمیت‌ها، مثل زمان، طول، ولتاژ یا دما، می‌توانند هر عددی در یک بازه باشند. در این حالت $\Omega$ زیرمجموعه‌ای ناشمارا از $\R$ است و دو مشکل داریم که در جلسهٔ ۲ هم دیدیم:
+\begin{enumerate}
+  \item \textbf{احتمال تک‌نقطه‌ها صفر است.} مثال مقاومت در جلسهٔ ۲ را به یاد بیاورید: مقاومت عددی در $[0.5,1.5]$ است و احتمال هر بازه برابر طولش. آنجا دیدیم که $\P(\fa{دقیقاً ۱ اُهم})=0$ و همین برای \emph{هر} نقطه درست است. پس \lr{PMF} همه‌جا صفر است و هیچ اطلاعاتی نمی‌دهد.
+  \item \textbf{نمی‌توان به همهٔ زیرمجموعه‌های $\R$ احتمال داد.} به جای آن، با بازه‌ها ($[a,b]$، $[a,b)$، $(a,b]$، $(a,b)$) و هر چیزی که با اجتماع، اشتراک و متمم شمارا از آن‌ها ساخته می‌شود (میدان بورل) کار می‌کنیم.
+\end{enumerate}
+خوشبختانه ابزاری داریم که برای همهٔ متغیرها کار می‌کند: \lr{CDF}. در جلسهٔ ۵ دیدیم که احتمال هر نقطه برابر اندازهٔ پرشِ \lr{CDF} در آن نقطه است. پس «احتمالِ هیچ نقطه‌ای مثبت نیست» یعنی «\lr{CDF} هیچ پرشی ندارد».
+
+\begin{definition}[label=def:continuous-rv]{متغیر تصادفی پیوسته}
+متغیر تصادفی $X$ \term{پیوسته}{continuous} است اگر \lr{CDF} آن، $F_X(x)=\P(X\le x)$، تابعی پیوسته روی کل $\R$ باشد.
+\end{definition}
+
+\begin{proposition}[label=prop:cont-points]{نقطه‌ها احتمال ندارند}
+اگر $X$ پیوسته باشد، برای هر $x$: \ $\P(X=x)=0$. در نتیجه برای $a<b$:
+\[ \P(a<X<b)=\P(a\le X<b)=\P(a<X\le b)=\P(a\le X\le b)=F_X(b)-F_X(a). \]
+\end{proposition}
+
+
+\begin{warning}
+برای متغیرهای گسسته تفاوت «$<$» و «$\le$» مهم بود؛ برای متغیرهای پیوسته \emph{مهم نیست}. اما دقت کنید: «احتمال صفر» یعنی «غیرممکن» نیست. وقتی یک مقاومت را اندازه می‌گیریم، \emph{بالاخره} عددی به دست می‌آید، با اینکه احتمالِ آن عدد صفر بود.
+\end{warning}
+
+\begin{figblock}
+\begin{tikzpicture}[x=0.62cm, y=1.7cm]
+  \foreach \sh/\lab in {0/{\rl{پیوسته و هموار}}, 9/{\rl{پیوسته (با گوشه)}}, 18/{\rl{گسسته (پله‌ای)}}} {
+    \begin{scope}[xshift=\sh*0.62cm]
+      \draw[-{Stealth}, graytext] (0,0) -- (7.4,0) node[right, font=\scriptsize] {$x$};
+      \draw[-{Stealth}, graytext] (2,-0.1) -- (2,1.35);
+      \draw[graytext!60, densely dashed] (0,1) -- (7.2,1);
+      \node[left, font=\scriptsize] at (2,1.12) {$1$};
+      \node[font=\small] at (3.7,-0.45) {\lab};
+    \end{scope}
+  }
+  \draw[setA, very thick, smooth, domain=0:7.2, samples=60] plot (\x,{1/(1+exp(-1.6*(\x-3)))});
+  \draw[excolor, very thick] (9,0) -- (11,0) -- (11.8,0.3) -- (13,0.7) -- (14.5,0.95) -- (16.2,1);
+  \begin{scope}[xshift=18*0.62cm]
+    \draw[accent, very thick] (0,0) -- (3,0); \draw[accent, very thick] (3,0.25) -- (4.5,0.25);
+    \draw[accent, very thick] (4.5,0.6) -- (6,0.6); \draw[accent, very thick] (6,1) -- (7.2,1);
+    \foreach \x/\y in {3/0, 4.5/0.25, 6/0.6} \draw[accent, thick, fill=white] (\x,\y) circle (1.8pt);
+    \foreach \x/\y in {3/0.25, 4.5/0.6, 6/1} \fill[accent] (\x,\y) circle (1.8pt);
+    \foreach \x/\l in {3/3, 4.5/5, 6/8} \node[below, font=\tiny] at (\x,0) {$\l$};
+  \end{scope}
+\end{tikzpicture}
+
+\figcaption[fig:cdf-types]{سه نوع \lr{CDF}. دو تای اول پیوسته‌اند و هیچ نقطه‌ای احتمال مثبت ندارد. سومی \lr{CDF} یک متغیر گسسته با مقادیر $3$، $5$ و $8$ است.}
+\end{figblock}
+
+\begin{example}[label=ex:dart]{پرتاب دارت (\lr{Bertsekas})}
+دارتی به نقطه‌ای تصادفی از یک صفحهٔ دایره‌ای به شعاع ۱ برخورد می‌کند، به طوری که احتمال برخورد به هر ناحیه با \emph{مساحت} آن متناسب است. $R$ را فاصلهٔ محل برخورد تا مرکز بگیرید. $F_R$ را بیابید. آیا $R$ پیوسته است؟ $\P(R\le\tfrac12)$ چقدر است؟
+\begin{solution}
+برای $0\le r\le1$، پیشامد $\{R\le r\}$ یعنی برخورد به دایره‌ای به شعاع $r$:
+\[ F_R(r)=\P(R\le r)=\frac{\pi r^2}{\pi\cdot1^2}=r^2. \]
+همچنین $F_R(r)=0$ برای $r<0$ و $F_R(r)=1$ برای $r>1$. این تابع پیوسته است (هیچ پرشی ندارد)؛ پس $R$ پیوسته است. و $\P(R\le\tfrac12)=\tfrac14$: با اینکه $\tfrac12$ وسط بازهٔ $[0,1]$ است، فقط یک چهارم مساحت در نیمهٔ داخلی قرار دارد.
+\end{solution}
+\end{example}
+
+%% ------------------------------------------------------------
+\section{تابع چگالی احتمال}
+\label{sec:pdf}
+%% ------------------------------------------------------------
+
+در جلسهٔ ۲ احتمال را مثل «شن» تصور کردیم که روی فضای نمونه پخش شده است. برای متغیر گسسته، شن در چند نقطه کپه شده و \lr{PMF} وزن هر کپه را می‌گوید. برای متغیر پیوسته، شن به صورت پیوسته روی محور پخش شده و هیچ نقطه‌ای به‌تنهایی وزن ندارد؛ اما می‌توان پرسید شن در هر نقطه \emph{چقدر غلیظ} است. این همان مفهوم چگالی جرم در فیزیک است: احتمالِ یک بازهٔ کوچک تقسیم بر طول آن.
+
+\begin{definition}[label=def:pdf]{تابع چگالی احتمال}
+برای متغیر تصادفی پیوستهٔ $X$، تابع
+\[ f_X(x)\defeq\lim_{h\to0^+}\frac{\P(x\le X\le x+h)}{h}=\lim_{h\to0^+}\frac{F_X(x+h)-F_X(x)}{h}=\frac{dF_X(x)}{dx} \]
+(هر جا که این حد وجود داشته باشد) \term{تابع چگالی احتمال}{probability density function, PDF} متغیر $X$ نامیده می‌شود.
+\end{definition}
+
+پس \lr{PDF} مشتقِ \lr{CDF} است و \lr{CDF} انتگرالِ \lr{PDF}. در این درس فرض می‌کنیم $F_X$ پیوسته است و جز احتمالاً در تعدادی متناهی نقطه مشتق‌پذیر است؛ در آن نقطه‌ها مقدار $f_X$ را هر چه بگیریم فرقی نمی‌کند.
+
+\begin{theorem}[label=thm:pdf-props]{خواص تابع چگالی احتمال}
+اگر $X$ پیوسته با \lr{PDF} $f_X$ باشد:
+\begin{enumerate}
+  \item برای هر $x$: \ $f_X(x)\ge0$؛
+  \item $\displaystyle\int_{-\infty}^{\infty}f_X(x)\,dx=1$؛
+  \item برای $a\le b$: \ $\displaystyle\P(a\le X\le b)=F_X(b)-F_X(a)=\int_a^bf_X(x)\,dx$؛
+  \item $\displaystyle F_X(x)=\int_{-\infty}^{x}f_X(u)\,du$؛
+  \item به طور کلی‌تر، برای مجموعه‌ای مثل اجتماع چند بازه: \ $\displaystyle\P(X\in A)=\int_Af_X(x)\,dx$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(۱) $F_X$ نانزولی است، پس صورت کسر در تعریف نامنفی است و حد هم نامنفی است. (۳) طبق قضیهٔ اساسی حسابان، انتگرالِ مشتق برابر تفاضل مقادیر تابع است. (۴) در (۳) قرار دهید $a\to-\infty$ و از $F_X(-\infty)=0$ استفاده کنید. (۲) در (۴) قرار دهید $x\to\infty$ و از $F_X(\infty)=1$ استفاده کنید. (۵) برای اجتماع بازه‌های مجزا از (۳) و جمع‌پذیری احتمال به دست می‌آید.
+\end{proof}
+
+\begin{note}
+\textbf{عکسِ قضیه هم درست است:} هر تابع $f$ با $f\ge0$ و $\int_{-\infty}^\infty f=1$، \lr{PDF} یک متغیر تصادفی پیوسته است (کافی است $F(x)=\int_{-\infty}^xf$ را بسازید؛ این تابع سه خاصیت \lr{CDF} در جلسهٔ ۵ را دارد). پس درست مثل حالت گسسته، \key{برای مدل‌سازی یک متغیر پیوسته داشتن \lr{PDF} کافی است}.
+\end{note}
+
+\begin{figblock}
+\begin{tikzpicture}[x=1.35cm, y=2.6cm]
+  \def\fx{0.75*exp(-(\x-2.2)^2/0.9)+0.35*exp(-(\x-4.4)^2/0.6)}
+  \fill[accent!25] plot[domain=1.4:3.2, samples=50] (\x,{\fx}) -- (3.2,0) -- (1.4,0) -- cycle;
+  \fill[setA!55] plot[domain=4.0:4.15, samples=10] (\x,{\fx}) -- (4.15,0) -- (4.0,0) -- cycle;
+  \draw[-{Stealth}, graytext] (-0.2,0) -- (6.6,0) node[right] {$x$};
+  \draw[-{Stealth}, graytext] (0,-0.05) -- (0,1.0) node[above] {$f_X(x)$};
+  \draw[primary, very thick, domain=0:6.4, samples=120] plot (\x,{\fx});
+  \node[below, font=\small] at (1.4,0) {$a$}; \node[below, font=\small] at (3.2,0) {$b$};
+  \node[font=\small, accent!70!black] at (2.25,0.2) {$\P(a\le X\le b)$};
+  \draw[setA!70!black, -{Stealth}] (4.9,0.62) -- (4.1,0.33);
+  \node[font=\small, setA!70!black, anchor=west] at (4.85,0.68) {$\approx f_X(x)\,\delta$};
+  \node[below, font=\scriptsize] at (4.07,0) {$x$};
+\end{tikzpicture}
+
+\figcaption[fig:pdf-area]{احتمال یک بازه، \emph{مساحت} زیر نمودار \lr{PDF} روی آن بازه است. نوار باریکی به پهنای $\delta$ در نقطهٔ $x$ تقریباً احتمال $f_X(x)\,\delta$ دارد. کل مساحت زیر نمودار ۱ است.}
+\end{figblock}
+
+\begin{intuition}
+از $\P(x\le X\le x+\delta)\approx f_X(x)\,\delta$ برای $\delta$ کوچک نتیجه می‌گیریم: اگر $f_X(x_1)>f_X(x_2)$، آنگاه $X$ به احتمال بیشتری \emph{نزدیک} $x_1$ است تا نزدیک $x_2$. مقدار \lr{PDF} احتمال نیست؛ «احتمال در واحد طول» است. نسبتِ دو مقدار آن معنای مستقیم دارد: $f_X(x_1)/f_X(x_2)$ می‌گوید بودن در همسایگی $x_1$ چند برابر محتمل‌تر از بودن در همسایگی $x_2$ است.
+\end{intuition}
+
+\begin{warning}
+تفاوت‌های \lr{PDF} با \lr{CDF}:
+\begin{itemize}
+  \item \lr{CDF} همیشه بین ۰ و ۱ است، ولی \lr{PDF} \emph{می‌تواند بزرگ‌تر از ۱ باشد}، چون خودش احتمال نیست. فقط مساحت زیرش باید ۱ باشد.
+  \item \lr{CDF} همیشه نانزولی است، ولی \lr{PDF} لزوماً صعودی یا نزولی نیست.
+  \item \lr{PDF} حتی لزوماً کران‌دار نیست (مثلاً $f(x)=\frac{1}{2\sqrt x}$ روی $(0,1]$ یک \lr{PDF} است ولی نزدیک صفر به بی‌نهایت میل می‌کند).
+  \item در $\pm\infty$، \lr{CDF} به ۰ و ۱ میل می‌کند و \lr{PDF} (اگر حد داشته باشد) به صفر.
+\end{itemize}
+\end{warning}
+
+\begin{keyformula}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l|l}
+\rl{گسسته} & \rl{پیوسته}\\\hline
+$p_X(x)=\P(X=x)$ & $f_X(x)=F_X'(x)$ \ \rl{(احتمال در واحد طول)}\\
+$\sum_xp_X(x)=1$ & $\int_{-\infty}^{\infty}f_X(x)\,dx=1$\\
+$\P(X\in A)=\sum_{x\in A}p_X(x)$ & $\P(X\in A)=\int_Af_X(x)\,dx$\\
+$F_X(x)=\sum_{x_i\le x}p_X(x_i)$ \ \rl{(پله‌ای)} & $F_X(x)=\int_{-\infty}^xf_X(u)\,du$ \ \rl{(پیوسته)}
+\end{tabular}
+\par\smallskip
+\rl{قاعدهٔ سرانگشتی: جمع را به انتگرال و \lr{PMF} را به \lr{PDF} تبدیل کنید.}
+\end{keyformula}
+
+\begin{example}[label=ex:dart-pdf]{دارت، دوباره}
+در مثال \ref{ex:dart}، \lr{PDF} فاصلهٔ $R$ تا مرکز را بیابید. $R$ به احتمال بیشتر نزدیک لبه است یا نزدیک مرکز؟
+\begin{solution}
+با مشتق گرفتن از $F_R(r)=r^2$:
+\[ f_R(r)=\begin{cases}2r & 0\le r\le1\\ 0 & \fa{در غیر این صورت}\end{cases} \]
+(بررسی: $\int_0^12r\,dr=1$.) چگالی در لبه ($f_R(1)=2$) بیشترین مقدار را دارد و در مرکز صفر است: با اینکه دارت «یکنواخت» روی صفحه پخش شده، فاصله‌اش تا مرکز یکنواخت نیست، چون حلقه‌های دورتر مساحت بیشتری دارند. دقت کنید که $f_R(1)=2>1$.
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:find-c]{پیدا کردن ثابت (\lr{Ross})}
+فرض کنید $X$ پیوسته با \lr{PDF} زیر باشد:
+\[ f_X(x)=\begin{cases}C(4x-2x^2) & 0<x<2\\ 0 & \fa{در غیر این صورت}\end{cases} \]
+(الف) مقدار $C$ را بیابید. (ب) $\P(X>1)$ را حساب کنید.
+\begin{solution}
+(الف) طبق خاصیت (۲):
+\[ 1=C\int_0^2(4x-2x^2)\,dx=C\Bigl[2x^2-\tfrac23x^3\Bigr]_0^2=C\Bigl(8-\tfrac{16}3\Bigr)=\tfrac83C\quad\Longrightarrow\quad C=\tfrac38. \]
+(ب) $\P(X>1)=\tfrac38\int_1^2(4x-2x^2)\,dx=\tfrac38\Bigl(6-\tfrac{14}{3}\Bigr)=\tfrac12$. این را بدون انتگرال هم می‌شد دید: $4x-2x^2=2x(2-x)$ نسبت به $x=1$ متقارن است.
+\end{solution}
+\end{example}
+
+\begin{moreinfo}{همهٔ متغیرهای پیوسته \lr{PDF} ندارند}
+تعریف ما از متغیر پیوسته فقط پیوستگی \lr{CDF} را می‌خواهد. می‌توان \lr{CDF} پیوسته‌ای ساخت (تابع «پلکان شیطان» کانتور) که تقریباً همه‌جا مشتقش صفر است ولی از ۰ به ۱ می‌رسد؛ پس انتگرالِ مشتقش ۱ نیست و \lr{PDF} ندارد. به همین دلیل در کتاب‌های دقیق‌تر، متغیرهایی را که \lr{PDF} دارند \emph{پیوستهٔ مطلق} می‌نامند. در این درس با چنین موجوداتی کاری نداریم و همهٔ متغیرهای پیوسته \lr{PDF} دارند.
+\end{moreinfo}
+
+%% ------------------------------------------------------------
+\section{توزیع یکنواخت}
+\label{sec:uniform}
+%% ------------------------------------------------------------
+
+ساده‌ترین متغیر پیوسته، «انتخاب یک عدد کاملاً تصادفی از یک بازه» است. اما «کاملاً تصادفی» یعنی چه، وقتی احتمالِ هر نقطه صفر است؟
+
+\begin{example}[label=ex:uniform-cdf]{انتخاب تصادفی از یک بازه (\lr{Pishro-Nik})}
+عدد حقیقی $X$ را «به طور یکنواخت» از بازهٔ $[a,b]$ انتخاب می‌کنیم؛ یعنی همهٔ زیربازه‌های $[a,b]$ که طول برابر دارند، احتمال برابر داشته باشند. \lr{CDF} و \lr{PDF} متغیر $X$ را بیابید.
+\begin{solution}
+از یکسان بودن احتمال بازه‌های هم‌طول نتیجه می‌شود که احتمال هر زیربازه با طولش متناسب است (مثل مقاومت جلسهٔ ۲). چون $\P(X\in[a,b])=1$:
+\[ \P(x_1\le X\le x_2)=\frac{x_2-x_1}{b-a},\qquad a\le x_1\le x_2\le b. \]
+پس برای $a\le x\le b$ داریم $F_X(x)=\P(a\le X\le x)=\frac{x-a}{b-a}$؛ و $F_X(x)=0$ برای $x<a$ و $F_X(x)=1$ برای $x>b$. این تابع پیوسته است و با مشتق‌گیری، $f_X(x)=\frac1{b-a}$ داخل بازه و صفر بیرون آن.
+\end{solution}
+\end{example}
+
+\begin{definition}[label=def:uniform]{توزیع یکنواخت پیوسته}
+متغیر پیوستهٔ $X$ روی بازهٔ $[a,b]$ \term{یکنواخت}{uniform} است و می‌نویسیم $X\sim\mathrm{Unif}(a,b)$، اگر
+\[ f_X(x)=\begin{cases}\dfrac{1}{b-a} & a<x<b\\[6pt] 0 & \fa{در غیر این صورت}\end{cases}
+\qquad\quad
+F_X(x)=\begin{cases}0 & x<a\\[2pt] \dfrac{x-a}{b-a} & a\le x\le b\\[6pt] 1 & x>b\end{cases} \]
+\end{definition}
+
+\begin{figblock}
+\begin{tikzpicture}[x=1.15cm, y=2.1cm]
+  \begin{scope}
+    \draw[-{Stealth}, graytext] (-0.6,0) -- (4.6,0) node[right] {$x$};
+    \draw[-{Stealth}, graytext] (0,-0.05) -- (0,1.25) node[above] {$f_X(x)$};
+    \fill[accent!20] (1,0) rectangle (3.4,0.8);
+    \draw[primary, very thick] (-0.6,0) -- (1,0); \draw[primary, very thick] (1,0.8) -- (3.4,0.8); \draw[primary, very thick] (3.4,0) -- (4.4,0);
+    \draw[primary, densely dotted] (1,0) -- (1,0.8); \draw[primary, densely dotted] (3.4,0) -- (3.4,0.8);
+    \node[below, font=\small] at (1,0) {$a$}; \node[below, font=\small] at (3.4,0) {$b$};
+    \draw[graytext] (-0.06,0.8) -- (0.06,0.8); \node[left, font=\small] at (0,0.8) {$\frac{1}{b-a}$};
+    \node[font=\small, accent!70!black] at (2.2,0.4) {\rl{مساحت $=1$}};
+  \end{scope}
+  \begin{scope}[xshift=6.2cm]
+    \draw[-{Stealth}, graytext] (-0.6,0) -- (4.6,0) node[right] {$x$};
+    \draw[-{Stealth}, graytext] (0,-0.05) -- (0,1.25) node[above] {$F_X(x)$};
+    \draw[graytext!60, densely dashed] (0,1) -- (4.4,1);
+    \node[left, font=\small] at (0,1) {$1$};
+    \draw[primary, very thick] (-0.6,0) -- (1,0) -- (3.4,1) -- (4.4,1);
+    \node[below, font=\small] at (1,0) {$a$}; \node[below, font=\small] at (3.4,0) {$b$};
+    \draw[graytext, densely dotted] (3.4,0) -- (3.4,1);
+  \end{scope}
+\end{tikzpicture}
+
+\figcaption[fig:uniform]{\lr{PDF} (چپ) و \lr{CDF} (راست) توزیع $\mathrm{Unif}(a,b)$. چگالی روی بازه ثابت است (نام «یکنواخت» از همین‌جاست) و \lr{CDF} خطی از ۰ تا ۱ بالا می‌رود.}
+\end{figblock}
+
+\begin{note}
+\begin{itemize}
+  \item باز یا بسته بودن دو سر بازه اهمیتی ندارد، چون نقطه‌ها احتمال ندارند؛ $\mathrm{Unif}[a,b]$ و $\mathrm{Unif}(a,b)$ یکی‌اند.
+  \item ارتفاع $\frac1{b-a}$ اگر $b-a<1$ باشد از ۱ بیشتر است؛ مثلاً $\mathrm{Unif}(0,\tfrac12)$ چگالی ۲ دارد.
+  \item مقاومت جلسهٔ ۲ همان $\mathrm{Unif}(0.5,1.5)$ است. و تابع \lr{rand()} در بیشتر زبان‌های برنامه‌نویسی (تقریباً) نمونه‌ای از $\mathrm{Unif}(0,1)$ می‌دهد.
+  \item برای هر زیربازهٔ $[c,d]\subseteq[a,b]$: \ $\P(c\le X\le d)=\frac{d-c}{b-a}$؛ یعنی \key{احتمال $=$ طولِ بازهٔ مطلوب تقسیم بر طولِ کل}. این همان «احتمال هندسی» جلسه‌های قبل است.
+\end{itemize}
+\end{note}
+
+\begin{example}[label=ex:unif-memory]{آیا یکنواخت بی‌حافظه است؟}
+اگر $X\sim\mathrm{Unif}(0,1)$ زمان رسیدن چیزی باشد، $\P(X>s+t\mid X>s)$ را برای $s,t\ge0$ و $s+t\le1$ حساب کنید و با $\P(X>t)$ مقایسه کنید.
+\begin{solution}
+\[ \P(X>s+t\mid X>s)=\frac{\P(X>s+t)}{\P(X>s)}=\frac{1-s-t}{1-s}=1-\frac{t}{1-s}\ <\ 1-t=\P(X>t)\qquad(s>0). \]
+پس یکنواخت \emph{حافظه دارد}: هرچه بیشتر صبر کرده باشیم، احتمال اینکه $t$ واحد دیگر هم صبر کنیم کمتر است، چون می‌دانیم پیشامد حتماً تا لحظهٔ ۱ رخ می‌دهد. این همان رفتار مثال «کلیدها با کنار گذاشتن» در جلسهٔ ۶ است. تنها متغیر پیوستهٔ بی‌حافظه، توزیع نمایی است که در جلسهٔ بعد می‌بینیم.
+\end{solution}
+\end{example}
+
+\subsection{جمع‌بندی توزیع‌های پیوسته}
+
+\begin{center}
+\renewcommand{\arraystretch}{1.6}
+\small
+\begin{tabular}{l|l|l|l|p{3.6cm}}
+\textbf{توزیع} & \textbf{برد} & \textbf{\lr{PDF}} & \textbf{\lr{CDF}} & \textbf{داستان}\\\hline
+$\mathrm{Unif}(a,b)$ & $[a,b]$ & $\frac1{b-a}$ & $\frac{x-a}{b-a}$ & \rl{انتخاب «کاملاً تصادفی» از یک بازه}
+\end{tabular}
+\end{center}
+
+%% ------------------------------------------------------------
+\section*{جمع‌بندی جلسهٔ هفتم}
+\addcontentsline{toc}{section}{خلاصه و تمرین‌ها}
+%% ------------------------------------------------------------
+
+\begin{summary}
+\begin{itemize}
+  \item \textbf{متغیر پیوسته:} $F_X$ پیوسته است، $\P(X=x)=0$ برای هر $x$، و $<$ و $\le$ فرقی ندارند. احتمال صفر به معنای غیرممکن نیست.
+  \item \textbf{\lr{PDF}:} $f_X=F_X'$؛ نامنفی با مساحت ۱، و $\P(a\le X\le b)=\int_a^bf_X$ و $F_X(x)=\int_{-\infty}^xf_X$. مقدار \lr{PDF} احتمال نیست (می‌تواند از ۱ بیشتر یا حتی بی‌کران باشد)؛ $f_X(x)\,\delta$ احتمال یک بازهٔ کوچک است. قاعدهٔ سرانگشتی: جمع $\to$ انتگرال و \lr{PMF} $\to$ \lr{PDF}.
+  \item \textbf{یکنواخت:} $f_X=\frac1{b-a}$ روی $[a,b]$؛ احتمال هر زیربازه برابر طولش تقسیم بر $b-a$ است. حافظه دارد.
+\end{itemize}
+\end{summary}
+
+\subsection*{تمرین‌های پیشنهادی}
+
+\begin{exercise}
+کدام‌یک از توابع زیر \lr{PDF} است؟ برای هر کدام که نیست، دلیل را بگویید.
+(الف) $f(x)=2x$ برای $0\le x\le1$ و صفر در غیر این صورت. \
+(ب) $f(x)=\frac{3}{x^4}$ برای $x\ge1$ و صفر در غیر این صورت. \
+(ج) $f(x)=\frac1x$ برای $x\ge1$ و صفر در غیر این صورت. \
+(د) $f(x)=\cos x$ برای $0\le x\le\pi$ و صفر در غیر این صورت.
+\answer{(الف) بله؛ (ب) بله، $\int_1^\infty3x^{-4}dx=1$؛ (ج) نه، انتگرال واگرا است؛ (د) نه، روی $(\pi/2,\pi]$ منفی است (و انتگرالش صفر است).}
+\end{exercise}
+
+\begin{exercise}
+فرض کنید $f_X(x)=cx^2$ برای $0\le x\le2$ و صفر در غیر این صورت. $c$، $F_X$ و $\P(X>1)$ را بیابید.
+\answer{$c=\tfrac38$، \ $F_X(x)=\tfrac{x^3}{8}$ برای $0\le x\le2$ \ و \ $\P(X>1)=\tfrac78$}
+\end{exercise}
+
+\begin{exercise}
+اگر $U\sim\mathrm{Unif}(0,1)$ و $a<b$، با محاسبهٔ \lr{CDF} نشان دهید $a+(b-a)U\sim\mathrm{Unif}(a,b)$ و $1-U\sim\mathrm{Unif}(0,1)$. (این همان روشی است که برنامه‌ها با \lr{rand()} عدد تصادفی در هر بازه‌ای می‌سازند.)
+\end{exercise}
+
+\begin{exercise}
+در معادلهٔ $x^2+Bx+1=0$، ضریب $B\sim\mathrm{Unif}(0,3)$ است. احتمال اینکه معادله ریشهٔ حقیقی داشته باشد چقدر است؟
+\answer{ریشهٔ حقیقی یعنی $B^2\ge4$، یعنی $B\ge2$: احتمال $\tfrac13$.}
+\end{exercise}
+
+\begin{exercise}[\lr{Pishro-Nik}]
+اگر $X\sim\mathrm{Unif}(0,1)$ و $Y=e^X$، \lr{CDF} و \lr{PDF} متغیر $Y$ را بیابید.
+\answer{برای $1\le y\le e$: \ $F_Y(y)=\P(X\le\ln y)=\ln y$ \ و \ $f_Y(y)=\frac1y$.}
+\end{exercise}
+
+\begin{exercise}
+در مثال دارت (\ref{ex:dart})، احتمال اینکه دارت در «حلقهٔ بیرونی» $\tfrac12\le R\le1$ بنشیند را یک بار با \lr{CDF} و یک بار با انتگرال \lr{PDF} حساب کنید.
+\answer{$1-\tfrac14=\tfrac34=\int_{1/2}^12r\,dr$}
+\end{exercise}

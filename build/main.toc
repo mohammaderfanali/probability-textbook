@@ -1,0 +1,26 @@
+\contentsline {chapter}{دربارهٔ این جزوه}{ب}{chapter*.2}%
+\contentsline {chapter}{\numberline {1}مفاهیم اولیهٔ احتمال، نظریهٔ مجموعه‌ها و ترکیبیات}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}احتمال چیست و چرا به آن نیاز داریم؟}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}دو روی یک سکه: نظریهٔ احتمال و آمار}{2}{subsection.1.1.1}%
+\contentsline {section}{\numberline {1.2}تعبیرهای مختلف از احتمال}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}تعبیر کلاسیک (لاپلاس)}{3}{subsection.1.2.1}%
+\contentsline {subsection}{\numberline {1.2.2}تعبیر فراوانی نسبی}{3}{subsection.1.2.2}%
+\contentsline {subsection}{\numberline {1.2.3}تعبیر ذهنی (بیزی)}{4}{subsection.1.2.3}%
+\contentsline {subsection}{\numberline {1.2.4}رویکرد اصل موضوعی (کولموگروف)}{4}{subsection.1.2.4}%
+\contentsline {section}{\numberline {1.3}آزمایش تصادفی، فضای نمونه و پیشامد}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}مروری بر نظریهٔ مجموعه‌ها}{5}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}تعاریف پایه}{5}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}عملیات روی مجموعه‌ها}{6}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}مجموعه‌های مجزا و افراز}{8}{subsection.1.4.3}%
+\contentsline {subsection}{\numberline {1.4.4}ضرب دکارتی و مجموعهٔ توانی}{9}{subsection.1.4.4}%
+\contentsline {subsection}{\numberline {1.4.5}تابع نشانگر}{10}{subsection.1.4.5}%
+\contentsline {subsection}{\numberline {1.4.6}کاردینالیتی: شمارا و ناشمارا}{10}{subsection.1.4.6}%
+\contentsline {section}{\numberline {1.5}ترکیبیات: هنر شمردن}{12}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}اصل جمع و اصل ضرب}{12}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}چهار حالت نمونه‌گیری}{13}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}جایگشت}{14}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}ترکیب و ضریب دوجمله‌ای}{15}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}ضریب چندجمله‌ای: جایگشت با تکرار}{17}{subsection.1.5.5}%
+\contentsline {subsection}{\numberline {1.5.6}نمونه‌گیری بدون ترتیب با جایگذاری: ستاره و خط}{18}{subsection.1.5.6}%
+\contentsline {section}{جمع‌بندی و تمرین‌ها}{19}{tcb@cnt@example.1.15}%
+\contentsfinish 

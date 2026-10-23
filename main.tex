@@ -1,0 +1,31 @@
+%% ============================================================
+%%  جزوهٔ درس آمار و احتمال مهندسی
+%%  فایل اصلی — با XeLaTeX کامپایل شود (دو بار، یا با build.ps1)
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+% ---------- تنظیمات (به ترتیب بارگذاری) ----------
+\input{config/packages}   % همهٔ بسته‌ها (باید قبل از xepersian بیایند)
+\input{config/fonts}      % xepersian و قلم‌ها
+\input{config/colors}     % رنگ‌ها
+\input{config/layout}     % صفحه‌آرایی، سرصفحه، عنوان‌ها
+\input{config/boxes}      % باکس‌های تعریف، قضیه، مثال، ...
+\input{config/macros}     % دستورهای ریاضی و کمکی
+
+% ---------- اطلاعات درس (برای جلد و سرصفحه) ----------
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\begin{document}
+
+\frontmatter
+\input{frontmatter/cover}
+\tableofcontents
+\input{frontmatter/preface}
+
+\mainmatter
+\input{sessions/session01}   % جلسهٔ ۱: مفاهیم اولیه، نظریهٔ مجموعه‌ها، 
+
+\end{document}

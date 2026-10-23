@@ -1,0 +1,188 @@
+%% ------------------------------------------------------------
+%%  باکس‌ها (tcolorbox)
+%%  تعریف، قضیه، لم، گزاره و نتیجه یک شمارندهٔ مشترک دارند
+%%  (مثلاً تعریف ۲.۱ ← قضیه ۲.۲ ← نتیجه ۲.۳) تا پیدا کردن‌شان ساده باشد.
+%%  مثال‌ها و تمرین‌ها شمارندهٔ جدا دارند.
+%%
+%%  استفاده:
+%%    \begin{definition}{عنوان اختیاری} ... \end{definition}
+%%    \begin{theorem}{عنوان}  ... \end{theorem}
+%%    \begin{proof} ... \end{proof}
+%%    \begin{example}{عنوان} ... \begin{solution} ... \end{solution}\end{example}
+%%    \begin{note} ... \end{note}     \begin{warning} ... \end{warning}
+%%    \begin{intuition} ... \end{intuition}
+%%    \begin{history}{عنوان} ... \end{history}
+%%    \begin{keyformula} ... \end{keyformula}
+%%  آرگومان اختیاری اول در باکس‌های شماره‌دار برای برچسب است:
+%%    \begin{theorem}[label=thm:bayes]{قضیهٔ بیز} ... \end{theorem}
+%%  و ارجاع با \ref{thm:bayes}
+%%
+%%  نکتهٔ فنی (راست‌به‌چپ): هر جا متنِ رنگی یا یک tikz «اولِ پاراگراف» می‌آید،
+%%  قبلش \leavevmode لازم است؛ وگرنه رنگ به بقیهٔ پاراگراف نشت می‌کند
+%%  یا ترتیب کلمات برعکس می‌شود.
+%% ------------------------------------------------------------
+
+% ---------- آیکن کوچک دایره‌ای ----------
+\newcommand{\boxicon}[2]{% #1 رنگ, #2 نماد
+  \lr{\tikz[baseline=-0.65ex]\node[circle,fill=#1,text=white,inner sep=0pt,
+        minimum size=1.3em,font=\footnotesize\bfseries]{#2};}}
+
+% عنوان باکس: «نوع شماره | عنوان»
+\newcommand{\boxtitle}[2]{#1 \thetcbcounter\if\relax\detokenize{#2}\relax\else\ \textbar\ #2\fi}
+
+\tcbset{
+  basebox/.style={
+    enhanced, breakable, arc=3pt, outer arc=3pt,
+    left=9pt, right=11pt, top=7pt, bottom=7pt,
+    before skip=12pt, after skip=12pt,
+    fonttitle=\semifont, pad at break*=3mm,
+  },
+}
+
+% ---------- تعریف ----------
+\newtcolorbox[auto counter, number within=chapter]{definition}[2][]{%
+  basebox,
+  colback=defbg, colframe=defcolor!70, boxrule=0.6pt,
+  borderline east={3.5pt}{0pt}{defcolor},
+  top=14pt,
+  attach boxed title to top right={xshift=-14pt, yshift*=-\tcboxedtitleheight/2},
+  boxed title style={colback=defcolor, colframe=defcolor, arc=2.5pt, boxrule=0pt,
+                     left=7pt, right=7pt, top=1.5pt, bottom=1.5pt},
+  coltitle=white,
+  title={\boxtitle{تعریف}{#2}},
+  #1}
+
+% ---------- قضیه و خانواده‌اش ----------
+\tcbset{
+  thmstyle/.style={
+    basebox,
+    colback=thmbg, colframe=#1, colbacktitle=#1, coltitle=white,
+    boxrule=0.6pt, titlerule=0pt,
+    borderline east={3.5pt}{0pt}{#1},
+    toptitle=2.5pt, bottomtitle=2.5pt,
+  },
+}
+\newtcolorbox[use counter from=definition]{theorem}[2][]{%
+  thmstyle=thmcolor, title={\boxtitle{قضیه}{#2}}, #1}
+\newtcolorbox[use counter from=definition]{lemma}[2][]{%
+  thmstyle=thmcolor!80!white, title={\boxtitle{لم}{#2}}, #1}
+\newtcolorbox[use counter from=definition]{proposition}[2][]{%
+  thmstyle=thmcolor!80!white, title={\boxtitle{گزاره}{#2}}, #1}
+\newtcolorbox[use counter from=definition]{corollary}[2][]{%
+  thmstyle=thmcolor!62!white, title={\boxtitle{نتیجه}{#2}}, #1}
+
+% ---------- اثبات ----------
+\newtcolorbox{proof}[1][]{%
+  enhanced, breakable, frame hidden, interior hidden,
+  borderline east={1.4pt}{0pt}{proofcolor!70},
+  left=0pt, right=11pt, top=2pt, bottom=2pt,
+  before skip=6pt, after skip=10pt,
+  before upper={\leavevmode{\semifont\color{proofcolor!55!black}اثبات.}\ },
+  after upper={\hfill{\color{proofcolor}$\blacksquare$}},
+  #1}
+
+% ---------- مثال ----------
+\newtcolorbox[auto counter, number within=chapter]{example}[2][]{%
+  basebox,
+  colback=exbg, frame hidden,
+  borderline east={3.5pt}{0pt}{excolor},
+  sharp corners=east,
+  before upper={\leavevmode{\semifont\color{excolor}\boxtitle{مثال}{#2}}\quad},
+  #1}
+
+\newenvironment{solution}{%
+  \par\vspace{3pt}%
+  \noindent\tikz\draw[excolor!45, line width=0.6pt, dash pattern=on 3pt off 2.5pt]
+      (0,0) -- (\linewidth,0);\par
+  \vspace{1pt}\leavevmode{\semifont\color{solcolor}پاسخ.}\ }{\par}
+
+% ---------- نکته، شهود، هشدار، تاریخچه ----------
+\newtcolorbox{note}[1][]{%
+  basebox, colback=notebg, frame hidden,
+  borderline east={3pt}{0pt}{notecolor}, sharp corners=east,
+  before upper={\leavevmode\boxicon{notecolor}{!}\ {\semifont\color{notecolor!85!black}نکته.}\ },
+  #1}
+\newtcolorbox{intuition}[1][]{%
+  basebox, colback=primarylight, frame hidden,
+  borderline east={3pt}{0pt}{primary}, sharp corners=east,
+  before upper={\leavevmode\boxicon{primary}{?}\ {\semifont\color{primary}شهود.}\ },
+  #1}
+\newtcolorbox{warning}[1][]{%
+  basebox, colback=warnbg, frame hidden,
+  borderline east={3pt}{0pt}{warncolor}, sharp corners=east,
+  before upper={\leavevmode\boxicon{warncolor}{$\times$}\ {\semifont\color{warncolor}اشتباه رایج.}\ },
+  #1}
+\newtcolorbox{history}[2][]{%
+  basebox, colback=histbg, colframe=histcolor!45, boxrule=0.5pt,
+  borderline east={3pt}{0pt}{histcolor},
+  before upper={\leavevmode\boxicon{histcolor}{$\mathcal{H}$}\ {\semifont\color{histcolor}گوشهٔ تاریخ%
+      \if\relax\detokenize{#2}\relax\else\ \textbar\ #2\fi}\par\smallskip},
+  #1}
+
+% ---------- فرمول کلیدی ----------
+\newtcolorbox{keyformula}[1][]{%
+  enhanced, colback=white, colframe=accent, boxrule=1pt, arc=4pt,
+  left=12pt, right=12pt, top=0pt, bottom=4pt,
+  before skip=10pt, after skip=10pt,
+  width=0.86\linewidth, center,
+  #1}
+
+% ---------- کارت شروع جلسه ----------
+% \sessioncard{تاریخ}{موضوع طبق سیلابس}{منابع}{اهداف (به صورت itemize)}
+\newcommand{\sessioncard}[4]{%
+  \begin{tcolorbox}[enhanced, colback=primarylight, frame hidden, arc=4pt,
+      left=12pt, right=12pt, top=9pt, bottom=9pt, before skip=4pt, after skip=16pt,
+      borderline north={2.5pt}{0pt}{accent}]
+    \begin{tabularx}{\linewidth}{@{}>{\semifont\color{primary}}l X@{}}
+      تاریخ جلسه: & #1\\[3pt]
+      موضوع در سیلابس: & #2\\[3pt]
+      منابع این جلسه: & #3
+    \end{tabularx}
+    \par\medskip
+    \leavevmode{\semifont\color{primary}در پایان این جلسه باید بتوانید:}
+    #4
+  \end{tcolorbox}}
+
+% ---------- خلاصهٔ جلسه ----------
+\newtcolorbox{summary}[1][]{%
+  enhanced, breakable, colback=sumbg, colframe=sumcolor, boxrule=0.8pt, arc=4pt,
+  left=11pt, right=11pt, top=8pt, bottom=8pt, before skip=14pt,
+  colbacktitle=sumcolor, coltitle=white, fonttitle=\headfont\large,
+  title={\leavevmode\boxicon{accent}{$\Sigma$}\ \ خلاصهٔ جلسه}, #1}
+
+% ---------- تمرین ----------
+\newcounter{exercise}[chapter]
+\renewcommand{\theexercise}{\thechapter.\arabic{exercise}}
+\newenvironment{exercise}[1][]{%
+  \refstepcounter{exercise}\par\medskip
+  \noindent\leavevmode{\semifont\color{exercolor}\tikz[baseline=(n.base)]\node[fill=exercolor!10,
+     draw=exercolor!45, rounded corners=2pt, inner sep=2.5pt](n)
+     {\rl{تمرین \theexercise}};}%
+  \if\relax\detokenize{#1}\relax\else\ {\color{graytext}(#1)}\fi\ }{\par}
+\newcommand{\hard}{{\color{warncolor}$\bigstar$}}   % نشانهٔ تمرین دشوارتر
+\newcommand{\answer}[1]{\par\leavevmode{\small\color{graytext}{\semifont جواب:} #1}}
+
+% ---------- زیرنویس شکل (شماره‌گذاری خودکار با شمارندهٔ figure) ----------
+% استفاده: \figcaption[fig:label]{متن زیرنویس}   و ارجاع با \ref{fig:label}
+\newcommand{\figcaption}[2][]{%
+  \par\refstepcounter{figure}%
+  \if\relax\detokenize{#1}\relax\else\label{#1}\fi
+  \leavevmode{\small\color{graytext}{\semifont شکل \thefigure:}\ #2}\par}
+
+% ---------- بیشتر بدانید (مطالب تکمیلی، خارج از امتحان) ----------
+% استفاده: \begin{moreinfo}{عنوان} ... \end{moreinfo}
+\definecolor{morecolor}{HTML}{2E7D8C}
+\definecolor{morebg}{HTML}{EDF6F8}
+\newtcolorbox{moreinfo}[2][]{%
+  basebox, colback=morebg, colframe=morecolor!55, boxrule=0.6pt,
+  borderline east={3.5pt}{0pt}{morecolor},
+  top=14pt,
+  attach boxed title to top right={xshift=-14pt, yshift*=-\tcboxedtitleheight/2},
+  boxed title style={colback=morecolor, colframe=morecolor, arc=2.5pt, boxrule=0pt,
+                     left=7pt, right=7pt, top=1.5pt, bottom=1.5pt},
+  coltitle=white,
+  title={بیشتر بدانید\if\relax\detokenize{#2}\relax\else\ \textbar\ #2\fi},
+  #1}
+
+% محیط شکل: شکل و زیرنویسش را در یک صفحه نگه می‌دارد (بدون شناور شدن)
+\newenvironment{figblock}{\par\medskip\noindent\begin{minipage}{\linewidth}\centering}{\end{minipage}\par\medskip}

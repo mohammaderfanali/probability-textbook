@@ -1,0 +1,35 @@
+%% ============================================================
+%%  جزوهٔ جلسهٔ ۵ (مستقل)
+%%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase05
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+\input{config/packages}
+\input{config/fonts}
+\input{config/colors}
+\input{config/layout}
+\input{config/boxes}
+\input{config/macros}
+\input{frontmatter/session-cover}
+
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\hypersetup{pdftitle={Probability and Statistics - Session 5}}
+
+\begin{document}
+
+\sessioncover{۵}{متغیر تصادفی و توزیع‌های گسسته}{شنبه ۱۸ مهر ۱۴۰۵}
+  {{متغیر تصادفی: تابعی از فضای نمونه به اعداد حقیقی},
+   {تابع جرم احتمال \lr{(PMF)} و خواص آن},
+   {تابع توزیع تجمعی \lr{(CDF)}},
+   {توزیع‌های برنولی و دوجمله‌ای},
+   {متغیر تصادفی نشانگر و جبر نشانگرها}}
+
+\mainmatter
+\setcounter{chapter}{4}   % تا شماره‌گذاری‌ها «۵.x» باشد
+\input{sessions/session05}
+
+\end{document}

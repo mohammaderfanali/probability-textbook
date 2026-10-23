@@ -1,0 +1,36 @@
+%% ============================================================
+%%  جزوهٔ جلسهٔ ۸ (مستقل)
+%%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase08
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+\input{config/packages}
+\input{config/fonts}
+\input{config/colors}
+\input{config/layout}
+\input{config/boxes}
+\input{config/macros}
+\input{frontmatter/session-cover}
+
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\hypersetup{pdftitle={Probability and Statistics - Session 8}}
+
+\begin{document}
+
+\sessioncover{۸}{نمایی، گاوسی و چند توزیع دیگر}{دوشنبه ۲۷ مهر ۱۴۰۵}
+  {{توزیع نمایی و بی‌حافظگی آن},
+   {توزیع گاوسی: چرا مساحت زیر زنگوله یک است},
+   {تابع $\Phi$ و استانداردسازی},
+   {توزیع لاپلاس: نمایی دوطرفه},
+   {توزیع کوشی: شبیه گاوسی ولی با \lr{heavy tail}},
+   {مقایسهٔ \lr{tail} توزیع‌ها: \lr{light tail} و \lr{heavy tail}}}
+
+\mainmatter
+\setcounter{chapter}{7}   % تا شماره‌گذاری‌ها «۸.x» باشد
+\input{sessions/session08}
+
+\end{document}

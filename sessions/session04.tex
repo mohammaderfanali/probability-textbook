@@ -1,0 +1,688 @@
+% !TEX root = ../jalase04.tex
+%% ============================================================
+%%  جلسهٔ ۴ — احتمال شرطی، قضیهٔ بیز، استقلال و استقلال شرطی
+%% ============================================================
+\chapter{احتمال شرطی، قضیهٔ بیز و استقلال}
+\label{ch:s4}
+
+\sessioncard{دوشنبه ۱۳ مهر}
+{احتمال شرطی، قانون احتمال کل و بیز؛ قانون زنجیره‌ای، استقلال آماری و استقلال شرطی}
+{\lr{Pishro-Nik} بخش \lr{1.4} \,؛\, \lr{Ross} فصل ۳ \,؛\, \lr{Bertsekas} بخش‌های \lr{1.3} تا \lr{1.5}}
+{\begin{itemize}
+  \item احتمال شرطی را تعریف کنید و ثابت کنید $\P(\cdot\mid B)$ خودش یک قانون احتمال است؛
+  \item با قاعدهٔ ضرب، قاعدهٔ زنجیره‌ای و نمودار درختی احتمال پیشامدهای چندمرحله‌ای را حساب کنید؛
+  \item قانون احتمال کل و قضیهٔ بیز را اثبات و به کار ببرید و از خطای نرخ پایه پرهیز کنید؛
+  \item استقلال دو و چند پیشامد را تعریف کنید و «مجزا» را با «مستقل» اشتباه نگیرید؛
+  \item استقلال شرطی را تعریف کنید و نشان دهید استقلال و استقلال شرطی هیچ‌کدام دیگری را نتیجه نمی‌دهند.
+\end{itemize}}
+
+%% ------------------------------------------------------------
+\section{انگیزه: اطلاعات جدید، احتمال را تغییر می‌دهد}
+%% ------------------------------------------------------------
+
+تا اینجا احتمال پیشامدها را \emph{پیش از} انجام آزمایش حساب می‌کردیم. اما اغلب \emph{اطلاعاتی جزئی} از نتیجه به دست می‌آوریم و باید باورمان را به‌روز کنیم:
+\begin{itemize}
+  \item پزشک می‌داند آزمایش خون بیمار مثبت شده؛ احتمال بیماری حالا چقدر است؟
+  \item گیرنده سیگنال «۱» را دریافت کرده؛ احتمال اینکه واقعاً «۱» ارسال شده باشد چقدر است؟
+  \item فیلتر هرزنامه می‌بیند ایمیل شامل کلمهٔ «رایگان» است؛ احتمال هرزنامه بودنش چقدر است؟
+\end{itemize}
+
+\begin{example}{تاس و اطلاعات جزئی}
+تاس سالمی پرتاب می‌شود و به ما می‌گویند «عدد زوج آمده است». احتمال اینکه عدد ۶ آمده باشد چقدر است؟
+\begin{solution}
+بدون اطلاعات، $\P(\{6\})=1/6$. اما حالا می‌دانیم برآمد در $B=\{2,4,6\}$ است. این سه برآمد پیش از اطلاع هم‌شانس بودند و اطلاع جدید هیچ‌کدام را بر دیگری ترجیح نمی‌دهد؛ پس طبیعی است احتمال هر کدام را $1/3$ بدانیم. احتمال ۶ «به شرط» زوج بودن برابر $1/3$ است: اطلاعات جدید احتمال را دو برابر کرد.
+\end{solution}
+\end{example}
+
+\subsection{توجیه با فراوانی نسبی}
+
+آزمایش را $n$ بار تکرار کنید. فرض کنید $B$ در $n_B$ بار و $A\cap B$ در $n_{AB}$ بار رخ داده باشد. اگر فقط به آزمایش‌هایی نگاه کنیم که در آن‌ها $B$ رخ داده، کسری از آن‌ها که $A$ هم رخ داده برابر است با
+\[
+\frac{n_{AB}}{n_B}=\frac{n_{AB}/n}{n_B/n}\ \xrightarrow{\ n\to\infty\ }\ \frac{\P(A\cap B)}{\P(B)}.
+\]
+این دقیقاً تعریف احتمال شرطی است.
+
+\begin{figblock}
+\begin{tikzpicture}[scale=0.85]
+  % panel 1
+  \draw[graytext, thick, rounded corners=5pt] (-2,-1.5) rectangle (3.2,1.5);
+  \fill[setA, opacity=0.25] (0,0) circle (1.1);
+  \fill[setB, opacity=0.30] (1.3,0) circle (1.1);
+  \draw[setA!80!black, thick] (0,0) circle (1.1);
+  \draw[setB!80!black, thick] (1.3,0) circle (1.1);
+  \node at (-0.45,0.2) {$A$}; \node at (1.85,0.2) {$B$};
+  \node at (2.9,1.2) {$\Omega$};
+  \node[font=\small] at (0.6,-1.95) {\rl{پیش از اطلاع: کل $\Omega$}};
+  % arrow
+  \draw[-{Stealth[length=3mm]}, line width=1.1pt, accent] (3.6,0) -- node[above, font=\small]{\rl{$B$ رخ داد}} (5.4,0);
+  % panel 2
+  \begin{scope}[xshift=7.4cm]
+    \draw[graytext!40, thick, dashed, rounded corners=5pt] (-2,-1.5) rectangle (3.2,1.5);
+    \begin{scope}
+      \clip (1.3,0) circle (1.1);
+      \fill[setA!70] (0,0) circle (1.1);
+    \end{scope}
+    \draw[setA!40, thick, dashed] (0,0) circle (1.1);
+    \draw[setB!80!black, line width=1.6pt] (1.3,0) circle (1.1);
+    \node[font=\scriptsize] at (0.62,0) {$A\!\cap\! B$};
+    \node at (2.05,0.35) {$B$};
+    \node[font=\small] at (0.6,-1.95) {\rl{پس از اطلاع: $B$ فضای نمونهٔ جدید است}};
+  \end{scope}
+\end{tikzpicture}
+
+\figcaption[fig:cond-venn]{شرط کردن روی $B$ یعنی «کوچک کردن» فضای نمونه به $B$ و مقیاس کردن دوبارهٔ احتمال‌ها.}
+\end{figblock}
+
+%% ------------------------------------------------------------
+\section{تعریف و خواص احتمال شرطی}
+%% ------------------------------------------------------------
+
+\begin{definition}[label=def:cond]{احتمال شرطی}
+فرض کنید $B$ پیشامدی با $\P(B)>0$ باشد. \term{احتمال شرطیِ}{conditional probability} $A$ به شرط $B$ (یا «به شرط اینکه $B$ رخ داده باشد») عبارت است از
+\[ \P(A\mid B)\defeq\frac{\P(A\cap B)}{\P(B)}. \]
+\end{definition}
+
+\begin{keyformula}
+\[ \P(A\mid B)=\frac{\P(A\cap B)}{\P(B)},\qquad \P(B)>0 \]
+\end{keyformula}
+
+\begin{proposition}[label=prop:cond-uniform]{شرط کردن در مدل هم‌شانس}
+اگر $\Omega$ متناهی و برآمدها هم‌شانس باشند، آنگاه
+\[ \P(A\mid B)=\frac{|A\cap B|}{|B|}. \]
+یعنی به شرط $B$، برآمدهای داخل $B$ همچنان هم‌شانس‌اند و $B$ نقش فضای نمونهٔ جدید را دارد.
+\end{proposition}
+
+\begin{proof}
+$\P(A\mid B)=\dfrac{|A\cap B|/|\Omega|}{|B|/|\Omega|}=\dfrac{|A\cap B|}{|B|}$.
+\end{proof}
+
+\begin{example}[label=ex:two-children]{معمای دو فرزند}
+خانواده‌ای دو فرزند دارد. فرض کنید چهار حالت $\Omega=\{bb,bg,gb,gg\}$ (حرف اول: فرزند بزرگ‌تر؛ $b$ پسر، $g$ دختر) هم‌شانس باشند.
+(الف) اگر بدانیم \emph{دست‌کم یکی} از فرزندان پسر است، احتمال اینکه هر دو پسر باشند چقدر است؟
+(ب) اگر بدانیم فرزند \emph{بزرگ‌تر} پسر است چطور؟
+\begin{solution}
+(الف) $B=\{bb,bg,gb\}$ و $A\cap B=\{bb\}$؛ پس $\P(A\mid B)=1/3$.\\
+(ب) $B'=\{bb,bg\}$ و $A\cap B'=\{bb\}$؛ پس $\P(A\mid B')=1/2$.\\
+جالب است که دو اطلاعِ به‌ظاهر مشابه، جواب‌های متفاوتی می‌دهند. دلیلش این است که «دست‌کم یکی پسر است» فقط حالت $gg$ را حذف می‌کند، در حالی که «بزرگ‌تر پسر است» دو حالت $gb$ و $gg$ را حذف می‌کند. \key{آنچه دقیقاً می‌دانیم} مهم است.
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:table]{جدول توأم: سیگار و بیماری ریوی}
+در یک جمعیت، نسبت افراد در هر گروه به این صورت است:
+\begin{center}
+\renewcommand{\arraystretch}{1.3}
+\begin{tabular}{l|cc|c}
+ & سیگاری ($S$) & غیرسیگاری ($S^c$) & جمع\\\hline
+بیماری ریوی ($D$) & $0.09$ & $0.01$ & $0.10$\\
+سالم ($D^c$) & $0.17$ & $0.73$ & $0.90$\\\hline
+جمع & $0.26$ & $0.74$ & $1$
+\end{tabular}
+\end{center}
+احتمال بیماری در سیگاری‌ها و غیرسیگاری‌ها را مقایسه کنید.
+\begin{solution}
+جمع سطرها و ستون‌ها احتمال‌های «حاشیه‌ای» را می‌دهند: $\P(D)=0.10$ و $\P(S)=0.26$. آنگاه
+\[ \P(D\mid S)=\frac{0.09}{0.26}\approx0.346,\qquad \P(D\mid S^c)=\frac{0.01}{0.74}\approx0.0135. \]
+احتمال بیماری در سیگاری‌ها حدود ۲۵ برابر غیرسیگاری‌هاست. همچنین $\P(S\mid D)=0.09/0.10=0.9$: ۹۰٪ بیماران سیگاری‌اند. توجه کنید $\P(D\mid S)\ne\P(S\mid D)$.
+\end{solution}
+\end{example}
+
+\subsection{احتمال شرطی یک قانون احتمال است}
+
+\begin{theorem}[label=thm:cond-is-prob]{احتمال شرطی، یک قانون احتمال}
+اگر $\P(B)>0$، آنگاه تابع $Q(A)\defeq\P(A\mid B)$ روی $\F$ سه اصل کولموگروف را برآورده می‌کند. به علاوه $Q(B)=1$ و $Q(B^c)=0$.
+\end{theorem}
+
+\begin{proof}
+\textbf{اصل ۱:} $Q(A)=\P(A\cap B)/\P(B)\ge0$ چون صورت نامنفی و مخرج مثبت است.\\
+\textbf{اصل ۲:} $Q(\Omega)=\P(\Omega\cap B)/\P(B)=\P(B)/\P(B)=1$.\\
+\textbf{اصل ۳:} اگر $A_1,A_2,\dots$ دوبه‌دو مجزا باشند، $A_i\cap B$ها هم دوبه‌دو مجزا هستند و طبق توزیع‌پذیری $\bigl(\bigcup_iA_i\bigr)\cap B=\bigcup_i(A_i\cap B)$. پس
+\[ Q\Bigl(\bigcup_iA_i\Bigr)=\frac{\P\bigl(\bigcup_i(A_i\cap B)\bigr)}{\P(B)}=\frac{\sum_i\P(A_i\cap B)}{\P(B)}=\sum_iQ(A_i). \]
+در نهایت $Q(B)=\P(B)/\P(B)=1$ و $Q(B^c)=\P(\varnothing)/\P(B)=0$.
+\end{proof}
+
+\begin{corollary}[label=cor:cond-props]{}
+همهٔ قضیه‌های جلسهٔ ۲ برای احتمال شرطی (با شرط ثابت $B$) هم برقرارند؛ از جمله:
+\[ \P(A^c\mid B)=1-\P(A\mid B),\qquad \P(A_1\cup A_2\mid B)=\P(A_1\mid B)+\P(A_2\mid B)-\P(A_1\cap A_2\mid B), \]
+و کران اجتماع $\P\bigl(\bigcup_iA_i\mid B\bigr)\le\sum_i\P(A_i\mid B)$.
+\end{corollary}
+
+\begin{warning}
+دو اشتباه بسیار رایج:
+\begin{enumerate}
+  \item \textbf{متمم گرفتن از شرط:} به طور کلی $\P(A\mid B^c)\ne1-\P(A\mid B)$. قاعدهٔ متمم فقط برای پیشامدِ \emph{سمت چپ} خط عمودی کار می‌کند. در مثال \ref{ex:table}: $\P(D\mid S)=0.346$ ولی $\P(D\mid S^c)=0.0135\ne0.654$.
+  \item \textbf{جابه‌جا کردن شرط:} به طور کلی $\P(A\mid B)\ne\P(B\mid A)$. «بیشتر بیماران ریوی سیگاری‌اند» ($\P(S\mid D)=0.9$) با «بیشتر سیگاری‌ها بیمار ریوی‌اند» کاملاً فرق دارد ($\P(D\mid S)=0.35$). ارتباط این دو را قضیهٔ بیز مشخص می‌کند.
+\end{enumerate}
+\end{warning}
+
+\begin{proposition}{چند حالت خاص}
+فرض کنید $\P(B)>0$.
+\begin{enumerate}
+  \item اگر $B\subseteq A$ آنگاه $\P(A\mid B)=1$ \ (اگر $B$ رخ دهد، $A$ حتماً رخ داده).
+  \item اگر $A\cap B=\varnothing$ آنگاه $\P(A\mid B)=0$.
+  \item اگر $A\subseteq B$ آنگاه $\P(A\mid B)=\P(A)/\P(B)\ge\P(A)$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(۱) $A\cap B=B$. \ (۲) $\P(A\cap B)=\P(\varnothing)=0$. \ (۳) $A\cap B=A$ و $\P(B)\le1$.
+\end{proof}
+
+%% ------------------------------------------------------------
+\section{قاعدهٔ ضرب و نمودار درختی}
+%% ------------------------------------------------------------
+
+در بسیاری از مسائل، احتمال شرطی را مستقیماً از صورت مسئله \emph{می‌دانیم} (مثلاً «اگر مهرهٔ اول قرمز باشد، ۴ قرمز از ۱۱ مهره باقی می‌ماند») و می‌خواهیم احتمال اشتراک را حساب کنیم. کافی است تعریف را برعکس بخوانیم:
+
+\begin{theorem}[label=thm:mult-rule]{قاعدهٔ ضرب}
+اگر $\P(A)>0$ و $\P(B)>0$، آنگاه
+\[ \P(A\cap B)=\P(B)\,\P(A\mid B)=\P(A)\,\P(B\mid A). \]
+\end{theorem}
+
+\begin{proof}
+مستقیماً از تعریف احتمال شرطی، با ضرب طرفین در $\P(B)$ (یا با جابه‌جا کردن نقش $A$ و $B$).
+\end{proof}
+
+\begin{theorem}[label=thm:chain]{قاعدهٔ زنجیره‌ای}
+برای پیشامدهای $A_1,\dots,A_n$ با $\P(A_1\cap\cdots\cap A_{n-1})>0$:
+\[ \P(A_1\cap A_2\cap\cdots\cap A_n)=\P(A_1)\,\P(A_2\mid A_1)\,\P(A_3\mid A_1\cap A_2)\cdots\P(A_n\mid A_1\cap\cdots\cap A_{n-1}). \]
+\end{theorem}
+
+\begin{proof}
+چون $A_1\cap\cdots\cap A_k\supseteq A_1\cap\cdots\cap A_{n-1}$، طبق یکنوایی همهٔ شرط‌ها احتمال مثبت دارند. طبق تعریف احتمال شرطی، طرف راست برابر است با
+\[ \P(A_1)\cdot\frac{\P(A_1\cap A_2)}{\P(A_1)}\cdot\frac{\P(A_1\cap A_2\cap A_3)}{\P(A_1\cap A_2)}\cdots\frac{\P(A_1\cap\cdots\cap A_n)}{\P(A_1\cap\cdots\cap A_{n-1})}, \]
+که به صورت «تلسکوپی» ساده می‌شود و فقط $\P(A_1\cap\cdots\cap A_n)$ باقی می‌ماند.
+\end{proof}
+
+\begin{example}{دو مهره بدون جایگذاری}
+ظرفی ۵ مهرهٔ قرمز و ۷ مهرهٔ آبی دارد. دو مهره پشت سر هم و بدون جایگذاری برمی‌داریم. احتمال اینکه اولی قرمز و دومی آبی باشد چقدر است؟ احتمال اینکه هر دو هم‌رنگ باشند چطور؟
+\begin{solution}
+فرض کنید $R_i$ پیشامد «مهرهٔ $i$-ام قرمز» و $U_i$ «مهرهٔ $i$-ام آبی» باشد. طبق قاعدهٔ ضرب:
+\[ \P(R_1\cap U_2)=\P(R_1)\,\P(U_2\mid R_1)=\frac5{12}\cdot\frac7{11}=\frac{35}{132}. \]
+برای هم‌رنگی (دو حالت مجزا):
+$\P(R_1R_2)+\P(U_1U_2)=\frac5{12}\cdot\frac4{11}+\frac7{12}\cdot\frac6{11}=\frac{20+42}{132}=\frac{31}{66}$.
+(با شمارش مستقیم هم $\bigl[\binom52+\binom72\bigr]/\binom{12}2=31/66$ به دست می‌آید.)
+\end{solution}
+\end{example}
+
+\begin{figblock}
+\begin{tikzpicture}[
+  grow=right, level distance=3.1cm,
+  level 1/.style={sibling distance=2.5cm},
+  level 2/.style={sibling distance=1.15cm},
+  every node/.style={font=\small},
+  root/.style={circle, fill=primary, inner sep=2pt},
+  st/.style={draw=primary!60, fill=primarylight, rounded corners=2pt, inner sep=3pt},
+  edge from parent/.style={draw=primary!55, thick},
+  lab/.style={font=\scriptsize, fill=white, inner sep=1pt}]
+  \node[root] {}
+    child { node[st] {$U_1$}
+      child { node[st] (uu) {$U_2$} edge from parent node[lab, below] {$\frac{6}{11}$} }
+      child { node[st] (ur) {$R_2$} edge from parent node[lab, above] {$\frac{5}{11}$} }
+      edge from parent node[lab, below] {$\frac{7}{12}$} }
+    child { node[st] {$R_1$}
+      child { node[st] (ru) {$U_2$} edge from parent node[lab, below] {$\frac{7}{11}$} }
+      child { node[st] (rr) {$R_2$} edge from parent node[lab, above] {$\frac{4}{11}$} }
+      edge from parent node[lab, above] {$\frac{5}{12}$} };
+  \node[anchor=west, font=\small] at ([xshift=4mm]rr.east) {$\frac5{12}\cdot\frac4{11}=\frac{20}{132}$};
+  \node[anchor=west, font=\small, accent!80!black] at ([xshift=4mm]ru.east) {$\frac5{12}\cdot\frac7{11}=\frac{35}{132}$};
+  \node[anchor=west, font=\small] at ([xshift=4mm]ur.east) {$\frac7{12}\cdot\frac5{11}=\frac{35}{132}$};
+  \node[anchor=west, font=\small] at ([xshift=4mm]uu.east) {$\frac7{12}\cdot\frac6{11}=\frac{42}{132}$};
+\end{tikzpicture}
+
+\figcaption[fig:tree-mult]{نمودار درختی. روی هر شاخه احتمال شرطیِ آن گام نوشته می‌شود؛ احتمال هر مسیر حاصل‌ضرب احتمال‌های روی آن است.}
+\end{figblock}
+
+\begin{intuition}
+در نمودار درختی: (۱) احتمال شاخه‌هایی که از یک گره خارج می‌شوند جمعشان ۱ است (قضیهٔ \ref{thm:cond-is-prob})؛ (۲) احتمال هر مسیر، حاصل‌ضرب احتمال‌های روی آن است (قاعدهٔ ضرب)؛ (۳) احتمال یک پیشامد، جمع احتمال مسیرهایی است که به آن ختم می‌شوند. قاعدهٔ سوم همان \emph{قانون احتمال کل} است که در ادامه ثابت می‌کنیم.
+\end{intuition}
+
+%% ------------------------------------------------------------
+\section{قانون احتمال کل}
+%% ------------------------------------------------------------
+
+ایدهٔ اصلی «\key{تقسیم به حالت‌ها}» است: اگر محاسبهٔ $\P(A)$ مستقیماً دشوار باشد ولی بدانیم در هر «حالت» $B_i$ احتمال $A$ چقدر است، کافی است نتایج حالت‌ها را با وزن احتمال هر حالت جمع کنیم.
+
+\begin{theorem}[label=thm:total-prob]{قانون احتمال کل}
+فرض کنید $B_1,B_2,\dots$ (متناهی یا شمارا) افرازی از $\Omega$ باشد و $\P(B_i)>0$ برای هر $i$. آنگاه برای هر پیشامد $A$:
+\[ \P(A)=\sum_i\P(A\cap B_i)=\sum_i\P(A\mid B_i)\,\P(B_i). \]
+به‌ویژه برای هر $B$ با $0<\P(B)<1$:
+\[ \P(A)=\P(A\mid B)\,\P(B)+\P(A\mid B^c)\,\P(B^c). \]
+\end{theorem}
+
+\begin{proof}
+طبق قضیهٔ «شکستن مجموعه با افراز» (جلسهٔ ۱)، $A=\bigcup_i(A\cap B_i)$ و این مجموعه‌ها دوبه‌دو مجزا هستند. طبق اصل ۳ (یا جمع‌پذیری متناهی) $\P(A)=\sum_i\P(A\cap B_i)$، و طبق قاعدهٔ ضرب $\P(A\cap B_i)=\P(A\mid B_i)\P(B_i)$. حالت خاص از افراز $\{B,B^c\}$ به دست می‌آید.
+\end{proof}
+
+\begin{keyformula}
+\[ \P(A)=\sum_i\P(A\mid B_i)\,\P(B_i)\qquad\text{(\rl{میانگین وزن‌دارِ احتمال‌های شرطی})} \]
+\end{keyformula}
+
+\begin{figblock}
+\begin{tikzpicture}[
+  grow=right, level distance=3.3cm,
+  level 1/.style={sibling distance=1.9cm},
+  level 2/.style={sibling distance=0.8cm},
+  every node/.style={font=\small},
+  root/.style={circle, fill=primary, inner sep=2pt},
+  st/.style={draw=primary!60, fill=primarylight, rounded corners=2pt, inner sep=3pt},
+  ev/.style={draw=accent, fill=notebg, rounded corners=2pt, inner sep=2.5pt},
+  edge from parent/.style={draw=primary!55, thick},
+  lab/.style={font=\scriptsize, fill=white, inner sep=1pt}]
+  \node[root] {}
+    child { node[st] {$B_3$}
+      child { node[font=\scriptsize, graytext] {$A^c$} edge from parent node[lab, below] {} }
+      child { node[ev] (a3) {$A$} edge from parent node[lab, above] {$\P(A|B_3)$} }
+      edge from parent node[lab, below] {$\P(B_3)$} }
+    child { node[st] {$B_2$}
+      child { node[font=\scriptsize, graytext] {$A^c$} edge from parent node[lab, below] {} }
+      child { node[ev] (a2) {$A$} edge from parent node[lab, above] {$\P(A|B_2)$} }
+      edge from parent node[lab] {$\P(B_2)$} }
+    child { node[st] {$B_1$}
+      child { node[font=\scriptsize, graytext] {$A^c$} edge from parent node[lab, below] {} }
+      child { node[ev] (a1) {$A$} edge from parent node[lab, above] {$\P(A|B_1)$} }
+      edge from parent node[lab, above] {$\P(B_1)$} };
+  \draw[decorate, decoration={brace, amplitude=6pt}, accent, thick]
+     ([xshift=1.2cm]a1.north east) -- ([xshift=1.2cm]a3.south east)
+     node[midway, right=8pt, font=\small, text=black] {$\P(A)=\sum_i\P(A|B_i)\P(B_i)$};
+\end{tikzpicture}
+
+\figcaption[fig:tree-total]{قانون احتمال کل روی نمودار درختی: جمع احتمال همهٔ مسیرهایی که به $A$ می‌رسند.}
+\end{figblock}
+
+\begin{example}[label=ex:insurance]{شرکت بیمه}
+یک شرکت بیمه رانندگان را دو دسته می‌کند: «پرخطر» (۳۰٪ رانندگان) که در یک سال با احتمال $0.4$ تصادف می‌کنند، و «کم‌خطر» که این احتمال برایشان $0.2$ است. احتمال اینکه یک بیمه‌گذار جدید در سال اول تصادف کند چقدر است؟
+\begin{solution}
+فرض کنید $H$ پیشامد «پرخطر بودن» و $T$ پیشامد «تصادف در سال اول» باشد. طبق قانون احتمال کل:
+\[ \P(T)=\P(T\mid H)\P(H)+\P(T\mid H^c)\P(H^c)=0.4\times0.3+0.2\times0.7=0.26. \]
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:channel]{کانال مخابراتی دودویی}
+فرستنده با احتمال $0.6$ بیت $0$ و با احتمال $0.4$ بیت $1$ ارسال می‌کند. به دلیل نویز، بیت $0$ با احتمال $0.1$ به صورت $1$ و بیت $1$ با احتمال $0.05$ به صورت $0$ دریافت می‌شود. احتمال اینکه گیرنده $1$ دریافت کند چقدر است؟
+\begin{center}
+\begin{tikzpicture}[
+  bit/.style={circle, draw=primary, fill=primarylight, minimum size=8mm, font=\small},
+  arr/.style={-{Stealth[length=2.5mm]}, thick}]
+  \node[bit] (s0) at (0,1.2) {$0$}; \node[bit] (s1) at (0,-1.2) {$1$};
+  \node[bit] (r0) at (5,1.2) {$0$}; \node[bit] (r1) at (5,-1.2) {$1$};
+  \node[font=\small, left=3pt of s0] {$0.6$}; \node[font=\small, left=3pt of s1] {$0.4$};
+  \draw[arr, excolor] (s0) -- node[above, font=\scriptsize]{$0.9$} (r0);
+  \draw[arr, warncolor] (s0) -- node[pos=0.25, above, font=\scriptsize]{$0.1$} (r1);
+  \draw[arr, warncolor] (s1) -- node[pos=0.25, below, font=\scriptsize]{$0.05$} (r0);
+  \draw[arr, excolor] (s1) -- node[below, font=\scriptsize]{$0.95$} (r1);
+  \node[font=\small] at (0,2.2) {\rl{ارسالی}};
+  \node[font=\small] at (5,2.2) {\rl{دریافتی}};
+\end{tikzpicture}
+\end{center}
+\begin{solution}
+با $S_b$ پیشامد «$b$ ارسال شد» و $R_b$ پیشامد «$b$ دریافت شد»:
+\[ \P(R_1)=\P(R_1\mid S_0)\P(S_0)+\P(R_1\mid S_1)\P(S_1)=0.1\times0.6+0.95\times0.4=0.06+0.38=0.44. \]
+\end{solution}
+\end{example}
+
+%% ------------------------------------------------------------
+\section{قضیهٔ بیز}
+%% ------------------------------------------------------------
+
+قانون احتمال کل از «علت‌ها» به «معلول» می‌رود: اگر بدانیم هر علت با چه احتمالی معلول را ایجاد می‌کند، احتمال معلول را حساب می‌کنیم. \emph{قضیهٔ بیز} جهت عکس را می‌رود: \key{معلول را دیده‌ایم؛ احتمال هر علت چقدر است؟}
+
+\begin{theorem}[label=thm:bayes]{قضیهٔ بیز}
+اگر $\P(A)>0$ و $\P(B)>0$ آنگاه
+\[ \P(B\mid A)=\frac{\P(A\mid B)\,\P(B)}{\P(A)}. \]
+به طور کلی‌تر، اگر $B_1,B_2,\dots$ افرازی از $\Omega$ با $\P(B_i)>0$ باشد، آنگاه برای هر $j$:
+\[ \P(B_j\mid A)=\frac{\P(A\mid B_j)\,\P(B_j)}{\sum_i\P(A\mid B_i)\,\P(B_i)}. \]
+\end{theorem}
+
+\begin{proof}
+طبق قاعدهٔ ضرب، $\P(A\cap B)$ را به دو روش می‌نویسیم:
+$\P(A\mid B)\P(B)=\P(A\cap B)=\P(B\mid A)\P(A)$.
+با تقسیم بر $\P(A)$ صورت اول به دست می‌آید. برای صورت دوم، کافی است مخرج را با قانون احتمال کل (قضیهٔ \ref{thm:total-prob}) جایگزین کنیم.
+\end{proof}
+
+\begin{keyformula}
+\[ \underbrace{\P(B_j\mid A)}_{\text{\rl{پسین}}}=\frac{\overbrace{\P(A\mid B_j)}^{\text{\rl{درست‌نمایی}}}\ \overbrace{\P(B_j)}^{\text{\rl{پیشین}}}}{\underbrace{\sum_i\P(A\mid B_i)\P(B_i)}_{\text{\rl{شاهد}}\ \P(A)}} \]
+\end{keyformula}
+
+\begin{definition}{واژگان استنتاج بیزی}
+در قضیهٔ بیز، $B_j$ها را «فرضیه‌ها» یا «علت‌ها» و $A$ را «مشاهده» یا «شاهد» در نظر بگیرید.
+\begin{itemize}
+  \item $\P(B_j)$: \term{احتمال پیشین}{prior}؛ باور ما به فرضیه \emph{پیش از} مشاهده.
+  \item $\P(A\mid B_j)$: \term{درست‌نمایی}{likelihood}؛ اگر فرضیهٔ $B_j$ درست باشد، مشاهدهٔ $A$ چقدر محتمل است.
+  \item $\P(B_j\mid A)$: \term{احتمال پسین}{posterior}؛ باور به‌روزشده \emph{پس از} مشاهده.
+  \item $\P(A)$: \term{شاهد}{evidence}؛ ثابت نرمال‌ساز که کاری می‌کند پسین‌ها جمعشان ۱ شود.
+\end{itemize}
+به بیان خلاصه: «پسین $\propto$ درست‌نمایی $\times$ پیشین».
+\end{definition}
+
+\begin{example}[label=ex:dice-bayes]{تاس سالم یا تاس تقلبی؟}
+دو تاس ظاهراً یکسان داریم: تاس اول سالم است و تاس دوم تقلبی، که عدد ۱ را با احتمال $1/3$ و هر یک از اعداد ۲ تا ۶ را با احتمال $2/15$ نشان می‌دهد. یکی از دو تاس را با احتمال برابر انتخاب و پرتاب می‌کنیم و عدد ۱ می‌آید. احتمال اینکه تاس تقلبی را انتخاب کرده باشیم چقدر است؟
+\begin{solution}
+فرض کنید $T_1$ و $T_2$ پیشامدهای «انتخاب تاس سالم / تقلبی» و $F_1$ پیشامد «آمدن ۱» باشد. پیشین‌ها: $\P(T_1)=\P(T_2)=1/2$. درست‌نمایی‌ها: $\P(F_1\mid T_1)=1/6$ و $\P(F_1\mid T_2)=1/3$. شاهد (قانون احتمال کل):
+\[ \P(F_1)=\frac16\cdot\frac12+\frac13\cdot\frac12=\frac14. \]
+پسین:
+\[ \P(T_2\mid F_1)=\frac{\P(F_1\mid T_2)\P(T_2)}{\P(F_1)}=\frac{\frac13\cdot\frac12}{\frac14}=\frac23>\frac12. \]
+مشاهدهٔ ۱ (که برای تاس تقلبی محتمل‌تر است) باور ما به تقلبی بودن را از $1/2$ به $2/3$ افزایش داد.
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:medical]{آزمایش پزشکی و نرخ پایه}
+یک بیماری در ۱٪ جمعیت وجود دارد. آزمایشی برای آن داریم که:
+\emph{حساسیت} آن ۹۵٪ است ($\P(+\mid D)=0.95$) و \emph{ویژگی} آن هم ۹۵٪ است ($\P(-\mid D^c)=0.95$، یعنی نرخ مثبت کاذب $0.05$).
+آزمایش فردی مثبت شده است. احتمال اینکه واقعاً بیمار باشد چقدر است؟
+\begin{solution}
+طبق بیز:
+\[ \P(D\mid +)=\frac{\P(+\mid D)\P(D)}{\P(+\mid D)\P(D)+\P(+\mid D^c)\P(D^c)}
+=\frac{0.95\times0.01}{0.95\times0.01+0.05\times0.99}=\frac{0.0095}{0.0590}\approx0.161. \]
+\textbf{فقط ۱۶٪!} با وجود آزمایشی که «۹۵٪ دقیق» است، بیشترِ مثبت‌ها کاذب‌اند. دلیلش \emph{نرخ پایهٔ} پایین بیماری است: افراد سالم آن‌قدر زیادند که ۵٪ از آن‌ها از کل بیماران بیشتر می‌شود. با \emph{فراوانی‌های طبیعی} این موضوع روشن‌تر است:
+\begin{center}
+\begin{tikzpicture}[
+  box/.style={draw=#1, fill=#1!10, rounded corners=3pt, minimum width=2.3cm, minimum height=0.8cm, font=\small, align=center},
+  arr/.style={-{Stealth[length=2mm]}, thick, graytext}]
+  \node[box=primary] (all) at (0,0) {\rl{۱۰۰۰۰ نفر}};
+  \node[box=warncolor] (d) at (-3.4,-1.5) {\rl{۱۰۰ بیمار}};
+  \node[box=excolor] (h) at (3.4,-1.5) {\rl{۹۹۰۰ سالم}};
+  \node[box=warncolor] (dp) at (-5,-3) {\rl{۹۵ مثبت}};
+  \node[box=graytext] (dn) at (-1.8,-3) {\rl{۵ منفی}};
+  \node[box=accent] (hp) at (1.8,-3) {\rl{۴۹۵ مثبت}};
+  \node[box=graytext] (hn) at (5,-3) {\rl{۹۴۰۵ منفی}};
+  \draw[arr] (all) -- node[above left, font=\scriptsize]{$1\%$} (d);
+  \draw[arr] (all) -- node[above right, font=\scriptsize]{$99\%$} (h);
+  \draw[arr] (d) -- node[left, font=\scriptsize]{$95\%$} (dp);
+  \draw[arr] (d) -- (dn);
+  \draw[arr] (h) -- node[left, font=\scriptsize]{$5\%$} (hp);
+  \draw[arr] (h) -- (hn);
+  \draw[decorate, decoration={brace, mirror, amplitude=6pt}, accent, thick]
+     ([yshift=-3pt]dp.south west) -- ([yshift=-3pt]hp.south east)
+     node[midway, below=8pt, font=\small, text=black]
+     {\rl{از $95+495=590$ نفرِ مثبت، فقط $95$ نفر بیمارند: $\;95/590\approx0.161$}};
+\end{tikzpicture}
+\end{center}
+\end{solution}
+\end{example}
+
+\begin{note}
+\textbf{به‌روزرسانی پیاپی.} اگر فرد مثبت‌شده آزمایش را تکرار کند و باز هم مثبت شود، پسینِ مرحلهٔ اول ($0.161$) پیشینِ مرحلهٔ دوم می‌شود. با فرض اینکه نتایج دو آزمایش \emph{به شرط وضعیت بیماری} مستقل باشند (مفهوم \emph{استقلال شرطی}، بخش \ref{sec:cond-indep}):
+\[ \P(D\mid ++)=\frac{0.95\times0.161}{0.95\times0.161+0.05\times0.839}\approx0.785. \]
+دو آزمایش مثبت، باور را از ۱٪ به حدود ۷۸٪ می‌رساند. این «یادگیری از داده‌ها»، هستهٔ آمار بیزی و یادگیری ماشین است.
+\end{note}
+
+\subsection{مثال‌های مشهور}
+
+\begin{example}[label=ex:monty]{مسئلهٔ مونتی هال}
+در یک مسابقهٔ تلویزیونی، پشت یکی از سه در یک خودرو و پشت دو در دیگر بز است. شما در ۱ را انتخاب می‌کنید. مجری که می‌داند خودرو کجاست، همیشه یکی از دو در دیگر را که \emph{پشتش بز است} باز می‌کند (اگر هر دو بز داشته باشند، یکی را به تصادف). فرض کنید مجری در ۳ را باز کند. آیا تغییر انتخاب به در ۲ به نفع شماست؟
+\begin{solution}
+$C_i$: «خودرو پشت در $i$» با پیشین $1/3$؛ \ $H_3$: «مجری در ۳ را باز کند». درست‌نمایی‌ها:
+$\P(H_3\mid C_1)=1/2$ (مجری بین ۲ و ۳ تصادفی انتخاب می‌کند)، $\P(H_3\mid C_2)=1$ (مجبور است ۳ را باز کند)، $\P(H_3\mid C_3)=0$. پس
+\[ \P(H_3)=\tfrac13\bigl(\tfrac12+1+0\bigr)=\tfrac12,\qquad
+   \P(C_1\mid H_3)=\frac{\frac13\cdot\frac12}{\frac12}=\frac13,\qquad
+   \P(C_2\mid H_3)=\frac{\frac13\cdot1}{\frac12}=\frac23. \]
+\textbf{تغییر انتخاب احتمال برد را دو برابر می‌کند!} شهود: انتخاب اول شما با احتمال $2/3$ اشتباه است، و در آن حالت مجری با باز کردن تنها درِ بزدار باقی‌مانده، عملاً جای خودرو را به شما نشان می‌دهد.
+(دقت کنید جواب به \emph{رفتار مجری} بستگی دارد؛ مثال \ref{ex:monty-forget} را ببینید.)
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:monty-forget]{مونتی هال فراموشکار}
+در مثال \ref{ex:monty} فرض کنید مجری \emph{نمی‌داند} خودرو کجاست و یکی از دو در دیگر (۲ یا ۳) را \emph{کاملاً تصادفی} باز می‌کند. اگر در ۳ را باز کند و پشتش بز باشد، احتمال برد با تغییر انتخاب چقدر است؟
+\begin{solution}
+مثل قبل $C_i$: «خودرو پشت در $i$» با پیشین $\tfrac13$. این بار مشاهدهٔ ما پیشامد $G_3$ است: «مجری در ۳ را باز کرد \emph{و} پشتش بز بود». درست‌نمایی‌ها:
+\begin{itemize}
+  \item $\P(G_3\mid C_1)=\tfrac12$: مجری با احتمال $\tfrac12$ در ۳ را انتخاب می‌کند و پشتش حتماً بز است.
+  \item $\P(G_3\mid C_2)=\tfrac12$: باز هم با احتمال $\tfrac12$ در ۳ را انتخاب می‌کند و پشتش بز است. (\emph{تفاوت اصلی با مونتی هال معمولی همین‌جاست}: آنجا این احتمال ۱ بود، چون مجری مجبور بود در ۳ را باز کند.)
+  \item $\P(G_3\mid C_3)=0$: اگر خودرو پشت در ۳ بود، با باز کردن آن خودرو پیدا می‌شد، نه بز.
+\end{itemize}
+طبق قانون احتمال کل: $\P(G_3)=\tfrac13\bigl(\tfrac12+\tfrac12+0\bigr)=\tfrac13$؛ و طبق بیز:
+\[ \P(C_1\mid G_3)=\frac{\tfrac13\cdot\tfrac12}{\tfrac13}=\frac12,\qquad \P(C_2\mid G_3)=\frac{\tfrac13\cdot\tfrac12}{\tfrac13}=\frac12. \]
+\textbf{تغییر انتخاب هیچ سودی ندارد} (احتمال برد $\tfrac12$ در هر دو حالت).
+
+\textbf{شهود.} در نسخهٔ معمولی، مجری با دانستن جای خودرو \emph{اطلاعات} به ما می‌دهد: وقتی خودرو پشت در ۲ است، او مجبور است دقیقاً در ۳ را باز کند. در نسخهٔ فراموشکار، بز دیدن پشت در ۳ فقط حالت $C_3$ را حذف می‌کند و دو حالت دیگر را به یک اندازه تأیید می‌کند. \key{اینکه مشاهده «چگونه» تولید شده، جواب را عوض می‌کند.}
+\end{solution}
+\end{example}
+
+\begin{example}{خطای دادستان}
+در یک پرونده، نمونهٔ \lr{DNA} صحنهٔ جرم با \lr{DNA} متهم منطبق است. کارشناس می‌گوید: «احتمال انطباق تصادفی یک فرد بی‌گناه یک در میلیون است.» دادستان نتیجه می‌گیرد: «پس احتمال بی‌گناهی متهم یک در میلیون است.» این استدلال درست است؟
+\begin{solution}
+خیر. کارشناس $\P(M\mid I)=10^{-6}$ را گفته است ($M$: انطباق، $I$: بی‌گناهی)، ولی دادستان آن را با $\P(I\mid M)$ یکی گرفته است: این همان «جابه‌جا کردن شرط» است. فرض کنید متهم از میان جمعیتی ۱۰ میلیونی و بدون هیچ شاهد دیگری انتخاب شده باشد (پیشین گناهکاری $10^{-7}$). آنگاه در این جمعیت انتظار داریم حدود ۱۰ فرد بی‌گناه هم \lr{DNA} منطبق داشته باشند، در کنار ۱ گناهکار؛ پس
+\[ \P(G\mid M)\approx\frac{1\times10^{-7}}{1\times10^{-7}+10^{-6}\times(1-10^{-7})}\approx\frac1{11}. \]
+البته شواهد دیگر پیشین را تغییر می‌دهند؛ نکته این است که \emph{بدون پیشین، از روی درست‌نمایی به تنهایی نمی‌توان دربارهٔ پسین قضاوت کرد}.
+\end{solution}
+\end{example}
+
+\begin{warning}
+\textbf{نادیده گرفتن نرخ پایه} (مثال \ref{ex:medical}) و \textbf{خطای دادستان} هر دو از اشتباه گرفتن $\P(A\mid B)$ با $\P(B\mid A)$ ناشی می‌شوند. هر وقت با عبارتی مثل «آزمایش ۹۵٪ دقیق است» روبه‌رو شدید، بپرسید: \emph{این احتمالِ کدام پیشامد به شرط کدام پیشامد است؟ و پیشین چقدر است؟}
+\end{warning}
+
+%% ------------------------------------------------------------
+\section{استقلال دو پیشامد}
+\label{sec:indep}
+%% ------------------------------------------------------------
+
+گاهی دانستن اینکه $B$ رخ داده، هیچ اطلاعی دربارهٔ $A$ نمی‌دهد: $\P(A\mid B)=\P(A)$. مثلاً نتیجهٔ پرتاب یک سکه در تهران چیزی دربارهٔ پرتاب سکه‌ای در تبریز نمی‌گوید. با ضرب طرفین در $\P(B)$ به صورت متقارنی می‌رسیم که حتی وقتی $\P(B)=0$ است هم معنا دارد:
+
+\begin{definition}[label=def:indep]{استقلال دو پیشامد}
+پیشامدهای $A$ و $B$ \term{مستقل}{independent} هستند (می‌نویسیم $A\perp B$) اگر
+\[ \P(A\cap B)=\P(A)\,\P(B). \]
+\end{definition}
+
+\begin{proposition}[label=prop:indep-cond]{استقلال و احتمال شرطی}
+اگر $\P(B)>0$، آنگاه $A$ و $B$ مستقل‌اند اگر و تنها اگر $\P(A\mid B)=\P(A)$. (و اگر $\P(A)>0$، اگر و تنها اگر $\P(B\mid A)=\P(B)$.)
+\end{proposition}
+
+\begin{proof}
+$\P(A\mid B)=\P(A)\iff\P(A\cap B)/\P(B)=\P(A)\iff\P(A\cap B)=\P(A)\P(B)$.
+\end{proof}
+
+\begin{example}[label=ex:die-indep]{استقلال در پرتاب تاس}
+تاس سالمی پرتاب می‌شود. $A=\{2,4,6\}$ (زوج)، $B=\{1,2,3,4\}$ و $C=\{1,2,3\}$. آیا $A$ و $B$ مستقل‌اند؟ $A$ و $C$ چطور؟
+\begin{solution}
+$\P(A\cap B)=\P(\{2,4\})=\tfrac13$ و $\P(A)\P(B)=\tfrac12\cdot\tfrac23=\tfrac13$؛ پس \emph{مستقل‌اند}: دانستن اینکه عدد در $\{1,2,3,4\}$ است احتمال زوج بودن را عوض نمی‌کند (نیمی از این اعداد زوج‌اند).
+اما $\P(A\cap C)=\P(\{2\})=\tfrac16\ne\tfrac12\cdot\tfrac12$؛ پس $A$ و $C$ \emph{وابسته‌اند}: در $\{1,2,3\}$ فقط یک‌سوم اعداد زوج‌اند.
+\end{solution}
+\end{example}
+
+\begin{example}{سیگار و بیماری: وابسته یا مستقل؟}
+در جدول مثال \ref{ex:table}: $\P(D\cap S)=0.09$ ولی $\P(D)\,\P(S)=0.10\times0.26=0.026$. پس $D$ و $S$ \emph{به‌شدت وابسته‌اند}؛ همان‌طور که $\P(D\mid S)=0.346$ خیلی بزرگ‌تر از $\P(D)=0.1$ بود.
+\end{example}
+
+\begin{warning}
+«مجزا» با «مستقل» فرق دارد و در واقع تقریباً \emph{برعکس} آن است! اگر $A\cap B=\varnothing$ و $\P(A),\P(B)>0$، آنگاه $\P(A\cap B)=0\ne\P(A)\P(B)$. پیشامدهای مجزا وابستگی شدیدی دارند: اگر بدانیم $B$ رخ داده، \emph{مطمئن} می‌شویم $A$ رخ نداده است.
+\end{warning}
+
+\begin{theorem}[label=thm:indep-complement]{استقلال با متمم‌ها}
+اگر $A$ و $B$ مستقل باشند، آنگاه $A$ و $B^c$، و $A^c$ و $B$، و $A^c$ و $B^c$ هم مستقل‌اند. به‌ویژه برای پیشامدهای مستقل:
+\[ \P(A\cup B)=\P(A)+\P(B)-\P(A)\P(B)=1-\P(A^c)\,\P(B^c). \]
+\end{theorem}
+
+\begin{proof}
+$A=(A\cap B)\cup(A\cap B^c)$ و دو تکه مجزا هستند؛ پس
+$\P(A\cap B^c)=\P(A)-\P(A\cap B)=\P(A)-\P(A)\P(B)=\P(A)\bigl(1-\P(B)\bigr)=\P(A)\P(B^c)$.
+دو حالت دیگر با تکرار همین استدلال به دست می‌آیند. برای رابطهٔ آخر: $\P(A\cup B)=1-\P(A^c\cap B^c)=1-\P(A^c)\P(B^c)$.
+\end{proof}
+
+\subsection{استقلال چند پیشامد}
+
+\begin{definition}[label=def:mutual-indep]{استقلال متقابل}
+پیشامدهای $A_1,\dots,A_n$ \term{مستقل}{mutually independent} هستند اگر برای \emph{هر} زیرمجموعه از اندیس‌ها $\{i_1<\cdots<i_k\}$ (با $k\ge2$):
+\[ \P(A_{i_1}\cap\cdots\cap A_{i_k})=\P(A_{i_1})\cdots\P(A_{i_k}). \]
+برای سه پیشامد یعنی چهار شرط: سه شرط دوتایی و $\P(A\cap B\cap C)=\P(A)\P(B)\P(C)$.
+\end{definition}
+
+\begin{example}[label=ex:pairwise]{مستقل دوبه‌دو، ولی نه مستقل}
+سکهٔ سالمی دو بار پرتاب می‌شود. $A$: «پرتاب اول شیر»، $B$: «پرتاب دوم شیر»، $C$: «دو نتیجه یکسان‌اند». نشان دهید این سه پیشامد دوبه‌دو مستقل‌اند ولی مستقل (متقابل) نیستند.
+\begin{solution}
+$\Omega=\{HH,HT,TH,TT\}$ و هر سه پیشامد احتمال $\tfrac12$ دارند. $A\cap B=\{HH\}$، $A\cap C=\{HH\}$ و $B\cap C=\{HH\}$؛ همه با احتمال $\tfrac14=\tfrac12\cdot\tfrac12$. پس دوبه‌دو مستقل‌اند. اما $A\cap B\cap C=\{HH\}$ و $\P=\tfrac14\ne\tfrac18$. شهود: اگر $A$ و $B$ را بدانیم، $C$ \emph{کاملاً} معلوم است.
+\end{solution}
+\end{example}
+
+%% ------------------------------------------------------------
+\section{استقلال شرطی}
+\label{sec:cond-indep}
+%% ------------------------------------------------------------
+
+گاهی دو پیشامد \emph{در ظاهر} به هم مربوط‌اند، ولی این ارتباط فقط به خاطر یک «عامل مشترک» است؛ و اگر آن عامل را بدانیم، دیگر به هم ربطی ندارند.
+
+\begin{definition}[label=def:cond-indep]{استقلال شرطی}
+فرض کنید $\P(C)>0$. پیشامدهای $A$ و $B$ \term{به شرط $C$ مستقل}{conditionally independent given $C$} هستند (می‌نویسیم $A\perp B\mid C$) اگر
+\[ \P(A\cap B\mid C)=\P(A\mid C)\,\P(B\mid C). \]
+به عبارت دیگر، $A$ و $B$ تحت قانون احتمال $\P(\cdot\mid C)$ مستقل‌اند.
+\end{definition}
+
+\begin{proposition}{صورت معادل}
+اگر $\P(B\cap C)>0$، آنگاه $A\perp B\mid C$ اگر و تنها اگر $\P(A\mid B\cap C)=\P(A\mid C)$؛ یعنی «وقتی $C$ را می‌دانیم، دانستن $B$ چیزی دربارهٔ $A$ اضافه نمی‌کند».
+\end{proposition}
+
+\begin{proof}
+طبق قاعدهٔ ضرب برای قانون احتمال $\P(\cdot\mid C)$: \ $\P(A\cap B\mid C)=\P(B\mid C)\,\P(A\mid B\cap C)$. پس شرط تعریف معادل $\P(A\mid B\cap C)=\P(A\mid C)$ است.
+\end{proof}
+
+\begin{note}
+استقلال شرطی قاعدهٔ زنجیره‌ای را ساده می‌کند: اگر $C\perp A\mid B$، آنگاه $\P(C\mid A\cap B)=\P(C\mid B)$ و
+\[ \P(A\cap B\cap C)=\P(A)\,\P(B\mid A)\,\P(C\mid B). \]
+یعنی برای پیش‌بینی $C$ فقط «آخرین حلقه» ($B$) مهم است. این ایدهٔ \emph{زنجیرهٔ مارکوف} است که در درس‌های فرایندهای تصادفی و یادگیری ماشین بسیار مهم است.
+\end{note}
+
+\begin{example}[label=ex:two-coins]{دو سکه با شانس‌های متفاوت}
+دو سکهٔ ظاهراً یکسان داریم: در سکهٔ ۱، $\P(H)=\tfrac14$ و در سکهٔ ۲، $\P(H)=\tfrac34$. یکی از سکه‌ها را با احتمال برابر انتخاب می‌کنیم ($C_1$ یا $C_2$) و آن را ۵ بار پرتاب می‌کنیم. \emph{به شرط دانستن سکه}، پرتاب‌ها مستقل‌اند.
+(الف) احتمال دیدن دنبالهٔ $S_1=HTHHH$ چقدر است؟
+(ب) اگر $S_1$ دیده شده باشد، احتمال اینکه سکهٔ ۱ انتخاب شده باشد چقدر است؟
+(ج) با \emph{همان} سکه ۵ پرتاب دیگر انجام می‌دهیم. احتمال دیدن $S_2=TTTHT$ به شرط $S_1$ چقدر است؟ آن را با $\P(S_2)$ مقایسه کنید.
+\begin{solution}
+(الف) به شرط سکه، پرتاب‌ها مستقل‌اند؛ پس $\P(S_1\mid C_1)=(\tfrac14)^4\tfrac34=\tfrac{3}{1024}$ و $\P(S_1\mid C_2)=(\tfrac34)^4\tfrac14=\tfrac{81}{1024}$. طبق قانون احتمال کل:
+\[ \P(S_1)=\tfrac12\cdot\tfrac{3}{1024}+\tfrac12\cdot\tfrac{81}{1024}=\frac{84}{2048}\approx0.041. \]
+(ب) طبق بیز: \quad $\P(C_1\mid S_1)=\dfrac{\tfrac12\cdot\tfrac{3}{1024}}{\tfrac{84}{2048}}=\dfrac{3}{84}=\dfrac1{28}$ \quad و \quad $\P(C_2\mid S_1)=\dfrac{27}{28}$.
+(ج) $S_1$ و $S_2$ به شرط سکه مستقل‌اند؛ پس با قانون احتمال کل «شرطی»:
+\begin{align*}
+\P(S_2\mid S_1)&=\P(S_2\mid C_1)\P(C_1\mid S_1)+\P(S_2\mid C_2)\P(C_2\mid S_1)\\
+&=\frac{81}{1024}\cdot\frac1{28}+\frac{3}{1024}\cdot\frac{27}{28}=\frac{81}{14336}\approx0.0057.
+\end{align*}
+اما بدون دانستن $S_1$: \ $\P(S_2)=\tfrac12\cdot\tfrac{81}{1024}+\tfrac12\cdot\tfrac{3}{1024}\approx0.041$.
+\textbf{نتیجه:} $\P(S_2\mid S_1)\ne\P(S_2)$؛ پس $S_1$ و $S_2$ \emph{مستقل نیستند}، با اینکه \emph{به شرط سکه} مستقل‌اند. دلیل: $S_1$ (که بیشتر شیر است) به ما می‌گوید تقریباً مطمئناً سکهٔ ۲ را داریم، و با سکهٔ ۲ دنباله‌ای پر از خط بعید است. «عامل مشترک» (سکه) دو دنباله را به هم مربوط کرده است.
+\end{solution}
+\end{example}
+
+\begin{warning}
+استقلال و استقلال شرطی \emph{هیچ‌کدام دیگری را نتیجه نمی‌دهند}:
+\begin{itemize}
+  \item \textbf{استقلال شرطی $\not\Rightarrow$ استقلال:} مثال \ref{ex:two-coins}.
+  \item \textbf{استقلال $\not\Rightarrow$ استقلال شرطی:} دو پرتاب مستقل سکهٔ سالم، $A$: «اولی شیر»، $B$: «دومی شیر» و $C$: «دقیقاً یک شیر آمده». $A$ و $B$ مستقل‌اند، ولی به شرط $C$: \ $\P(A\mid C)=\P(B\mid C)=\tfrac12$ در حالی که $\P(A\cap B\mid C)=0$. اگر بدانیم دقیقاً یک شیر آمده، شیر بودن اولی یعنی خط بودن دومی!
+\end{itemize}
+\end{warning}
+
+\begin{example}[label=ex:two-tests]{دو آزمایش پزشکی}
+در مثال \ref{ex:medical} فرض کنید آزمایش دو بار انجام شود و نتایج دو آزمایش \emph{به شرط وضعیت بیماری} ($D$ یا $D^c$) مستقل باشند. آیا نتایج دو آزمایش (بدون شرط) مستقل‌اند؟ احتمال بیماری پس از دو جواب مثبت چقدر است؟
+\begin{solution}
+$\P(+_1\cap+_2)=\P(D)\,(0.95)^2+\P(D^c)\,(0.05)^2=0.01\times0.9025+0.99\times0.0025=0.0115$،
+در حالی که $\P(+_1)\,\P(+_2)=0.059^2\approx0.0035$. پس نتایج \emph{وابسته‌اند}: مثبت شدن اولی احتمال بیماری و در نتیجه احتمال مثبت شدن دومی را بالا می‌برد. و طبق بیز:
+\[ \P(D\mid+_1\cap+_2)=\frac{0.01\times0.9025}{0.0115}\approx0.785. \]
+\end{solution}
+\end{example}
+
+\begin{moreinfo}{فیلتر هرزنامهٔ «بیز ساده»}
+فیلترهای هرزنامه فرض می‌کنند کلمات یک ایمیل \emph{به شرط} اینکه ایمیل هرزنامه باشد یا نباشد، مستقل‌اند (\lr{Naive Bayes}). آن‌وقت
+\[ \P(\fa{هرزنامه}\mid w_1,\dots,w_n)\ \propto\ \P(\fa{هرزنامه})\prod_{i=1}^n\P(w_i\mid\fa{هرزنامه}). \]
+مثال: $\P(\fa{هرزنامه})=0.4$؛ کلمهٔ «رایگان» در ۳۰٪ هرزنامه‌ها و ۲٪ ایمیل‌های عادی، و کلمهٔ «جایزه» در ۲۰٪ هرزنامه‌ها و ۱٪ ایمیل‌های عادی می‌آید. برای ایمیلی که هر دو کلمه را دارد، امتیاز هرزنامه $0.4\times0.3\times0.2=0.024$ و امتیاز عادی $0.6\times0.02\times0.01=0.00012$ است؛ پس احتمال هرزنامه بودن $0.024/0.02412\approx0.995$ است.
+\end{moreinfo}
+
+%% ------------------------------------------------------------
+\section*{جمع‌بندی جلسهٔ چهارم}
+\addcontentsline{toc}{section}{خلاصه و تمرین‌ها}
+%% ------------------------------------------------------------
+
+\begin{summary}
+\begin{itemize}
+  \item \textbf{احتمال شرطی:} $\P(A\mid B)=\P(A\cap B)/\P(B)$ برای $\P(B)>0$؛ یعنی $B$ فضای نمونهٔ جدید می‌شود. در مدل هم‌شانس: $|A\cap B|/|B|$.
+  \item $\P(\cdot\mid B)$ یک \textbf{قانون احتمال} است؛ پس همهٔ قواعد جلسهٔ ۳ برایش برقرارند. اما $\P(A\mid B^c)\ne1-\P(A\mid B)$ و $\P(A\mid B)\ne\P(B\mid A)$.
+  \item \textbf{قاعدهٔ ضرب:} $\P(A\cap B)=\P(B)\P(A\mid B)=\P(A)\P(B\mid A)$؛ ابزار محاسبه روی \textbf{نمودار درختی}. \textbf{قاعدهٔ زنجیره‌ای:} $\P(A_1\cdots A_n)=\P(A_1)\P(A_2\mid A_1)\cdots\P(A_n\mid A_1\cdots A_{n-1})$.
+  \item \textbf{قانون احتمال کل:} برای افراز $\{B_i\}$: \ $\P(A)=\sum_i\P(A\mid B_i)\P(B_i)$؛ «مسئله را به حالت‌ها بشکن».
+  \item \textbf{قضیهٔ بیز:} $\P(B_j\mid A)=\dfrac{\P(A\mid B_j)\P(B_j)}{\sum_i\P(A\mid B_i)\P(B_i)}$؛ \ پسین $\propto$ درست‌نمایی $\times$ پیشین.
+  \item پرهیز از \textbf{نادیده گرفتن نرخ پایه} و \textbf{خطای دادستان}؛ در مسائل ظریف (دو فرزند، مونتی هال) دقیقاً مشخص کنید «چه چیزی» و «چگونه» مشاهده شده است.
+  \item \textbf{استقلال:} $\P(A\cap B)=\P(A)\P(B)$، معادل $\P(A\mid B)=\P(A)$. مجزا $\ne$ مستقل. استقلال با متمم‌ها حفظ می‌شود. برای چند پیشامد، شرط ضرب باید برای \emph{همهٔ} زیرخانواده‌ها برقرار باشد (دوبه‌دو کافی نیست).
+  \item \textbf{استقلال شرطی:} $\P(A\cap B\mid C)=\P(A\mid C)\P(B\mid C)$. استقلال و استقلال شرطی هیچ‌کدام دیگری را نتیجه نمی‌دهند (مثال دو سکه).
+\end{itemize}
+\end{summary}
+
+
+\subsection*{تمرین‌های پیشنهادی}
+
+\begin{exercise}
+اگر $\P(A)=0.5$، $\P(B)=0.4$ و $\P(A\cap B)=0.2$، مقادیر $\P(A\mid B)$، $\P(B\mid A)$، $\P(A\mid A\cup B)$ و $\P(A\cap B\mid A\cup B)$ را بیابید.
+\answer{$0.5$، \ $0.4$، \ $5/7$، \ $2/7$}
+\end{exercise}
+
+\begin{exercise}
+فرض کنید $\P(A)>0$ و $\P(B)>0$. ثابت کنید $\P(A\mid B)>\P(A)$ اگر و تنها اگر $\P(B\mid A)>\P(B)$. (یعنی اگر $B$ شاهدی به نفع $A$ باشد، $A$ هم شاهدی به نفع $B$ است.)
+\end{exercise}
+
+\begin{exercise}[سه کارت]
+سه کارت داریم: یکی دو طرفش قرمز، یکی دو طرفش سیاه، و یکی یک طرف قرمز و یک طرف سیاه. یک کارت به تصادف انتخاب و روی میز گذاشته می‌شود و طرف رویی آن قرمز است. احتمال اینکه طرف دیگرش هم قرمز باشد چقدر است؟
+\answer{$2/3$ (نه $1/2$)}
+\end{exercise}
+
+\begin{exercise}
+ظرفی ۲ مهرهٔ سفید و ۳ مهرهٔ سیاه دارد. دو مهره بدون جایگذاری برمی‌داریم. (الف) با قانون احتمال کل، احتمال سفید بودن مهرهٔ دوم را حساب کنید. (ب) اگر مهرهٔ دوم سفید باشد، احتمال سفید بودن مهرهٔ اول چقدر است؟
+\answer{(الف) $2/5$ \quad (ب) $1/4$}
+\end{exercise}
+
+\begin{exercise}
+شیوع یک بیماری ۰٫۵٪ است. حساسیت آزمایش ۹۹٪ و نرخ مثبت کاذب آن ۲٪ است. (الف) احتمال بیمار بودن فردی با آزمایش مثبت چقدر است؟ (ب) احتمال سالم بودن فردی با آزمایش منفی چقدر است؟
+\answer{(الف) حدود $0.199$ \quad (ب) حدود $0.99995$}
+\end{exercise}
+
+\begin{exercise}
+سه سکه داریم: یک سکهٔ سالم، یک سکه با دو طرف شیر، و یک سکه با $\P(H)=0.75$. یکی را به تصادف انتخاب و پرتاب می‌کنیم و شیر می‌آید. احتمال اینکه سکهٔ دو-شیر را انتخاب کرده باشیم چقدر است؟
+\answer{$4/9$}
+\end{exercise}
+
+\begin{exercise}\hard
+(الف) قانون احتمال کل «شرطی» را ثابت کنید: اگر $\{B_i\}$ افرازی باشد و $\P(C\cap B_i)>0$، آنگاه
+$\P(A\mid C)=\sum_i\P(A\mid B_i\cap C)\,\P(B_i\mid C)$.
+(ب) در مثال \ref{ex:dice-bayes}، تاس انتخاب‌شده را یک بار دیگر پرتاب می‌کنیم. احتمال اینکه دوباره ۱ بیاید، به شرط اینکه پرتاب اول ۱ بوده، چقدر است؟ (فرض کنید به شرط انتخاب تاس، پرتاب‌ها به هم ربطی نداشته باشند.)
+\answer{(ب) $\frac16\cdot\frac13+\frac13\cdot\frac23=\frac5{18}$}
+\end{exercise}
+
+\begin{exercise}
+$A$ و $B$ مستقل‌اند و $\P(A)=0.3$، $\P(B)=0.5$. مقادیر $\P(A\cup B)$، $\P(A\cap B^c)$ و $\P(A^c\mid B)$ را بیابید.
+\answer{$0.65$، \ $0.15$، \ $0.7$}
+\end{exercise}
+
+\begin{exercise}
+دو تاس سالم پرتاب می‌شوند. $A$: «تاس اول زوج است» و $B$: «مجموع دو تاس ۷ است». آیا $A$ و $B$ مستقل‌اند؟ اگر $B$ را «مجموع ۸ است» بگیریم چطور؟
+\answer{با مجموع ۷ مستقل‌اند ($\tfrac1{12}=\tfrac12\cdot\tfrac16$)؛ با مجموع ۸ نه ($\tfrac{3}{36}\ne\tfrac12\cdot\tfrac5{36}$).}
+\end{exercise}
+
+\begin{exercise}
+ثابت کنید اگر $\P(A)=0$ یا $\P(A)=1$، آنگاه $A$ از هر پیشامد دیگری مستقل است.
+\end{exercise}
+
+\begin{exercise}
+در مثال \ref{ex:two-coins}، به شرط دیدن $S_1=HTHHH$، احتمال اینکه پرتاب بعدیِ همان سکه شیر باشد چقدر است؟
+\answer{$\tfrac14\cdot\tfrac1{28}+\tfrac34\cdot\tfrac{27}{28}=\tfrac{41}{56}\approx0.73$}
+\end{exercise}
+
+\begin{exercise}[دو کارت و آس]
+دو کارت به تصادف از یک دست ۵۲تایی انتخاب می‌کنیم. (الف) اگر بدانیم دست‌کم یکی آس است، احتمال اینکه هر دو آس باشند چقدر است؟ (ب) اگر بدانیم یکی از آن‌ها «آس پیک» است چطور؟ چرا جواب دو قسمت فرق دارد؟
+\answer{(الف) $\tfrac{6}{198}=\tfrac1{33}$ \quad (ب) $\tfrac3{51}=\tfrac1{17}$}
+\end{exercise}
+
+\begin{exercise}[پخش چهار آس]
+یک دست ۵۲ کارتی را به تصادف بین ۴ بازیکن (هر کدام ۱۳ کارت) پخش می‌کنیم. احتمال اینکه به هر بازیکن \emph{دقیقاً یک} آس برسد چقدر است؟ (راهنمایی: قاعدهٔ زنجیره‌ای را برای پیشامدهای «آس پیک جایی هست»، «آس دل در دستی غیر از دستِ آس پیک است»، \dots\ به کار ببرید.)
+\answer{$1\cdot\tfrac{39}{51}\cdot\tfrac{26}{50}\cdot\tfrac{13}{49}\approx0.105$}
+\end{exercise}
+
+\begin{exercise}[سه ماشین تولید]
+در یک کارخانه سه ماشین $M_1,M_2,M_3$ به ترتیب ۵۰٪، ۳۰٪ و ۲۰٪ قطعات را تولید می‌کنند. درصد قطعات معیوب هر ماشین به ترتیب ۲٪، ۳٪ و ۵٪ است. قطعه‌ای به تصادف انتخاب می‌شود.
+(الف) احتمال معیوب بودن آن چقدر است؟
+(ب) اگر قطعه معیوب باشد، احتمال اینکه توسط هر یک از ماشین‌ها تولید شده باشد چقدر است؟ چرا سهم $M_3$ در قطعات معیوب با سهم $M_1$ برابر است؟
+\answer{(الف) $0.029$ \quad (ب) $\tfrac{0.010}{0.029}\approx0.345$، \ $\tfrac{0.009}{0.029}\approx0.310$، \ $\tfrac{0.010}{0.029}\approx0.345$}
+\end{exercise}
+
+\begin{exercise}[انتقال مهره بین دو ظرف]
+ظرف اول ۳ مهرهٔ قرمز و ۲ آبی و ظرف دوم ۲ قرمز و ۴ آبی دارد. یک مهره به تصادف از ظرف اول به ظرف دوم منتقل می‌شود و سپس یک مهره از ظرف دوم برمی‌داریم. (الف) احتمال قرمز بودن آن چقدر است؟ (ب) اگر مهرهٔ برداشته‌شده قرمز باشد، احتمال اینکه مهرهٔ منتقل‌شده هم قرمز بوده باشد چقدر است؟
+\answer{(الف) $\tfrac37\cdot\tfrac35+\tfrac27\cdot\tfrac25=\tfrac{13}{35}$ \quad (ب) $\tfrac{9/35}{13/35}=\tfrac9{13}$}
+\end{exercise}
+
+\begin{exercise}[آشکارسازی در کانال مخابراتی]
+در مثال \ref{ex:channel}، گیرنده $1$ دریافت کرده است. احتمال اینکه واقعاً $1$ ارسال شده باشد چقدر است؟ اگر $0$ دریافت شود، احتمال اینکه $0$ ارسال شده باشد چقدر است؟ بهترین تصمیم گیرنده در هر حالت چیست؟
+\answer{$\P(S_1\mid R_1)=\tfrac{0.38}{0.44}\approx0.864$ \ و \ $\P(S_0\mid R_0)=\tfrac{0.54}{0.56}\approx0.964$؛ در هر دو حالت بیت دریافتی را بپذیرد.}
+\end{exercise}
+
+

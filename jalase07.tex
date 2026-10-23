@@ -1,0 +1,35 @@
+%% ============================================================
+%%  جزوهٔ جلسهٔ ۷ (مستقل)
+%%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase07
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+\input{config/packages}
+\input{config/fonts}
+\input{config/colors}
+\input{config/layout}
+\input{config/boxes}
+\input{config/macros}
+\input{frontmatter/session-cover}
+
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\hypersetup{pdftitle={Probability and Statistics - Session 7}}
+
+\begin{document}
+
+\sessioncover{۷}{متغیرهای تصادفی پیوسته}{شنبه ۲۵ مهر ۱۴۰۵}
+  {{متغیر تصادفی پیوسته: وقتی احتمال هر نقطه صفر است},
+   {تابع چگالی احتمال \lr{(PDF)} و رابطه‌اش با \lr{CDF}},
+   {خواص \lr{PDF}: چرا چگالی احتمال نیست},
+   {توزیع یکنواخت پیوسته: احتمال برابر طول},
+   {آیا یکنواخت حافظه دارد؟}}
+
+\mainmatter
+\setcounter{chapter}{6}   % تا شماره‌گذاری‌ها «۷.x» باشد
+\input{sessions/session07}
+
+\end{document}

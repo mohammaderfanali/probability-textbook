@@ -1,0 +1,36 @@
+%% ============================================================
+%%  جزوهٔ جلسهٔ ۳ (مستقل)
+%%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase02
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+\input{config/packages}
+\input{config/fonts}
+\input{config/colors}
+\input{config/layout}
+\input{config/boxes}
+\input{config/macros}
+\input{frontmatter/session-cover}
+
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\hypersetup{pdftitle={Probability and Statistics - Session 3}}
+
+\begin{document}
+
+\sessioncover{۳}{نتایج اصول کولموگروف و مدل‌های احتمال گسسته}{شنبه ۱۱ مهر ۱۴۰۵}
+  {{مرور: فضای احتمال و سه اصل کولموگروف},
+   {قواعد پایه: متمم، یکنوایی، تفاضل},
+   {مدل‌های گسسته: تاس، سکه، روز تولد، دومِره، پوکر},
+   {شمول و عدم شمول: مسئلهٔ کلاه‌ها},
+   {کران اجتماع و نامساوی بونفرونی},
+   {پیوستگی احتمال}}
+
+\mainmatter
+\setcounter{chapter}{2}   % تا شماره‌گذاری‌ها «۳.x» باشد
+\input{sessions/session03}
+
+\end{document}

@@ -1,0 +1,36 @@
+%% ============================================================
+%%  جزوهٔ جلسهٔ ۲ (مستقل)
+%%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase02
+%% ============================================================
+\documentclass[a4paper,11pt,oneside,openany]{book}
+
+\input{config/packages}
+\input{config/fonts}
+\input{config/colors}
+\input{config/layout}
+\input{config/boxes}
+\input{config/macros}
+\input{frontmatter/session-cover}
+
+\newcommand{\coursetitle}{آمار و احتمال مهندسی}
+\newcommand{\courseterm}{نیم‌سال اول ۱۴۰۵--۱۴۰۶}
+\newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
+\newcommand{\courseauthor}{گروه آموزشی درس}
+
+\hypersetup{pdftitle={Probability and Statistics - Session 2}}
+
+\begin{document}
+
+\sessioncover{۲}{فضای احتمال و اصول موضوعهٔ کولموگروف}{دوشنبه ۶ مهر ۱۴۰۵}
+  {{مرور: برآمدها و فضای نمونه},
+   {سه نگاه به مجموعه: توپولوژی، جبر، نظریهٔ اندازه},
+   {قانون احتمال و مثال پرتاب سکه (دیدگاه فراوانی و بیزی)},
+   {مثال سرور: جمع‌پذیری شمارا},
+   {مثال مقاومت: وزن گویاها و گنگ‌ها، قضیهٔ ویتالی},
+   {عقب‌نشینی به $\sigma$-میدان و میدان بورل}}
+
+\mainmatter
+\setcounter{chapter}{1}   % تا شماره‌گذاری‌ها «۲.x» باشد
+\input{sessions/session02}
+
+\end{document}

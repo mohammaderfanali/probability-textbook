@@ -1,0 +1,79 @@
+%% ============================================================
+%%  جلد جزوهٔ یک جلسه
+%%  استفاده:
+%%   \sessioncover{۲}{عنوان جلسه}{دوشنبه ۶ مهر ۱۴۰۵}
+%%     {{موضوع اول},{موضوع دوم},{موضوع سوم}}
+%%  (هر موضوع داخل آکولاد، تا ویرگول‌های داخل متن مشکلی ایجاد نکنند)
+%% ============================================================
+\newcommand{\sessioncover}[4]{%
+\begin{titlepage}
+\thispagestyle{empty}
+\begin{tikzpicture}[remember picture, overlay]
+  % پس‌زمینهٔ بالایی
+  \fill[primary] (current page.north west) rectangle ([yshift=-12.2cm]current page.north east);
+  \fill[primary!85!black] ([yshift=-12.2cm]current page.north west) rectangle ([yshift=-12.8cm]current page.north east);
+  \fill[accent] ([yshift=-12.8cm]current page.north west) rectangle ([yshift=-13.05cm]current page.north east);
+
+  % منحنی گاوسی و میله‌های تزئینی
+  \begin{scope}[shift={([xshift=-13.2cm,yshift=-11.6cm]current page.north east)}, x=0.95cm, y=4.0cm]
+    \fill[white, opacity=0.08, domain=-4:4, samples=80] (-4,0) -- plot (\x,{exp(-\x*\x/2)}) -- (4,0) -- cycle;
+    \draw[white, opacity=0.5, line width=1.4pt, domain=-4:4, samples=80] plot (\x,{exp(-\x*\x/2)});
+  \end{scope}
+  \begin{scope}[shift={([xshift=1.6cm,yshift=-11.6cm]current page.north west)}, x=0.55cm, y=8cm]
+    \foreach \k/\p in {0/0.001,1/0.010,2/0.044,3/0.117,4/0.205,5/0.246,6/0.205,7/0.117,8/0.044,9/0.010,10/0.001}
+      \fill[accent, opacity=0.7] (\k,0) rectangle ++(0.72,\p);
+  \end{scope}
+
+  % نقاط پراکنده
+  \pgfmathsetseed{1405}
+  \foreach \i in {1,...,40} {
+    \pgfmathsetmacro{\xx}{rnd*20}
+    \pgfmathsetmacro{\yy}{rnd*2.4}
+    \fill[white, opacity=0.18] ([xshift=\xx cm, yshift=-\yy cm]current page.north west) circle (0.05);
+  }
+
+  % آرم و نام دانشگاه
+  \node[anchor=north east] (logo) at ([xshift=-2cm, yshift=-1.3cm]current page.north east)
+    {\includegraphics[width=2.3cm]{images/sharif-logo-white.png}};
+  \node[anchor=south east, text=white, font=\headfont] at ([xshift=-0.35cm, yshift=1pt]logo.west)
+    {\rl{دانشگاه صنعتی شریف}};
+  \node[anchor=north east, text=white!80!primary, font=\small] at ([xshift=-0.35cm, yshift=-1pt]logo.west)
+    {\rl{\department}};
+
+  % نام درس
+  \node[anchor=north west, text=white!85!primary, align=left] at ([xshift=2cm, yshift=-1.6cm]current page.north west)
+    {\rl{\headfont\large \coursetitle}};
+  \node[anchor=north west, text=white!65!primary] at ([xshift=2cm, yshift=-2.45cm]current page.north west)
+    {\rl{\small \courseterm}};
+
+  % نشان جلسه
+  \node[anchor=north east, fill=accent, text=white, rounded corners=5pt, inner xsep=14pt, inner ysep=8pt,
+        font=\headfont\LARGE] (badge) at ([xshift=-2cm, yshift=-5.0cm]current page.north east)
+    {\rl{جلسهٔ #1}};
+
+  % عنوان جلسه
+  \node[anchor=north east, text=white, align=right, text width=15cm] at ([xshift=-2cm, yshift=-6.9cm]current page.north east)
+    {\rl{\headfont\fontsize{27}{40}\selectfont #2}};
+
+  % تاریخ
+  \node[anchor=north east, text=white!80!primary] at ([xshift=-2cm, yshift=-9.9cm]current page.north east)
+    {\rl{\large #3}};
+
+  % فهرست موضوعات
+  \node[anchor=north east, text=primary] at ([xshift=-2cm, yshift=-14.3cm]current page.north east)
+    {\rl{\headfont\Large در این جلسه}};
+  \foreach \t [count=\i] in {#4} {
+    \node[anchor=east, fill=primarylight, text=primary, rounded corners=3pt, minimum height=0.85cm,
+          inner xsep=10pt, font=\small] at ([xshift=-2cm, yshift={-15.2cm-1.02cm*\i}]current page.north east)
+      {\rl{{\headfont\color{accent}\i}\quad \t}};
+  }
+
+  % پاورقی جلد
+  \draw[primary!25, line width=0.8pt] ([xshift=2cm, yshift=3.1cm]current page.south west)
+    -- ([xshift=-2cm, yshift=3.1cm]current page.south east);
+  \node[anchor=south east, text=graytext] at ([xshift=-2cm, yshift=2.2cm]current page.south east)
+    {\rl{\small جزوهٔ درسی \coursetitle}};
+  \node[anchor=south west, text=graytext] at ([xshift=2cm, yshift=2.2cm]current page.south west)
+    {\rl{\small \courseauthor}};
+\end{tikzpicture}
+\end{titlepage}}
