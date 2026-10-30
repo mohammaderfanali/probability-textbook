@@ -1,5 +1,5 @@
 %% ============================================================
-%%  جزوهٔ جلسهٔ ۸ (مستقل)
+%%  جزوهٔ جلسه‌های ۸ و ۹ (مستقل) — این مطالب دو جلسه طول کشید
 %%  کامپایل: powershell -ExecutionPolicy Bypass -File build.ps1 jalase08
 %% ============================================================
 \documentclass[a4paper,11pt,oneside,openany]{book}
@@ -17,11 +17,20 @@
 \newcommand{\department}{دانشکدهٔ مهندسی کامپیوتر}
 \newcommand{\courseauthor}{گروه آموزشی درس}
 
-\hypersetup{pdftitle={Probability and Statistics - Session 8}}
+\hypersetup{pdftitle={Probability and Statistics - Sessions 8 and 9}}
+
+% شمارهٔ فصل ۸ می‌ماند (بخش‌ها ۸.x)، ولی نشان و سرصفحه «جلسهٔ ۸ و ۹» می‌نویسند
+\renewcommand{\sessionbadge}{%
+  \lr{\begin{tikzpicture}[baseline=(b.base)]
+    \node[fill=primary, text=white, rounded corners=4pt, inner xsep=13pt, inner ysep=7pt,
+          font=\headfont\LARGE](b) {\rl{\chapterlabel{} ۸ و ۹}};
+    \fill[accent] ([yshift=-4pt]b.south west) rectangle ([yshift=-7pt]b.south east);
+  \end{tikzpicture}}}
+\renewcommand{\chaptermark}[1]{\markboth{\chapterlabel{} ۸ و ۹:\ #1}{}}
 
 \begin{document}
 
-\sessioncover{۸}{نمایی، گاوسی و چند توزیع دیگر}{دوشنبه ۲۷ مهر ۱۴۰۵}
+\sessioncover{۸ و ۹}{نمایی، گاوسی و چند توزیع دیگر}{دوشنبه ۲۷ مهر و شنبه ۲ آبان ۱۴۰۵}
   {{توزیع نمایی و بی‌حافظگی آن},
    {توزیع گاوسی: چرا مساحت زیر زنگوله یک است},
    {تابع $\Phi$ و استانداردسازی},

@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2026.9.8)  23 OCT 2026 15:52
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2026.9.8)  30 OCT 2026 11:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1647,29 +1647,29 @@ Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 13.
 File: book-xetex-bidi.def 2025/02/02 v1.2 bidi adaptations for standard book cl
 ass for XeTeX engine
 )
-(D:\univercity\term7\ps\jozve\build\jalase08.aux)
+(D:\univercity\term7\ps\probability-textbook\build\jalase08.aux)
 \openout1 = `jalase08.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 22.
-LaTeX Font Info:    ... okay on input line 22.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for TU/lmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 31.
+LaTeX Font Info:    ... okay on input line 31.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: xetex
@@ -1709,31 +1709,31 @@ Package pgfplots notification 'compat/show suggested version=true': document ha
 s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
 \c@lstlisting=\count446
-Package hyperref Info: Link coloring ON on input line 22.
-(D:\univercity\term7\ps\jozve\build\jalase08.out)
-(D:\univercity\term7\ps\jozve\build\jalase08.out)
+Package hyperref Info: Link coloring ON on input line 31.
+(D:\univercity\term7\ps\probability-textbook\build\jalase08.out)
+(D:\univercity\term7\ps\probability-textbook\build\jalase08.out)
 \@outlinefile=\write4
 \openout4 = `jalase08.out'.
 
 File: images/sharif-logo-white.png Graphic file (type bmp)
 <images/sharif-logo-white.png>
 LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 30.
+(Font)              scaled to size 9.19998pt on input line 39.
 LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
-(Font)              scaled to size 15.89755pt on input line 30.
+(Font)              scaled to size 15.89755pt on input line 39.
 
-Underfull \hbox (badness 10000) in paragraph at lines 30--30
+Underfull \hbox (badness 10000) in paragraph at lines 39--39
  [][][][][]\TU/Estedad(1)/m/n/27 نمایی، گاوسی و چند توزیع دیگر[][][]
  []
 
 LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
-(Font)              scaled to size 11.03998pt on input line 30.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
+(Font)              scaled to size 11.03998pt on input line 39.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 39.
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 39.
 
 
 (C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
@@ -2267,7 +2267,7 @@ e
 [][][][] 
  []
 
-[17] (D:\univercity\term7\ps\jozve\build\jalase08.aux)
+[17] (D:\univercity\term7\ps\probability-textbook\build\jalase08.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
@@ -2277,12 +2277,12 @@ Package rerunfilecheck Info: File `jalase08.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  49695 strings out of 403462
- 1205028 string characters out of 5476862
- 1800231 words of memory out of 5000000
+ 1205133 string characters out of 5476862
+ 1800329 words of memory out of 5000000
  77069 multiletter control sequences out of 15000+600000
  642814 words of font info for 164 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,15n,97p,1699b,1376s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on D:\univercity\term7\ps\jozve\build\jalase08.xdv (18 pages, 59
-8864 bytes).
+Output written on D:\univercity\term7\ps\probability-textbook\build\jalase08.xd
+v (18 pages, 599928 bytes).

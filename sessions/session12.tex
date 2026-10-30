@@ -1,0 +1,479 @@
+% !TEX root = ../jalase12.tex
+%% ============================================================
+%%  جلسهٔ ۱۲ — واریانس و انحراف معیار، ویژگی‌ها و واریانس
+%%  توزیع‌های مهم؛ میانه و مد
+%% ============================================================
+\chapter{واریانس، میانه و مد}
+\label{ch:s12}
+
+\sessioncard{دوشنبه ۱۱ آبان}
+{واریانس و انحراف معیار؛ فرمول دوم واریانس و ویژگی‌های آن؛ واریانس توزیع‌های مهم؛ میانه و مد}
+{\lr{Pishro-Nik} بخش‌های \lr{3.2.4} و \lr{4.1.2} \,؛\, \lr{Ross} بخش‌های \lr{4.5}، \lr{4.6}، \lr{5.2} و \lr{7.4} \,؛\, \lr{Bertsekas} بخش‌های \lr{2.4} و \lr{3.1}}
+{\begin{itemize}
+  \item توضیح دهید چرا امید ریاضی برای توصیف یک متغیر کافی نیست و واریانس چه چیزی را اندازه می‌گیرد؛
+  \item واریانس را با فرمول تعریف و فرمول دوم ($\mathbb E[X^2]-(\mathbb E[X])^2$) حساب کنید؛
+  \item ویژگی‌های واریانس، به‌خصوص $\mathrm{Var}(aX+b)=a^2\mathrm{Var}(X)$ و واریانس جمع متغیرهای مستقل، را بیان و اثبات کنید؛
+  \item واریانس همهٔ توزیع‌هایی را که تا اینجا دیده‌ایم حساب کنید؛
+  \item میانه و مد را تعریف کنید، برای توزیع‌های مهم پیدا کنید و با امید ریاضی مقایسه کنید.
+\end{itemize}}
+
+در جلسهٔ ۱۱ امید ریاضی را دیدیم: عددی که «مرکز» یک توزیع را نشان می‌دهد. اما مرکز همهٔ داستان نیست. در این جلسه دو پرسش دیگر را پاسخ می‌دهیم: متغیر \emph{چقدر حول مرکزش پخش است؟} (واریانس) و آیا «مرکز» را می‌شود به شکل‌های دیگری هم تعریف کرد؟ (میانه و مد).
+
+%% ------------------------------------------------------------
+\section{واریانس}
+\label{sec:var}
+%% ------------------------------------------------------------
+
+\subsection{مفهوم: امید ریاضی کافی نیست}
+
+سه متغیر تصادفی زیر را در نظر بگیرید:
+\begin{itemize}
+  \item $X$ همیشه برابر $0$ است؛
+  \item $Y$ با احتمال $\tfrac12$ برابر $+1$ و با احتمال $\tfrac12$ برابر $-1$ است؛
+  \item $W$ با احتمال $\tfrac12$ برابر $+100$ و با احتمال $\tfrac12$ برابر $-100$ است.
+\end{itemize}
+هر سه امید ریاضی \emph{صفر} دارند، ولی رفتارشان کاملاً متفاوت است: $X$ اصلاً تصادفی نیست، $Y$ کمی نوسان دارد و $W$ نوسان شدیدی دارد. یا دو کلاس را تصور کنید که میانگین نمرهٔ هر دو ۱۲ است؛ در یکی همه بین ۱۱ و ۱۳ گرفته‌اند و در دیگری نیمی ۴ و نیمی ۲۰. امید ریاضی این تفاوت را نمی‌بیند. به عددی نیاز داریم که \key{پراکندگی} متغیر حول میانگینش را بسنجد.
+
+\begin{figblock}
+\begin{tikzpicture}[x=0.9cm, y=6.2cm]
+  \draw[-{Stealth}, graytext] (-5.6,0) -- (5.8,0) node[right] {$x$};
+  \draw[setA, very thick, domain=-5.4:5.4, samples=120] plot (\x,{exp(-\x*\x/(2*0.36))/(0.6*sqrt(2*pi))});
+  \draw[accent, very thick, domain=-5.4:5.4, samples=120] plot (\x,{exp(-\x*\x/(2*4))/(2*sqrt(2*pi))});
+  \draw[graytext, densely dashed] (0,0) -- (0,0.72);
+  \node[below, font=\small] at (0,0) {$\mu$};
+  \draw[{Stealth}-{Stealth}, setA!80!black] (-0.6,0.42) -- (0.6,0.42);
+  \draw[{Stealth}-{Stealth}, accent!80!black] (-2,0.13) -- (2,0.13);
+  \node[setA!80!black, font=\small, anchor=west] at (0.75,0.52) {\rl{واریانس کم}};
+  \node[accent!80!black, font=\small, anchor=west] at (2.6,0.1) {\rl{واریانس زیاد}};
+\end{tikzpicture}
+
+\figcaption[fig:var-idea]{دو توزیع با امید ریاضی یکسان $\mu$: یکی جمع‌وجور (آبی) و دیگری پخش (نارنجی). واریانس این تفاوت را با یک عدد می‌سنجد.}
+\end{figblock}
+
+\textbf{اولین تلاش: میانگینِ فاصله از مرکز.} طبیعی است که فاصلهٔ $X$ از میانگینش، یعنی $X-\mu$ با $\mu=\mathbb E[X]$، را نگاه کنیم و میانگین بگیریم. اما طبق خطی بودن (جلسهٔ ۱۱):
+\[ \mathbb E[X-\mu]=\mathbb E[X]-\mu=0 \]
+همیشه! انحراف‌های مثبت و منفی همدیگر را خنثی می‌کنند. ($X-\mu$ را نسخهٔ «میانگین‌صفر» یا \lr{zero-mean} متغیر می‌گویند.)
+
+\textbf{راه حل: انحراف را به توان دو برسان.} $(X-\mu)^2$ همیشه نامنفی است و انحراف‌های بزرگ را بیشتر جریمه می‌کند. میانگینِ آن، واریانس است. (می‌شد از $\mathbb E|X-\mu|$ هم استفاده کرد، ولی کار جبری با توان دو بسیار ساده‌تر است و، همان‌طور که می‌بینیم، با پارامتر $\sigma$ گاوسی هم دقیقاً جور درمی‌آید.)
+
+\subsection{تعریف و فرمول اول}
+
+\begin{definition}[label=def:var]{واریانس و انحراف معیار}
+اگر $\mu=\mathbb E[X]$ وجود داشته باشد، \term{واریانس}{variance} متغیر $X$ عبارت است از
+\[ \mathrm{Var}(X)\defeq\mathbb E\bigl[(X-\mu)^2\bigr]
+=\begin{cases}\displaystyle\sum_x(x-\mu)^2\,p_X(x) & \fa{گسسته}\\[10pt] \displaystyle\int_{-\infty}^{\infty}(x-\mu)^2\,f_X(x)\,dx & \fa{پیوسته}\end{cases} \]
+و \term{انحراف معیار}{standard deviation} آن $\sigma_X\defeq\sqrt{\mathrm{Var}(X)}$ است. معمولاً می‌نویسیم $\mathrm{Var}(X)=\sigma_X^2$.
+\end{definition}
+
+دو نکته:
+\begin{itemize}
+  \item فرمول بالا همان قضیهٔ «امید ریاضیِ $g(X)$» جلسهٔ ۱۱ است با $g(x)=(x-\mu)^2$؛ چون $(X-\mu)^2$ خودش یک متغیر تصادفی است.
+  \item \textbf{واحد.} اگر $X$ به متر باشد، واریانس به مترمربع است. انحراف معیار دوباره به متر است و برای همین برای بیان «حدود پراکندگی» راحت‌تر است: «$X$ معمولاً در فاصلهٔ چند $\sigma_X$ از میانگینش است».
+\end{itemize}
+
+\begin{example}[label=ex:var-three]{سه متغیر با میانگین صفر}
+واریانس و انحراف معیار $X$، $Y$ و $W$ بالا را حساب کنید.
+\begin{solution}
+هر سه $\mu=0$ دارند؛ پس:
+\[ \mathrm{Var}(X)=0,\qquad \mathrm{Var}(Y)=\tfrac12(1)^2+\tfrac12(-1)^2=1,\qquad \mathrm{Var}(W)=\tfrac12(100)^2+\tfrac12(-100)^2=10000, \]
+و انحراف معیارها $\sigma_X=0$، $\sigma_Y=1$ و $\sigma_W=100$ هستند. انحراف معیار دقیقاً «اندازهٔ نوسان» را نشان می‌دهد.
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:var-bern]{واریانس برنولی}
+اگر $X\sim\mathrm{Bern}(p)$، واریانس آن را حساب کنید. به ازای چه $p$ای بیشترین است؟
+\begin{solution}
+$\mu=p$؛ پس
+\[ \mathrm{Var}(X)=(1-p)^2\cdot p+(0-p)^2\cdot(1-p)=p(1-p)\bigl[(1-p)+p\bigr]=p(1-p). \]
+اگر $p=0$ یا $p=1$ باشد، $X$ قطعی است و واریانس صفر است. بیشترین واریانس در $p=\tfrac12$ است: $\tfrac14$. یعنی سکهٔ سالم «غیرقابل‌پیش‌بینی‌ترین» برنولی است.
+\end{solution}
+\end{example}
+
+\subsection{فرمول دوم}
+
+\begin{theorem}[label=thm:var-second]{فرمول دوم واریانس}
+\[ \boxed{\ \mathrm{Var}(X)=\mathbb E[X^2]-\bigl(\mathbb E[X]\bigr)^2\ } \]
+\end{theorem}
+
+\begin{proof}
+با $\mu=\mathbb E[X]$ (که یک عدد ثابت است)، $(X-\mu)^2=X^2-2\mu X+\mu^2$ را باز کنید و خطی بودن امید ریاضی را به کار ببرید:
+\[ \mathbb E\bigl[(X-\mu)^2\bigr]=\mathbb E[X^2]-2\mu\,\mathbb E[X]+\mu^2=\mathbb E[X^2]-2\mu^2+\mu^2=\mathbb E[X^2]-\mu^2. \]
+\end{proof}
+
+این فرمول معمولاً حساب را ساده‌تر می‌کند، چون $\mathbb E[X^2]$ را مستقیم و بدون کم کردن $\mu$ از تک‌تک مقادیر حساب می‌کنیم. یک نتیجهٔ فوری: چون واریانس نامنفی است،
+\[ \mathbb E[X^2]\ge\bigl(\mathbb E[X]\bigr)^2, \]
+که همان مشاهدهٔ جلسهٔ ۱۱ است ($\mathbb E[X^2]\ne(\mathbb E[X])^2$ در حالت کلی). اختلاف این دو دقیقاً واریانس است.
+
+\begin{example}[label=ex:var-die]{واریانس تاس}
+واریانس عدد یک تاس سالم را با هر دو فرمول حساب کنید.
+\begin{solution}
+$\mu=3.5$. \ \textbf{فرمول اول:} انحراف‌ها $\pm2.5$، $\pm1.5$ و $\pm0.5$ هستند:
+\[ \mathrm{Var}(X)=\tfrac16\bigl(2\cdot6.25+2\cdot2.25+2\cdot0.25\bigr)=\tfrac{17.5}{6}=\tfrac{35}{12}\approx2.92. \]
+\textbf{فرمول دوم:} $\mathbb E[X^2]=\frac{91}{6}$ (جلسهٔ ۱۱)؛ پس $\mathrm{Var}(X)=\frac{91}{6}-\frac{49}{4}=\frac{182-147}{12}=\frac{35}{12}$.
+\end{solution}
+\end{example}
+
+\begin{moreinfo}{گشتاورها}
+$\mathbb E[X^k]$ را \term{گشتاور $k$-ام}{$k$-th moment} متغیر $X$ می‌نامند. گشتاور صفرم همیشه ۱ است، گشتاور اول میانگین $\mu$ است و طبق فرمول دوم، گشتاور دوم $\mu^2+\mathrm{Var}(X)$ است. پس میانگین و واریانس با هم همان دو گشتاور اول را مشخص می‌کنند. گشتاورهای بالاتر جزئیات بیشتری از شکل توزیع (مثلاً عدم تقارن آن) را نشان می‌دهند و در شرایط مناسب، دانستن همهٔ گشتاورها توزیع را کاملاً مشخص می‌کند.
+\end{moreinfo}
+
+%% ------------------------------------------------------------
+\section{ویژگی‌های واریانس}
+\label{sec:var-props}
+%% ------------------------------------------------------------
+
+\begin{theorem}[label=thm:var-props]{ویژگی‌های واریانس}
+فرض کنید واریانس‌های زیر وجود داشته باشند و $a,b$ اعداد ثابت باشند.
+\begin{enumerate}
+  \item \textbf{نامنفی:} $\mathrm{Var}(X)\ge0$؛ و $\mathrm{Var}(X)=0$ اگر و تنها اگر $X$ با احتمال ۱ ثابت باشد.
+  \item \textbf{جابه‌جایی اثر ندارد:} $\mathrm{Var}(X+b)=\mathrm{Var}(X)$.
+  \item \textbf{مقیاس به توان دو می‌رود:} $\mathrm{Var}(aX)=a^2\,\mathrm{Var}(X)$؛ و در نتیجه
+  \[ \mathrm{Var}(aX+b)=a^2\,\mathrm{Var}(X),\qquad \sigma_{aX+b}=|a|\,\sigma_X. \]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(۱) $(X-\mu)^2\ge0$، پس میانگینش نامنفی است. در حالت گسسته، $\sum_x(x-\mu)^2p_X(x)=0$ فقط وقتی ممکن است که هر $x$ با $p_X(x)>0$ برابر $\mu$ باشد؛ یعنی $X=\mu$ با احتمال ۱.\\
+(۲ و ۳) طبق خطی بودن، $\mathbb E[aX+b]=a\mu+b$؛ پس
+\[ \mathrm{Var}(aX+b)=\mathbb E\bigl[(aX+b-a\mu-b)^2\bigr]=\mathbb E\bigl[a^2(X-\mu)^2\bigr]=a^2\,\mathrm{Var}(X). \]
+\end{proof}
+
+\begin{intuition}
+اگر به همهٔ نمره‌های یک کلاس ۲ نمره اضافه کنیم، میانگین ۲ واحد بالا می‌رود ولی پراکندگی تغییری نمی‌کند. اگر نمره‌ها را از ۲۰ به ۱۰۰ ببریم (ضرب در ۵)، فاصله‌ها ۵ برابر و واریانس ۲۵ برابر می‌شود. به همین دلیل \key{واریانس خطی نیست}: $\mathrm{Var}(2X)=4\,\mathrm{Var}(X)$، نه $2\,\mathrm{Var}(X)$.
+\end{intuition}
+
+\begin{example}[label=ex:standardize]{استانداردسازی}
+اگر $\mathbb E[X]=\mu$ و $\mathrm{Var}(X)=\sigma^2>0$، نشان دهید $Z=\frac{X-\mu}{\sigma}$ میانگین $0$ و واریانس $1$ دارد.
+\begin{solution}
+$Z=\frac1\sigma X-\frac\mu\sigma$. طبق خطی بودن $\mathbb E[Z]=\frac\mu\sigma-\frac\mu\sigma=0$ و طبق ویژگی (۳) $\mathrm{Var}(Z)=\frac{1}{\sigma^2}\sigma^2=1$. این همان استانداردسازی گاوسی در جلسهٔ ۸ است، ولی برای \emph{هر} متغیری کار می‌کند.
+\end{solution}
+\end{example}
+
+\subsection{واریانس جمع}
+
+برخلاف امید ریاضی، واریانسِ جمع در حالت کلی جمعِ واریانس‌ها نیست. با فرمول دوم و خطی بودن:
+\[ \mathrm{Var}(X+Y)=\mathbb E\bigl[(X+Y)^2\bigr]-\bigl(\mathbb E[X]+\mathbb E[Y]\bigr)^2=\mathrm{Var}(X)+\mathrm{Var}(Y)+2\bigl(\mathbb E[XY]-\mathbb E[X]\,\mathbb E[Y]\bigr). \]
+جملهٔ آخر به \emph{ارتباط} $X$ و $Y$ بستگی دارد. برای متغیرهای مستقل این جمله صفر است:
+
+\begin{theorem}[label=thm:var-sum]{واریانس جمع متغیرهای مستقل}
+اگر $X$ و $Y$ مستقل باشند (هر پیشامد مربوط به $X$ از هر پیشامد مربوط به $Y$ مستقل باشد)، آنگاه $\mathbb E[XY]=\mathbb E[X]\,\mathbb E[Y]$ و در نتیجه
+\[ \mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y). \]
+به طور کلی‌تر، اگر $X_1,\dots,X_n$ مستقل باشند: $\mathrm{Var}(X_1+\cdots+X_n)=\mathrm{Var}(X_1)+\cdots+\mathrm{Var}(X_n)$.
+\end{theorem}
+
+\begin{proof}
+(حالت گسسته) پیشامد $\{X=x,\,Y=y\}$ احتمال $p_X(x)\,p_Y(y)$ دارد. پس
+\[ \mathbb E[XY]=\sum_x\sum_yxy\,p_X(x)\,p_Y(y)=\Bigl(\sum_xx\,p_X(x)\Bigr)\Bigl(\sum_yy\,p_Y(y)\Bigr)=\mathbb E[X]\,\mathbb E[Y], \]
+و با جای‌گذاری در فرمول بالا، جملهٔ آخر صفر می‌شود. حالت $n$ متغیر با استقرا به دست می‌آید.
+\end{proof}
+
+\begin{warning}
+عکس قضیه درست نیست: $\mathbb E[XY]=\mathbb E[X]\mathbb E[Y]$ استقلال را نتیجه نمی‌دهد. مثلاً اگر $X$ مقادیر $-1,0,1$ را هم‌شانس بگیرد و $Y=X^2$، آنگاه $Y$ کاملاً به $X$ وابسته است، ولی $\mathbb E[XY]=\mathbb E[X^3]=0=\mathbb E[X]\,\mathbb E[Y]$.
+\end{warning}
+
+\begin{example}[label=ex:rademacher]{جمع $n$ متغیر $\pm1$: وابستگی چقدر مهم است}
+متغیر $R$ را که با احتمال $\tfrac12$ برابر $+1$ و با احتمال $\tfrac12$ برابر $-1$ است \term{رادماخر}{Rademacher} می‌نامیم؛ $\mathbb E[R]=0$ و $\mathrm{Var}(R)=1$ (مثال \ref{ex:var-three}). فرض کنید $R_1,\dots,R_n$ همه رادماخر باشند و
+\[ S=R_1+R_2+\cdots+R_n. \]
+واریانس $S$ را در سه حالت حساب کنید:
+\begin{itemize}
+  \item[(الف)] $R_i$ها مستقل باشند؛
+  \item[(ب)] همه با هم برابر باشند: $R_1=R_2=\cdots=R_n$؛
+  \item[(ج)] دوتادوتا قرینهٔ هم باشند ($n$ زوج): $R_2=-R_1$، $R_4=-R_3$، و الی آخر.
+\end{itemize}
+\begin{solution}
+در هر سه حالت، طبق خطی بودن، $\mathbb E[S]=0$.
+\begin{itemize}
+  \item[(الف)] طبق قضیهٔ \ref{thm:var-sum}: $\mathrm{Var}(S)=n$، پس $\sigma_S=\sqrt n$.
+  \item[(ب)] $S=nR_1$؛ طبق ویژگی (۳): $\mathrm{Var}(S)=n^2$. یعنی $S$ با احتمال $\tfrac12$ برابر $n$ و با احتمال $\tfrac12$ برابر $-n$ است.
+  \item[(ج)] هر زوج صفر می‌شود؛ پس $S=0$ و $\mathrm{Var}(S)=0$.
+\end{itemize}
+پس واریانسِ جمع از $0$ تا $n^2$ بسته به وابستگی تغییر می‌کند. در حالت مستقل، پراکندگی فقط مثل $\sqrt n$ رشد می‌کند، نه $n$: انحراف‌های مستقل تا حدی همدیگر را خنثی می‌کنند. این همان دلیلی است که در جلسهٔ ۵ دیدیم احتمال دوجمله‌ای در بازه‌ای به طول از مرتبهٔ $\sqrt n$ حول $np$ متمرکز است.
+\end{solution}
+\end{example}
+
+%% ------------------------------------------------------------
+\section{واریانس توزیع‌هایی که تا اینجا دیدیم}
+\label{sec:var-dists}
+%% ------------------------------------------------------------
+
+در این بخش واریانس هر توزیع را حساب می‌کنیم. الگوی کار تقریباً همیشه یکی است:
+\begin{enumerate}
+  \item میانگین $\mu=\mathbb E[X]$ را از جلسهٔ ۱۱ داریم؛
+  \item $\mathbb E[X^2]$ را حساب می‌کنیم؛
+  \item از فرمول دوم استفاده می‌کنیم: $\mathrm{Var}(X)=\mathbb E[X^2]-\mu^2$.
+\end{enumerate}
+برای توزیع‌های گسسته روی اعداد صحیح، به جای $\mathbb E[X^2]$ معمولاً $\mathbb E[X(X-1)]$ را حساب می‌کنیم، چون $k(k-1)$ با دو عامل اولِ $k!$ ساده می‌شود (همان ترفندی که در جلسهٔ ۱۱ با $k$ و $k!$ زدیم). سپس از خطی بودن:
+\[ \mathbb E[X^2]=\mathbb E\bigl[X(X-1)\bigr]+\mathbb E[X]. \]
+
+\begin{proposition}[label=prop:V-bern]{واریانس برنولی}
+اگر $X\sim\mathrm{Bern}(p)$: \ $\mathrm{Var}(X)=p(1-p)$.
+\end{proposition}
+\begin{proof}
+$X$ فقط مقادیر $0$ و $1$ را می‌گیرد و برای این دو عدد $0^2=0$ و $1^2=1$؛ پس $X^2=X$ و
+\[ \mathbb E[X^2]=\mathbb E[X]=p,\qquad \mathrm{Var}(X)=p-p^2=p(1-p). \]
+همین جواب را در مثال \ref{ex:var-bern} مستقیم از فرمول اول هم گرفتیم.
+\end{proof}
+
+\begin{proposition}[label=prop:V-bin]{واریانس دوجمله‌ای}
+اگر $X\sim\mathrm{Bin}(n,p)$: \ $\mathrm{Var}(X)=np(1-p)$.
+\end{proposition}
+\begin{proof}
+\textbf{راه ۱: جمع برنولی‌های مستقل.} طبق جلسهٔ ۵، $X=I_1+\cdots+I_n$ که $I_i$ نشانگر موفقیت آزمایش $i$-ام است. این نشانگرها از آزمایش‌های \emph{مستقل} می‌آیند و هر کدام $\mathrm{Bern}(p)$ با واریانس $p(1-p)$ است. طبق قضیهٔ \ref{thm:var-sum}:
+\[ \mathrm{Var}(X)=\mathrm{Var}(I_1)+\cdots+\mathrm{Var}(I_n)=n\,p(1-p). \]
+\textbf{راه ۲: مستقیم از تعریف.} با همان ایدهٔ جلسهٔ ۱۱، این بار با دو عامل:
+\[ k(k-1)\binom nk=\frac{k(k-1)\,n!}{k!\,(n-k)!}=\frac{n!}{(k-2)!\,(n-k)!}=n(n-1)\binom{n-2}{k-2}. \]
+جمله‌های $k=0$ و $k=1$ صفرند؛ پس با $q=1-p$ و تغییر اندیس $j=k-2$:
+\begin{align*}
+\mathbb E[X(X-1)]&=n(n-1)p^2\sum_{k=2}^{n}\binom{n-2}{k-2}p^{k-2}q^{n-k}\\
+&=n(n-1)p^2\sum_{j=0}^{n-2}\binom{n-2}{j}p^{j}q^{(n-2)-j}=n(n-1)p^2.
+\end{align*}
+جمع آخر، جمع کل احتمال‌های $\mathrm{Bin}(n-2,p)$ و برابر ۱ است. بنابراین
+\[ \mathbb E[X^2]=n(n-1)p^2+np,\qquad \mathrm{Var}(X)=n(n-1)p^2+np-(np)^2=np-np^2=np(1-p). \]
+\end{proof}
+انحراف معیار $\sqrt{np(1-p)}$ از مرتبهٔ $\sqrt n$ است: همان «پهنای $\sqrt n$» نمودار دوجمله‌ای در جلسهٔ ۵. مقایسهٔ دو راه یک بار دیگر نشان می‌دهد که نوشتن متغیر به صورت جمع چقدر کار را ساده می‌کند.
+
+\begin{proposition}[label=prop:V-geom]{واریانس هندسی}
+اگر $X\sim\mathrm{Geom}(p)$: \ $\mathrm{Var}(X)=\dfrac{1-p}{p^2}$.
+\end{proposition}
+\begin{proof}
+با $q=1-p$ و $\mathbb E[X]=\frac1p$ (جلسهٔ ۱۱).\\
+\textbf{گام ۱: یک سری کمکی.} در جلسهٔ ۱۱ از سری هندسی $\sum_{k\ge0}r^k=\frac1{1-r}$ یک بار مشتق گرفتیم. این بار دو بار مشتق می‌گیریم؛ مشتق دوم $r^k$ برابر $k(k-1)r^{k-2}$ و مشتق دوم $\frac1{1-r}$ برابر $\frac{2}{(1-r)^3}$ است:
+\[ \sum_{k=2}^{\infty}k(k-1)\,r^{k-2}=\frac{2}{(1-r)^3},\qquad |r|<1. \]
+\textbf{گام ۲: $\mathbb E[X(X-1)]$.} جملهٔ $k=1$ صفر است. یک $q$ بیرون می‌کشیم تا توان به $k-2$ برسد و سری کمکی را با $r=q$ به کار می‌بریم:
+\[ \mathbb E[X(X-1)]=\sum_{k=2}^{\infty}k(k-1)\,p\,q^{k-1}=pq\sum_{k=2}^{\infty}k(k-1)\,q^{k-2}=pq\cdot\frac{2}{(1-q)^3}=pq\cdot\frac{2}{p^3}=\frac{2q}{p^2}. \]
+\textbf{گام ۳: واریانس.}
+\[ \mathbb E[X^2]=\frac{2q}{p^2}+\frac1p,\qquad \mathrm{Var}(X)=\frac{2q}{p^2}+\frac1p-\frac1{p^2}=\frac{2q+p-1}{p^2}=\frac{2q-q}{p^2}=\frac{q}{p^2}, \]
+که در تساوی یکی مانده به آخر از $p-1=-q$ استفاده کردیم.
+\end{proof}
+مثلاً برای «منتظر شش» ($p=\frac16$): میانگین ۶ پرتاب و انحراف معیار $\sqrt{30}\approx5.5$ پرتاب؛ پراکندگی تقریباً به اندازهٔ خود میانگین است، یعنی زمان انتظار بسیار غیرقابل‌پیش‌بینی است.
+
+\begin{proposition}[label=prop:V-pois]{واریانس پواسون}
+اگر $X\sim\mathrm{Poisson}(\lambda)$: \ $\mathrm{Var}(X)=\lambda$.
+\end{proposition}
+\begin{proof}
+\textbf{گام ۱: $\mathbb E[X(X-1)]$.} جمله‌های $k=0$ و $k=1$ صفرند. برای $k\ge2$: \ $\frac{k(k-1)}{k!}=\frac{1}{(k-2)!}$. پس با بیرون کشیدن $\lambda^2e^{-\lambda}$ و تغییر اندیس $j=k-2$:
+\[ \mathbb E[X(X-1)]=\sum_{k=2}^{\infty}k(k-1)\,e^{-\lambda}\frac{\lambda^k}{k!}=\lambda^2e^{-\lambda}\sum_{k=2}^{\infty}\frac{\lambda^{k-2}}{(k-2)!}=\lambda^2e^{-\lambda}\sum_{j=0}^{\infty}\frac{\lambda^{j}}{j!}=\lambda^2e^{-\lambda}e^{\lambda}=\lambda^2. \]
+\textbf{گام ۲: واریانس.} با $\mathbb E[X]=\lambda$:
+\[ \mathbb E[X^2]=\lambda^2+\lambda,\qquad \mathrm{Var}(X)=\lambda^2+\lambda-\lambda^2=\lambda. \]
+\textbf{بررسی:} پواسون حدِ $\mathrm{Bin}(n,\frac\lambda n)$ است و واریانس آن $n\cdot\frac\lambda n\bigl(1-\frac\lambda n\bigr)=\lambda\bigl(1-\frac\lambda n\bigr)\to\lambda$.
+\end{proof}
+در پواسون میانگین و واریانس برابرند. این یک «امضا» است: اگر در داده‌های شمارشی واریانس خیلی بیشتر از میانگین باشد، مدل پواسون احتمالاً مناسب نیست.
+
+\begin{proposition}[label=prop:V-unif]{واریانس یکنواخت}
+اگر $X\sim\mathrm{Unif}(a,b)$: \ $\mathrm{Var}(X)=\dfrac{(b-a)^2}{12}$.
+\end{proposition}
+\begin{proof}
+\textbf{راه ۱: فرمول دوم.} با $\mathbb E[X]=\frac{a+b}2$ و با اتحاد $b^3-a^3=(b-a)(a^2+ab+b^2)$:
+\[ \mathbb E[X^2]=\int_a^b\frac{x^2}{b-a}\,dx=\frac{b^3-a^3}{3(b-a)}=\frac{a^2+ab+b^2}{3}. \]
+پس
+\begin{align*}
+\mathrm{Var}(X)&=\frac{a^2+ab+b^2}{3}-\frac{(a+b)^2}{4}=\frac{4a^2+4ab+4b^2-3a^2-6ab-3b^2}{12}\\
+&=\frac{a^2-2ab+b^2}{12}=\frac{(b-a)^2}{12}.
+\end{align*}
+\textbf{راه ۲: فرمول اول با جابه‌جایی به مرکز.} با تغییر متغیر $u=x-\frac{a+b}{2}$، بازهٔ انتگرال به $[-h,h]$ با $h=\frac{b-a}2$ تبدیل می‌شود و
+\[ \mathrm{Var}(X)=\int_a^b\Bigl(x-\frac{a+b}{2}\Bigr)^2\frac{dx}{b-a}=\frac{1}{b-a}\int_{-h}^{h}u^2\,du=\frac{1}{b-a}\cdot\frac{2h^3}{3}=\frac{1}{2h}\cdot\frac{2h^3}{3}=\frac{h^2}{3}=\frac{(b-a)^2}{12}. \]
+\end{proof}
+راه ۲ نشان می‌دهد که واریانس فقط به \emph{طول} بازه بستگی دارد، نه به جای آن. مثلاً خطای گرد کردن یک عدد به نزدیک‌ترین عدد صحیح، که یکنواخت روی $[-\tfrac12,\tfrac12]$ است، انحراف معیار $\frac{1}{\sqrt{12}}\approx0.29$ دارد.
+
+\begin{proposition}[label=prop:V-exp]{واریانس نمایی}
+اگر $X\sim\mathrm{Exp}(\lambda)$: \ $\mathrm{Var}(X)=\dfrac{1}{\lambda^2}$.
+\end{proposition}
+\begin{proof}
+با $\mathbb E[X]=\frac1\lambda$ (جلسهٔ ۱۱)، کافی است $\mathbb E[X^2]$ را حساب کنیم.\\
+\textbf{راه ۱: جزء به جزء.} با $u=x^2$ و $dv=\lambda e^{-\lambda x}dx$ داریم $du=2x\,dx$ و $v=-e^{-\lambda x}$:
+\begin{align*}
+\mathbb E[X^2]&=\int_0^\infty x^2\,\lambda e^{-\lambda x}\,dx=\Bigl[-x^2e^{-\lambda x}\Bigr]_0^\infty+\int_0^\infty2x\,e^{-\lambda x}\,dx\\
+&=0+\frac2\lambda\int_0^\infty x\,\lambda e^{-\lambda x}\,dx=\frac2\lambda\cdot\frac1\lambda=\frac{2}{\lambda^2}.
+\end{align*}
+(جملهٔ مرزی صفر است، چون $e^{-\lambda x}$ از هر توانی از $x$ سریع‌تر به صفر می‌رود؛ و انتگرال آخر همان $\mathbb E[X]$ است.)\\[3pt]
+\textbf{راه ۲: مشتق نسبت به پارامتر.} از $\int_0^\infty e^{-\alpha x}dx=\frac1\alpha$ دو بار نسبت به $\alpha$ مشتق می‌گیریم؛ هر بار یک عامل $-x$ پایین می‌آید:
+\[ \int_0^\infty x^2e^{-\alpha x}\,dx=\frac{2}{\alpha^3}\qquad\Longrightarrow\qquad \mathbb E[X^2]=\lambda\cdot\frac{2}{\lambda^3}=\frac{2}{\lambda^2}. \]
+\textbf{واریانس:} \ $\mathrm{Var}(X)=\frac{2}{\lambda^2}-\frac{1}{\lambda^2}=\frac{1}{\lambda^2}$.
+\end{proof}
+پس در نمایی انحراف معیار با میانگین برابر است: $\sigma_X=\mathbb E[X]=\frac1\lambda$. مثل هندسی، پراکندگی زمان انتظار هم‌اندازهٔ خودِ میانگین است.
+
+\begin{proposition}[label=prop:V-gauss]{واریانس گاوسی}
+اگر $X\sim\mathcal N(\mu,\sigma^2)$: \ $\mathrm{Var}(X)=\sigma^2$.
+\end{proposition}
+\begin{proof}
+اینجا از فرمول اول استفاده می‌کنیم، چون $\mathbb E[X]=\mu$ را می‌دانیم (جلسهٔ ۱۱):
+\[ \mathrm{Var}(X)=\int_{-\infty}^{\infty}(x-\mu)^2\,f_X(x)\,dx. \]
+\textbf{گام ۱: تغییر متغیر.} مثل جلسهٔ ۱۱، $x=\mu+\sigma z$ می‌گذاریم؛ آنگاه $x-\mu=\sigma z$ و $f_X(x)\,dx=\varphi(z)\,dz$. پس
+\[ \mathrm{Var}(X)=\int_{-\infty}^{\infty}\sigma^2z^2\,\varphi(z)\,dz=\sigma^2\int_{-\infty}^{\infty}z^2\,\varphi(z)\,dz. \]
+\textbf{گام ۲: انتگرال $z^2\varphi(z)$ با جزء به جزء.} $z^2\varphi(z)$ را به صورت $z\cdot\bigl(z\varphi(z)\bigr)$ می‌نویسیم و $u=z$ و $dv=z\varphi(z)\,dz$ می‌گیریم. در جلسهٔ ۱۱ دیدیم $\varphi'(z)=-z\varphi(z)$، پس $v=-\varphi(z)$:
+\[ \int_{-\infty}^{\infty}z^2\,\varphi(z)\,dz=\Bigl[-z\,\varphi(z)\Bigr]_{-\infty}^{\infty}+\int_{-\infty}^{\infty}\varphi(z)\,dz=0+1=1. \]
+جملهٔ مرزی صفر است، چون $\varphi(z)\propto e^{-z^2/2}$ از رشد $z$ خیلی سریع‌تر به صفر می‌رود؛ و انتگرال آخر مساحت زیر چگالی استاندارد است (جلسهٔ ۸).\\
+\textbf{نتیجه:} $\mathrm{Var}(X)=\sigma^2\cdot1=\sigma^2$.
+\end{proof}
+پس پارامتر $\sigma^2$، که در جلسهٔ ۸ فقط «پهنای» زنگوله را نشان می‌داد، واقعاً واریانس است و $\sigma$ انحراف معیار. (همین را از ویژگی (۳) هم می‌شد گرفت: $X=\mu+\sigma Z$ و $\mathrm{Var}(X)=\sigma^2\,\mathrm{Var}(Z)=\sigma^2$.)
+
+\begin{proposition}[label=prop:V-lap]{واریانس لاپلاس}
+اگر $f_X(x)=\frac\lambda2e^{-\lambda|x-\mu|}$: \ $\mathrm{Var}(X)=\dfrac{2}{\lambda^2}$.
+\end{proposition}
+\begin{proof}
+با $\mathbb E[X]=\mu$ (جلسهٔ ۱۱) و فرمول اول، و تغییر متغیر $t=x-\mu$:
+\[ \mathrm{Var}(X)=\int_{-\infty}^{\infty}t^2\,\frac\lambda2e^{-\lambda|t|}\,dt. \]
+تابع زیر انتگرال زوج است، پس انتگرال دو برابرِ انتگرال روی $[0,\infty)$ است:
+\[ \mathrm{Var}(X)=2\int_0^\infty t^2\,\frac\lambda2e^{-\lambda t}\,dt=\int_0^\infty t^2\,\lambda e^{-\lambda t}\,dt=\frac{2}{\lambda^2}. \]
+انتگرال آخر دقیقاً $\mathbb E[Y^2]$ برای $Y\sim\mathrm{Exp}(\lambda)$ است که بالاتر حساب کردیم.
+\end{proof}
+واریانس لاپلاس دو برابرِ واریانس نمایی با همان $\lambda$ است: هر نیمهٔ لاپلاس یک نمایی است، ولی حالا انحراف‌ها در هر دو طرف میانگین رخ می‌دهند.
+
+\begin{proposition}[label=prop:V-cauchy]{کوشی واریانس ندارد}
+اگر $X$ کوشی استاندارد باشد، $\mathrm{Var}(X)$ تعریف نمی‌شود.
+\end{proposition}
+\begin{proof}
+تعریف واریانس به $\mu=\mathbb E[X]$ نیاز دارد و در جلسهٔ ۱۱ دیدیم کوشی امید ریاضی ندارد. حتی گشتاور دوم هم بی‌نهایت است: برای $x$ بزرگ $\frac{x^2}{\pi(1+x^2)}\to\frac1\pi$، پس تابع زیر انتگرال به صفر نمی‌رود و
+\[ \int_{-M}^{M}\frac{x^2}{\pi(1+x^2)}\,dx=\frac1\pi\int_{-M}^{M}\Bigl(1-\frac{1}{1+x^2}\Bigr)dx=\frac{2M-2\arctan M}{\pi}\ \xrightarrow{\ M\to\infty\ }\ \infty. \]
+\end{proof}
+
+\begin{keyformula}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{l|c|c||l|c|c}
+\rl{گسسته} & $\mathbb E[X]$ & $\mathrm{Var}(X)$ & \rl{پیوسته} & $\mathbb E[X]$ & $\mathrm{Var}(X)$\\\hline
+$\mathrm{Bern}(p)$ & $p$ & $p(1-p)$ & $\mathrm{Unif}(a,b)$ & $\frac{a+b}{2}$ & $\frac{(b-a)^2}{12}$\\
+$\mathrm{Bin}(n,p)$ & $np$ & $np(1-p)$ & $\mathrm{Exp}(\lambda)$ & $\frac1\lambda$ & $\frac1{\lambda^2}$\\
+$\mathrm{Geom}(p)$ & $\frac1p$ & $\frac{1-p}{p^2}$ & $\mathcal N(\mu,\sigma^2)$ & $\mu$ & $\sigma^2$\\
+$\mathrm{Poisson}(\lambda)$ & $\lambda$ & $\lambda$ & \rl{لاپلاس} & $\mu$ & $\frac2{\lambda^2}$\\
+ & & & \rl{کوشی} & \rl{ندارد} & \rl{ندارد}
+\end{tabular}
+\end{keyformula}
+
+%% ------------------------------------------------------------
+\section{میانه و مد}
+\label{sec:median-mode}
+%% ------------------------------------------------------------
+
+امید ریاضی تنها راه تعریف «مرکز» نیست. دو آمارهٔ دیگر هم پرکاربردند: \emph{میانه}، نقطه‌ای که توزیع را نصف می‌کند، و \emph{مد}، محتمل‌ترین مقدار.
+
+\subsection{میانه}
+
+\begin{definition}[label=def:median]{میانه}
+عدد $m$ \term{میانهٔ}{median} متغیر $X$ است اگر
+\[ \P(X\le m)\ge\tfrac12\qquad\text{\rl{و}}\qquad \P(X\ge m)\ge\tfrac12. \]
+برای متغیر پیوسته این یعنی $F_X(m)=\tfrac12$: نیمی از احتمال سمت چپ $m$ و نیمی سمت راست آن است. اگر بیش از یک عدد این شرط را داشته باشد، معمولاً کوچک‌ترینشان را انتخاب می‌کنیم:
+\[ m=\min\Bigl\{x:\ F_X(x)\ge\tfrac12\Bigr\}. \]
+\end{definition}
+
+\begin{note}
+\begin{itemize}
+  \item \textbf{میانه همیشه وجود دارد}، حتی برای کوشی که امید ریاضی ندارد (میانهٔ کوشی $x_0$ است).
+  \item \textbf{ممکن است یکتا نباشد.} اگر \lr{CDF} روی یک بازه دقیقاً $\tfrac12$ باشد (مثلاً چگالی‌ای که از دو تکهٔ جدا با احتمال $\tfrac12$ ساخته شده)، هر نقطهٔ آن بازه میانه است. برای تاس سالم هر عددی در $[3,4]$ شرط را دارد و طبق قرارداد میانه را $3$ می‌گیریم.
+  \item \textbf{برای متغیر گسسته ممکن است هیچ نقطه‌ای $F_X=\tfrac12$ نداشته باشد}، چون \lr{CDF} از روی $\tfrac12$ می‌پرد. مثلاً اگر $X$ مقادیر $1,2,3$ را با احتمال‌های $0.3$، $0.3$ و $0.4$ بگیرد، $F_X(1)=0.3$ و $F_X(2)=0.6$؛ پس میانه $2$ است.
+\end{itemize}
+\end{note}
+
+\begin{example}[label=ex:median-exp]{میانهٔ نمایی و گاوسی}
+میانهٔ $\mathrm{Exp}(\lambda)$، $\mathcal N(\mu,\sigma^2)$ و $\mathrm{Unif}(a,b)$ را بیابید.
+\begin{solution}
+\textbf{نمایی:} $1-e^{-\lambda m}=\tfrac12$، پس $m=\frac{\ln2}{\lambda}\approx\frac{0.693}{\lambda}$ (همان «نیمه‌عمر»).\\
+\textbf{گاوسی:} به دلیل تقارن $F_X(\mu)=\Phi(0)=\tfrac12$؛ پس $m=\mu$.\\
+\textbf{یکنواخت:} $\frac{m-a}{b-a}=\frac12$؛ پس $m=\frac{a+b}2$.
+\end{solution}
+\end{example}
+
+\begin{example}[label=ex:median-geom]{میانهٔ هندسی}
+میانهٔ تعداد پرتاب‌های تاس تا آمدن اولین ۶ را بیابید.
+\begin{solution}
+$X\sim\mathrm{Geom}(\tfrac16)$ و $F_X(k)=1-(5/6)^k$. کوچک‌ترین $k$ با $F_X(k)\ge\tfrac12$ را می‌خواهیم:
+\[ \Bigl(\frac56\Bigr)^k\le\frac12\quad\Longleftrightarrow\quad k\ge\frac{\ln2}{\ln(6/5)}\approx3.8, \]
+پس $m=4$. در حالی که میانگین ۶ است: در نیمی از مواقع ۴ پرتاب یا کمتر کافی است، ولی گاهی خیلی بیشتر طول می‌کشد و همین میانگین را بالا می‌برد.
+\end{solution}
+\end{example}
+
+\subsection{مد}
+
+\begin{definition}[label=def:mode]{مد}
+\term{مد}{mode} متغیر $X$ محتمل‌ترین مقدار آن است: نقطه‌ای که \lr{PMF} یا \lr{PDF} در آن بیشینه است.
+\[ \text{\rl{گسسته:}}\quad \arg\max_x\,p_X(x),\qquad\qquad \text{\rl{پیوسته:}}\quad \arg\max_x\,f_X(x). \]
+\end{definition}
+
+\begin{note}
+مد هم ممکن است یکتا نباشد: توزیع یکنواخت روی یک بازه، هر نقطهٔ بازه را مد دارد، و توزیعی که دو قله با ارتفاع برابر دارد \emph{دوقله‌ای} (\lr{bimodal}) است. برای پیدا کردن مد در حالت پیوسته معمولاً $f_X'(x)=0$ را حل می‌کنیم و در حالت گسسته، مثل جلسه‌های ۵ و ۶، نسبت $\frac{p_X(k)}{p_X(k-1)}$ را با ۱ مقایسه می‌کنیم.
+\end{note}
+
+مد توزیع‌های مهم را قبلاً دیده‌ایم:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\begin{tabular}{l|c||l|c}
+\rl{توزیع} & \rl{مد} & \rl{توزیع} & \rl{مد}\\\hline
+$\mathrm{Bern}(p)$ & \rl{$0$ یا $1$ (پایین را ببینید)} & $\mathrm{Unif}(a,b)$ & \rl{هر نقطهٔ $[a,b]$}\\
+$\mathrm{Bin}(n,p)$ & $\lfloor(n+1)p\rfloor$ & $\mathrm{Exp}(\lambda)$ & $0$\\
+$\mathrm{Geom}(p)$ & $1$ & $\mathcal N(\mu,\sigma^2)$ & $\mu$\\
+$\mathrm{Poisson}(\lambda)$ & $\lfloor\lambda\rfloor$ & \rl{لاپلاس و کوشی} & $\mu$ \rl{و} $x_0$
+\end{tabular}
+\end{center}
+
+\subsection{مقایسهٔ میانگین، میانه و مد}
+
+برای توزیع‌های \emph{متقارن} و تک‌قله‌ای (گاوسی، لاپلاس) هر سه برابرند. اما برای توزیع‌های \emph{نامتقارن} از هم جدا می‌شوند. مثلاً برای $\mathrm{Exp}(1)$:
+مد برابر $0$، میانه برابر $\ln2\approx0.69$ و میانگین برابر $1$ است. یعنی مد از میانه کوچک‌تر است و میانه از میانگین.
+\lr{tail} بلند سمت راست، میانگین را به سمت راست «می‌کشد»، ولی روی میانه اثر کمی دارد. (برای برنولی در جدول بالا: اگر $p>\tfrac12$ مد برابر $1$، اگر $p<\tfrac12$ برابر $0$ و اگر $p=\tfrac12$ هر دو مقدار مد هستند.)
+
+\begin{figblock}
+\begin{tikzpicture}[x=2.1cm, y=3.2cm]
+  \fill[setA!12] plot[domain=0:0.693, samples=40] (\x,{exp(-\x)}) -- (0.693,0) -- (0,0) -- cycle;
+  \draw[-{Stealth}, graytext] (-0.1,0) -- (4.2,0) node[right] {$x$};
+  \draw[-{Stealth}, graytext] (0,-0.03) -- (0,1.2) node[above] {$f_X(x)$};
+  \draw[primary, very thick, domain=0:4, samples=80] plot (\x,{exp(-\x)});
+  \fill[accent] (0,1) circle (2pt); \node[left, font=\small, accent!80!black] at (0,0.95) {\rl{مد}};
+  \draw[setA!80!black, thick] (0.693,0) -- (0.693,0.5); \node[below, font=\small, setA!80!black] at (0.693,0) {\rl{میانه}};
+  \draw[warncolor, thick] (1,0) -- (1,0.368); \node[below, font=\small, warncolor] at (1.12,-0.08) {\rl{میانگین}};
+  \node[font=\small, setA!80!black] at (0.3,0.25) {$\tfrac12$};
+\end{tikzpicture}
+
+\figcaption[fig:mean-median-mode]{برای $\mathrm{Exp}(1)$: مد در $0$، میانه در $\ln2$ (مساحت سایه‌خورده $\tfrac12$ است) و میانگین در $1$.}
+\end{figblock}
+
+
+%% ------------------------------------------------------------
+\section*{جمع‌بندی جلسهٔ دوازدهم}
+\addcontentsline{toc}{section}{خلاصه و تمرین‌ها}
+%% ------------------------------------------------------------
+
+\begin{summary}
+\begin{itemize}
+  \item \textbf{مفهوم:} امید ریاضی مرکز را می‌دهد و واریانس پراکندگی حول آن را. چون $\mathbb E[X-\mu]=0$، انحراف را به توان دو می‌رسانیم.
+  \item \textbf{فرمول‌ها:} $\mathrm{Var}(X)=\mathbb E[(X-\mu)^2]=\mathbb E[X^2]-(\mathbb E[X])^2$ و $\sigma_X=\sqrt{\mathrm{Var}(X)}$ (هم‌واحد با $X$).
+  \item \textbf{ویژگی‌ها:} $\mathrm{Var}\ge0$ (صفر فقط برای ثابت)؛ $\mathrm{Var}(aX+b)=a^2\mathrm{Var}(X)$؛ برای متغیرهای مستقل $\mathrm{Var}(X+Y)=\mathrm{Var}(X)+\mathrm{Var}(Y)$ ولی در حالت کلی نه.
+  \item \textbf{مقدارها:} برنولی $p(1-p)$، دوجمله‌ای $np(1-p)$، هندسی $\frac{1-p}{p^2}$، پواسون $\lambda$، یکنواخت $\frac{(b-a)^2}{12}$، نمایی $\frac1{\lambda^2}$، گاوسی $\sigma^2$، لاپلاس $\frac2{\lambda^2}$؛ کوشی ندارد.
+  \item \textbf{میانه:} $m=\min\{x:F_X(x)\ge\tfrac12\}$؛ همیشه وجود دارد ولی ممکن است یکتا نباشد. \textbf{مد:} $\arg\max p_X$ یا $\arg\max f_X$. در توزیع‌های نامتقارن میانگین، میانه و مد از هم جدا می‌شوند.
+\end{itemize}
+\end{summary}
+
+\subsection*{تمرین‌های پیشنهادی}
+
+\begin{exercise}
+$X$ مقادیر $1$، $3$ و $8$ را با احتمال‌های $0.1$، $0.5$ و $0.4$ می‌گیرد. $\mathrm{Var}(X)$ را با فرمول دوم حساب کنید.
+\answer{$30.2-4.8^2=7.16$}
+\end{exercise}
+
+\begin{exercise}
+اگر $X\sim\mathrm{Poisson}(4)$، امید ریاضی و واریانس $3X-2$ را بیابید.
+\answer{$10$ \ و \ $36$}
+\end{exercise}
+
+\begin{exercise}
+دو تاس سالم مستقل می‌ریزیم. واریانس مجموعشان را بیابید.
+\answer{$2\times\tfrac{35}{12}=\tfrac{35}{6}\approx5.83$}
+\end{exercise}
+
+\begin{exercise}
+اگر $X\sim\mathrm{Unif}(0,1)$، واریانس $Y=\sqrt X$ را بیابید. (راهنمایی: $\mathbb E[Y^2]=\mathbb E[X]$.)
+\answer{$\tfrac12-\tfrac49=\tfrac1{18}$}
+\end{exercise}
+
+\begin{exercise}
+$X$ پیوسته با چگالی $f_X(x)=2x$ روی $[0,1]$ است. میانگین، واریانس، میانه و مد آن را بیابید.
+\answer{میانگین $\tfrac23$، واریانس $\tfrac1{18}$، میانه $\tfrac1{\sqrt2}\approx0.707$، مد $1$}
+\end{exercise}
+
+\begin{exercise}
+در یک کارخانه، طول پیچ‌ها (به میلی‌متر) میانگین ۲۰ و انحراف معیار ۰٫۲ دارد. اگر واحد را به سانتی‌متر تغییر دهیم و ۱ سانتی‌متر هم به همه اضافه کنیم (برای سر پیچ)، میانگین و انحراف معیار جدید چقدر است؟
+\answer{میانگین $3$ سانتی‌متر و انحراف معیار $0.02$ سانتی‌متر}
+\end{exercise}
+
+\begin{exercise}
+میانه و مد $\mathrm{Geom}(\tfrac12)$ را بیابید و با میانگین آن مقایسه کنید.
+\answer{میانه $1$، مد $1$، میانگین $2$}
+\end{exercise}

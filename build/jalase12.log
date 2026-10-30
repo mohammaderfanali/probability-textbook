@@ -1,9 +1,9 @@
-This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2026.9.8)  23 OCT 2026 18:36
+This is XeTeX, Version 3.141592653-2.6-0.999995 (MiKTeX 24.1) (preloaded format=xelatex 2026.9.8)  30 OCT 2026 11:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**./jalase09.tex
-(jalase09.tex
+**./jalase12.tex
+(jalase12.tex
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
 (C:\Program Files\MiKTeX\tex/latex/base\book.cls
@@ -1647,8 +1647,8 @@ Package hyperref Info: Option `bookmarksnumbered' set `true' on input line 13.
 File: book-xetex-bidi.def 2025/02/02 v1.2 bidi adaptations for standard book cl
 ass for XeTeX engine
 )
-(D:\univercity\term7\ps\jozve\build\jalase09.aux)
-\openout1 = `jalase09.aux'.
+(D:\univercity\term7\ps\probability-textbook\build\jalase12.aux)
+\openout1 = `jalase12.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 22.
 LaTeX Font Info:    ... okay on input line 22.
@@ -1710,10 +1710,10 @@ s been generated with the most recent feature set (\pgfplotsset{compat=1.18}).
 
 \c@lstlisting=\count446
 Package hyperref Info: Link coloring ON on input line 22.
-(D:\univercity\term7\ps\jozve\build\jalase09.out)
-(D:\univercity\term7\ps\jozve\build\jalase09.out)
+(D:\univercity\term7\ps\probability-textbook\build\jalase12.out)
+(D:\univercity\term7\ps\probability-textbook\build\jalase12.out)
 \@outlinefile=\write4
-\openout4 = `jalase09.out'.
+\openout4 = `jalase12.out'.
 
 File: images/sharif-logo-white.png Graphic file (type bmp)
 <images/sharif-logo-white.png>
@@ -1723,31 +1723,34 @@ LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
 (Font)              scaled to size 15.89755pt on input line 30.
 
 Underfull \hbox (badness 10000) in paragraph at lines 30--30
- [][][][][]\TU/Estedad(1)/m/n/27 امید ریاضی[][][]
+ [][][][][]\TU/Estedad(1)/m/n/27 واریانس، میانه و مد[][][]
  []
 
 LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
 (Font)              scaled to size 11.03998pt on input line 30.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 30.
 
-(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 30.
-
-
-(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
 
 [1
 
 
-] (sessions/session09.tex
-فصل 9.
+] (sessions/session12.tex
+فصل 12.
 
 \endL or \endR problem (0 missing, 1 extra) in paragraph at lines 6--6
 [][][][][][][][][][][] 
+ []
+
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsa.fd)
+(C:\Program Files\MiKTeX\tex/latex/amsfonts\umsb.fd)
+Underfull \hbox (badness 1337) in paragraph at lines 18--18
+[][]|[]\TU/LatinModernRoman(0)/m/n/10.95 Pishro-Nik[] \TU/Estedad(0)/m/n/10.95 
+بخش‌های []\TU/LatinModernRoman(0)/m/n/10.95 3.2.4[] \TU/Estedad(0)/m/n/10.95 و 
+[]\TU/LatinModernRoman(0)/m/n/10.95 4.1.2[] \TU/Estedad(0)/m/n/10.95 ؛ []\TU/La
+tinModernRoman(0)/m/n/10.95 Ross[] \TU/Estedad(0)/m/n/10.95 بخش‌های []\TU/Latin
+ModernRoman(0)/m/n/10.95 4.5[]\TU/Estedad(0)/m/n/10.95 ، []\TU/LatinModernRoman
+(0)/m/n/10.95 4.6[]\TU/Estedad(0)/m/n/10.95 ، []\TU/LatinModernRoman(0)/m/n/10.
+95 5.2[] \TU/Estedad(0)/m/n/10.95 و []\TU/LatinModernRoman(0)/m/n/10.95 7.4[] \
+TU/Estedad(0)/m/n/10.95 ؛[]
  []
 
 
@@ -1813,25 +1816,69 @@ Overfull \hbox (1.96758pt too wide) in paragraph at lines 18--18
 LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
 (Font)              scaled to size 13.24796pt on input line 23.
 
+\endL or \endR problem (2 missing, 0 extra) detected at line 31
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 31
+[][][] [][][][][]
+ []
+
+
+\endL or \endR problem (2 missing, 0 extra) detected at line 32
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 32
+[][][] [][][][][]
+ []
+
+
+\endL or \endR problem (2 missing, 0 extra) detected at line 33
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 33
+[][][] [][][][][]
+ []
+
+
 
 LaTeX Font Info:    Font shape `TU/Estedad(0)/b/n' will be
-(Font)              scaled to size 9.19998pt on input line 34.
+(Font)              scaled to size 9.19998pt on input line 36.
 [1
 
 
 ]
-Overfull \hbox (0.6pt too wide) in paragraph at lines 39--39
-[][][][] []
+LaTeX Font Info:    Font shape `TU/Estedad(2)/m/n' will be
+(Font)              scaled to size 9.19998pt on input line 50.
+LaTeX Font Info:    Font shape `TU/Estedad(0)/b/n' will be
+(Font)              scaled to size 10.07397pt on input line 53.
+LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
+(Font)              scaled to size 7.35999pt on input line 64.
+LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
+(Font)              scaled to size 5.51999pt on input line 64.
+
+\endL or \endR problem (2 missing, 0 extra) detected at line 70
+ [][][]$\U/msa/m/n/10 J$[][]
  []
 
 
-Overfull \hbox (0.6pt too wide) in paragraph at lines 48--48
-[][][][] []
+\endL or \endR problem (0 missing, 2 extra) detected at line 70
+[][][] [][][][][]
  []
 
 
-Overfull \hbox (0.6pt too wide) in paragraph at lines 64--64
-[][][][] []
+\endL or \endR problem (2 missing, 0 extra) detected at line 71
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 71
+[][][] [][][][][]
  []
 
 
@@ -1849,31 +1896,17 @@ e
  []
 
 [2]
-LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
-(Font)              scaled to size 7.35999pt on input line 105.
-LaTeX Font Info:    Font shape `TU/Estedad(0)/m/n' will be
-(Font)              scaled to size 5.51999pt on input line 105.
-
-
-
-\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
-e
-[][][][] 
+Overfull \hbox (0.6pt too wide) in paragraph at lines 76--76
+[][][][] []
  []
 
 
-\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
-e
-[][][][] 
+Overfull \hbox (0.6pt too wide) in paragraph at lines 85--85
+[][][][] []
  []
 
-[3]
-LaTeX Font Info:    Font shape `TU/Estedad(2)/m/n' will be
-(Font)              scaled to size 9.19998pt on input line 121.
-LaTeX Font Info:    Font shape `TU/Estedad(0)/b/n' will be
-(Font)              scaled to size 10.07397pt on input line 127.
 
-Overfull \hbox (0.6pt too wide) in paragraph at lines 135--135
+Overfull \hbox (0.6pt too wide) in paragraph at lines 109--109
 [][][][] []
  []
 
@@ -1891,8 +1924,27 @@ e
 [][][][] 
  []
 
+[3]
+
+
+\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
+e
+[][][][] 
+ []
+
+
+\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
+e
+[][][][] 
+ []
+
 [4]
-Overfull \hbox (0.6pt too wide) in paragraph at lines 169--169
+Overfull \hbox (0.6pt too wide) in paragraph at lines 147--147
+[][][][] []
+ []
+
+
+Overfull \hbox (0.6pt too wide) in paragraph at lines 183--183
 [][][][] []
  []
 
@@ -1911,31 +1963,6 @@ e
  []
 
 [5]
-Overfull \hbox (0.6pt too wide) in paragraph at lines 206--206
-[][][][] []
- []
-
-
-\endL or \endR problem (2 missing, 0 extra) detected at line 214
- [][][]$\U/msa/m/n/10 J$[][]
- []
-
-
-\endL or \endR problem (0 missing, 2 extra) detected at line 214
-[][][] [][][][][]
- []
-
-
-\endL or \endR problem (2 missing, 0 extra) detected at line 215
- [][][]$\U/msa/m/n/10 J$[][]
- []
-
-
-\endL or \endR problem (0 missing, 2 extra) detected at line 215
-[][][] [][][][][]
- []
-
-
 
 
 \endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
@@ -1950,11 +1977,6 @@ e
  []
 
 [6]
-Overfull \hbox (0.6pt too wide) in paragraph at lines 227--227
-[][][][] []
- []
-
-
 
 
 \endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
@@ -2025,6 +2047,46 @@ e
  []
 
 [11]
+\endL or \endR problem (2 missing, 0 extra) detected at line 360
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 360
+[][][] [][][][][]
+ []
+
+
+\endL or \endR problem (2 missing, 0 extra) detected at line 361
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 361
+[][][] [][][][][]
+ []
+
+
+\endL or \endR problem (2 missing, 0 extra) detected at line 362
+ [][][]$\U/msa/m/n/10 J$[][]
+ []
+
+
+\endL or \endR problem (0 missing, 2 extra) detected at line 362
+[][][] [][][][][]
+ []
+
+
+Overfull \hbox (0.6pt too wide) in paragraph at lines 368--368
+[][][][] []
+ []
+
+
+Overfull \hbox (0.6pt too wide) in paragraph at lines 377--377
+[][][][] []
+ []
+
+
 
 
 \endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
@@ -2053,75 +2115,56 @@ e
  []
 
 [13]
-Overfull \hbox (0.6pt too wide) in paragraph at lines 434--434
-[][][][] []
- []
-
-
-
-
-\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
-e
-[][][][] 
- []
-
-
-\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
-e
-[][][][] 
- []
-
-[14]
-\endL or \endR problem (2 missing, 0 extra) detected at line 453
+\endL or \endR problem (2 missing, 0 extra) detected at line 436
  [][][]$\U/msa/m/n/10 J$[][]
  []
 
 
-\endL or \endR problem (0 missing, 2 extra) detected at line 453
+\endL or \endR problem (0 missing, 2 extra) detected at line 436
 [][][] [][][][][]
  []
 
 
-\endL or \endR problem (2 missing, 0 extra) detected at line 454
+\endL or \endR problem (2 missing, 0 extra) detected at line 437
  [][][]$\U/msa/m/n/10 J$[][]
  []
 
 
-\endL or \endR problem (0 missing, 2 extra) detected at line 454
+\endL or \endR problem (0 missing, 2 extra) detected at line 437
 [][][] [][][][][]
  []
 
 
-\endL or \endR problem (2 missing, 0 extra) detected at line 455
+\endL or \endR problem (2 missing, 0 extra) detected at line 438
  [][][]$\U/msa/m/n/10 J$[][]
  []
 
 
-\endL or \endR problem (0 missing, 2 extra) detected at line 455
+\endL or \endR problem (0 missing, 2 extra) detected at line 438
 [][][] [][][][][]
  []
 
 
-\endL or \endR problem (2 missing, 0 extra) detected at line 456
+\endL or \endR problem (2 missing, 0 extra) detected at line 439
  [][][]$\U/msa/m/n/10 J$[][]
  []
 
 
-\endL or \endR problem (0 missing, 2 extra) detected at line 456
+\endL or \endR problem (0 missing, 2 extra) detected at line 439
 [][][] [][][][][]
  []
 
 
-\endL or \endR problem (2 missing, 0 extra) detected at line 457
+\endL or \endR problem (2 missing, 0 extra) detected at line 440
  [][][]$\U/msa/m/n/10 J$[][]
  []
 
 
-\endL or \endR problem (0 missing, 2 extra) detected at line 457
+\endL or \endR problem (0 missing, 2 extra) detected at line 440
 [][][] [][][][][]
  []
 
-
+)
 
 
 \endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
@@ -2135,36 +2178,22 @@ e
 [][][][] 
  []
 
-[15])
-
-
-\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
-e
-[][][][] 
- []
-
-
-\endL or \endR problem (0 missing, 1 extra) has occurred while \output is activ
-e
-[][][][] 
- []
-
-[16] (D:\univercity\term7\ps\jozve\build\jalase09.aux)
+[14] (D:\univercity\term7\ps\probability-textbook\build\jalase12.aux)
  ***********
 LaTeX2e <2025-06-01> patch level 1
 L3 programming layer <2025-06-09>
  ***********
-Package rerunfilecheck Info: File `jalase09.out' has not changed.
-(rerunfilecheck)             Checksum: 1884E76EE3EA7EC8AEAFAACED8FEE9E1;1679.
+Package rerunfilecheck Info: File `jalase12.out' has not changed.
+(rerunfilecheck)             Checksum: E88397D2C6C43E6DC65BAB4855E25234;1293.
  ) 
 Here is how much of TeX's memory you used:
- 47391 strings out of 403462
- 1157409 string characters out of 5476862
- 1798502 words of memory out of 5000000
- 74765 multiletter control sequences out of 15000+600000
- 642814 words of font info for 164 fonts, out of 8000000 for 9000
+ 47862 strings out of 403462
+ 1167487 string characters out of 5476862
+ 1797737 words of memory out of 5000000
+ 75239 multiletter control sequences out of 15000+600000
+ 640349 words of font info for 155 fonts, out of 8000000 for 9000
  1348 hyphenation exceptions out of 8191
  93i,15n,97p,1699b,1323s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
-Output written on D:\univercity\term7\ps\jozve\build\jalase09.xdv (17 pages, 46
-6252 bytes).
+Output written on D:\univercity\term7\ps\probability-textbook\build\jalase12.xd
+v (15 pages, 444528 bytes).
