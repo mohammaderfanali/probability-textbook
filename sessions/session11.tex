@@ -10,99 +10,98 @@
 {امید ریاضی، امید ریاضیِ تابعی از یک متغیر و خطی بودن آن؛ امید ریاضی توزیع‌های مهم}
 {\lr{Pishro-Nik} بخش‌های \lr{3.2.2}، \lr{3.2.3}، \lr{4.1.2} و \lr{4.1.3} \,؛\, \lr{Ross} بخش‌های \lr{4.3}، \lr{4.4}، \lr{5.2} و \lr{7.2} \,؛\, \lr{Bertsekas} بخش‌های \lr{2.3}، \lr{2.4} و \lr{3.1}}
 {\begin{itemize}
-  \item امید ریاضی را به‌عنوان «میانگین بلندمدت» تعریف کنید و امید ریاضیِ $g(X)$ را بدون پیدا کردن توزیع آن حساب کنید؛
-  \item خطی بودن امید ریاضی را بیان و اثبات کنید و با جمع نشانگرها از آن استفاده کنید؛
-  \item امید ریاضی همهٔ توزیع‌هایی را که تا اینجا دیده‌ایم حساب کنید؛
-  \item ارتباط امید ریاضی با میانگینِ داده‌ها را از طریق قانون اعداد بزرگ توضیح دهید.
-\end{itemize}}
+    \item امید ریاضی را به‌عنوان «میانگین بلندمدت» تعریف کنید و امید ریاضیِ $g(X)$ را بدون پیدا کردن توزیع آن حساب کنید؛
+    \item خطی بودن امید ریاضی را بیان و اثبات کنید و با جمع نشانگرها از آن استفاده کنید؛
+    \item امید ریاضی همهٔ توزیع‌هایی را که تا اینجا دیده‌ایم حساب کنید؛
+    \item ارتباط امید ریاضی با میانگینِ داده‌ها را از طریق قانون اعداد بزرگ توضیح دهید.
+  \end{itemize}}
 
-تا اینجا برای هر متغیر تصادفی \emph{توزیع} آن را پیدا می‌کردیم: \lr{PMF}، \lr{PDF} یا \lr{CDF}. در جلسهٔ ۱۰ حتی توزیعِ تابعی از یک متغیر، مثل $\sqrt X$ یا $e^X$، را هم پیدا کردیم. توزیع همهٔ اطلاعات را دارد، ولی یک \emph{تابع} کامل است. در این جلسه یاد می‌گیریم یک متغیر تصادفی را در \emph{یک عدد} خلاصه کنیم: میانگینِ بلندمدت یا \emph{امید ریاضی}.
+تا اینجا برای هر متغیر تصادفی \emph{توزیع} آن را پیدا کردیم: \lr{PMF}، \lr{PDF} یا \lr{CDF}. در جلسهٔ ۱۰ حتی توزیعِ تابعی از یک متغیر، مثل $\sqrt X$ یا $e^X$، را هم پیدا کردیم. توزیع همهٔ اطلاعات را دارد، ولی یک \emph{تابع} کامل است. در این جلسه متغیر های تصادفی را در \emph{یک عدد} خلاصه می‌کنیم: میانگینِ بلندمدت یا \emph{امید ریاضی}.
 
 %% ------------------------------------------------------------
 \section{امید ریاضی}
 \label{sec:expect}
 %% ------------------------------------------------------------
 
-توزیع یک متغیر تصادفی یک \emph{تابع} کامل است (\lr{PMF}، \lr{PDF} یا \lr{CDF}). اما خیلی وقت‌ها می‌خواهیم آن را در \emph{یک عدد} خلاصه کنیم: «به طور متوسط» چقدر؟ زمان متوسط انتظار برای اتوبوس، تعداد متوسط درخواست‌ها به سرور در یک ثانیه، سود متوسط یک بازی. این عدد \emph{امید ریاضی} است.
+همان‌طور که پیشتر اشاره کردیم توزیع یک متغیر تصادفی یک \emph{تابع} کامل است (\lr{PMF}، \lr{PDF} یا \lr{CDF}). اما خیلی وقت‌ها می‌خواهیم آن را در \emph{یک عدد} خلاصه کنیم: «به طور متوسط» چقدر؟ زمان متوسط انتظار برای اتوبوس، تعداد متوسط درخواست‌ها به سرور در یک ثانیه، سود متوسط یک بازی. این عدد \emph{امید ریاضی} است.
 
 \subsection{مفهوم: میانگینِ بلندمدت}
 
-متغیر $X$ را در نظر بگیرید که مقادیر $1$، $3$ و $8$ را به ترتیب با احتمال‌های $0.1$، $0.5$ و $0.4$ می‌گیرد. آزمایش را $N$ بار (با $N$ بزرگ) تکرار کنید. طبق تعبیر فراوانی نسبی (جلسهٔ ۱)، تقریباً $0.1N$ بار مقدار $1$، $0.5N$ بار مقدار $3$ و $0.4N$ بار مقدار $8$ می‌آید. پس میانگینِ عددهای دیده‌شده تقریباً
+متغیر $X$ را در نظر بگیرید که هر یک از مقادیر $1$، $3$ و $8$ را به ترتیب با احتمال‌های $0.1$، $0.5$ و $0.4$ می‌گیرد. آزمایش را $N$ بار (با $N$ بزرگ) تکرار کنید. طبق تعبیر فراوانی نسبی (جلسهٔ ۱)، تقریباً $0.1N$ بار مقدار $1$، $0.5N$ بار مقدار $3$ و $0.4N$ بار مقدار $8$ می‌آید. پس میانگینِ عددهای دیده‌شده تقریباً
 \[ \frac{1\cdot0.1N+3\cdot0.5N+8\cdot0.4N}{N}=0.1\times1+0.5\times3+0.4\times8=4.8 \]
 است. یعنی میانگینِ بلندمدت، \key{جمعِ مقادیر با وزنِ احتمالشان} است. (این استدلال شهودی را در بخش \ref{sec:lln} با قانون اعداد بزرگ دقیق می‌کنیم.)
 
 \begin{definition}[label=def:expect]{امید ریاضی}
-\term{امید ریاضی}{expected value, mean} متغیر تصادفی $X$، که با $\mathbb E[X]$ (یا $\mu_X$) نشان می‌دهیم، عبارت است از
-\[ \text{\rl{گسسته:}}\quad \mathbb E[X]=\sum_{x}x\,p_X(x),\qquad\qquad \text{\rl{پیوسته:}}\quad \mathbb E[X]=\int_{-\infty}^{\infty}x\,f_X(x)\,dx, \]
-به شرطی که این جمع یا انتگرال \emph{مطلقاً همگرا} باشد، یعنی $\sum_x|x|\,p_X(x)<\infty$ یا $\int|x|\,f_X(x)\,dx<\infty$. در غیر این صورت می‌گوییم $X$ امید ریاضی ندارد.
+  \term{امید ریاضی}{expected value, mean} متغیر تصادفی $X$، که با $\mathbb E[X]$ (یا $\mu_X$) نشان می‌دهیم، عبارت است از
+  \[  \mathbb E[X]=\sum_{x}x\,p_X(x) \qquad\text{\rl{گسسته:}}\quad \quad \mathbb E[X]=\int_{-\infty}^{\infty}x\,f_X(x)\,dx \quad \text{\rl{پیوسته:}}\]
+  به شرطی که این جمع یا انتگرال \emph{مطلقاً همگرا} باشد، یعنی $\sum_x|x|\,p_X(x)<\infty$ یا $\int|x|\,f_X(x)\,dx<\infty$. در غیر این صورت می‌گوییم $X$ امید ریاضی ندارد.
 \end{definition}
 
 فرمول پیوسته از همان ایدهٔ همیشگی می‌آید: محور را به نوارهای کوچک $[x,x+dx]$ تقسیم کنید؛ $X$ با احتمال تقریباً $f_X(x)\,dx$ در هر نوار است، پس جمعِ «مقدار $\times$ احتمال» به $\int x\,f_X(x)\,dx$ تبدیل می‌شود. باز هم قاعدهٔ سرانگشتی جلسهٔ ۷: جمع $\to$ انتگرال و \lr{PMF} $\to$ \lr{PDF}.
 
 \begin{figblock}
-\begin{tikzpicture}[x=1cm, y=4.2cm]
-  \draw[-{Stealth}, graytext] (0,0) -- (9.2,0) node[right] {$x$};
-  \foreach \x/\p in {1/0.1, 3/0.5, 8/0.4} {
-    \draw[setA, line width=2pt] (\x,0) -- (\x,\p); \fill[setA] (\x,\p) circle (2.2pt);
-    \node[above, font=\scriptsize] at (\x,\p) {$\p$}; \node[below, font=\small] at (\x,-0.02) {$\x$}; }
-  \fill[accent] (4.8,0) -- (4.62,-0.12) -- (4.98,-0.12) -- cycle;
-  \node[below, font=\small, accent!80!black] at (4.8,-0.13) {$\mathbb E[X]=4.8$};
-\end{tikzpicture}
+  \begin{tikzpicture}[x=1cm, y=4.2cm]
+    \draw[-{Stealth}, graytext] (0,0) -- (9.2,0) node[right] {$x$};
+    \foreach \x/\p in {1/0.1, 3/0.5, 8/0.4} {
+        \draw[setA, line width=2pt] (\x,0) -- (\x,\p); \fill[setA] (\x,\p) circle (2.2pt);
+        \node[above, font=\scriptsize] at (\x,\p) {$\p$}; \node[below, font=\small] at (\x,-0.02) {$\x$}; }
+    \fill[accent] (4.8,0) -- (4.62,-0.12) -- (4.98,-0.12) -- cycle;
+    \node[below, font=\small, accent!80!black] at (4.8,-0.13) {$\mathbb E[X]=4.8$};
+  \end{tikzpicture}
 
-\figcaption[fig:balance]{امید ریاضی «نقطهٔ تعادل» نمودار است: اگر میله‌ها وزنه‌هایی متناسب با احتمالشان روی یک خط‌کش باشند، خط‌کش روی $4.8$ تعادل دارد. برای \lr{PDF} هم امید ریاضی مرکز جرمِ ناحیهٔ زیر نمودار است.}
+  \figcaption[fig:balance]{امید ریاضی «نقطهٔ تعادل» نمودار است: اگر میله‌ها وزنه‌هایی متناسب با احتمالشان روی یک خط‌کش باشند، خط‌کش روی $4.8$ متعادل می‌شود. برای \lr{PDF} هم امید ریاضی مرکز جرمِ ناحیهٔ زیر نمودار است.}
 \end{figblock}
 
 \begin{note}
-سه نکتهٔ مهم:
-\begin{enumerate}
-  \item $X$ تصادفی است ولی $\mathbb E[X]$ یک \emph{عدد معین} است و هیچ چیز تصادفی‌ای در آن نیست.
-  \item $X$ ممکن است \emph{هیچ‌وقت} برابر $\mathbb E[X]$ نشود: در مثال بالا $X$ هرگز $4.8$ نمی‌شود، و امید ریاضی عدد یک تاس سالم $\frac{1+2+\cdots+6}{6}=3.5$ است. پس «امید» به معنای «مقدار مورد انتظار در یک بار آزمایش» نیست، بلکه میانگینِ بلندمدت است.
-  \item امید ریاضی ممکن است \emph{وجود نداشته باشد} (پایین‌تر کوشی را ببینید).
-\end{enumerate}
+  \begin{enumerate}
+    \item $X$ تصادفی است ولی $\mathbb E[X]$ یک \emph{عدد معین} است و هیچ چیز تصادفی‌ای در آن نیست.
+    \item $X$ ممکن است \emph{هیچ‌وقت} برابر $\mathbb E[X]$ نشود: در مثال بالا $X$ هرگز $4.8$ نمی‌شود، و امید ریاضی عدد یک تاس سالم $\frac{1+2+\cdots+6}{6}=3.5$ است. پس «امید» به معنای «مقدار مورد انتظار در یک بار آزمایش» نیست، بلکه میانگینِ بلندمدت است.
+    \item امید ریاضی ممکن است \emph{وجود نداشته باشد} (در ادامه کوشی را بررسی خواهیم کرد).
+  \end{enumerate}
 \end{note}
 
 \begin{example}[label=ex:fair-game]{بازی منصفانه}
-برای شرکت در بازی‌ای ۱۰۰۰ تومان می‌پردازید و تاسی می‌ریزید؛ اگر ۶ بیاید ۵۰۰۰ تومان جایزه می‌گیرید. سود خالص شما به طور متوسط چقدر است؟ جایزه چقدر باشد تا بازی منصفانه (سود متوسط صفر) باشد؟
-\begin{solution}
-سود خالص $W$ با احتمال $\tfrac16$ برابر $5000-1000=4000$ و با احتمال $\tfrac56$ برابر $-1000$ است:
-\[ \mathbb E[W]=\tfrac16(4000)+\tfrac56(-1000)=\tfrac{4000-5000}{6}\approx-167. \]
-پس در بلندمدت در هر بازی حدود ۱۶۷ تومان می‌بازید. اگر جایزه $J$ باشد، $\mathbb E[W]=\frac{J}{6}-1000$؛ پس بازی با $J=6000$ منصفانه است.
-\end{solution}
+  برای شرکت در بازی‌ای ۱۰۰۰ تومان می‌پردازید و تاسی می‌ریزید؛ اگر ۶ بیاید ۵۰۰۰ تومان جایزه می‌گیرید. سود خالص شما به طور متوسط چقدر است؟ جایزه چقدر باشد تا بازی منصفانه (سود متوسط صفر) باشد؟
+  \begin{solution}
+    سود خالص $W$ با احتمال $\tfrac16$ برابر $5000-1000=4000$ و با احتمال $\tfrac56$ برابر $-1000$ است:
+    \[ \mathbb E[W]=\tfrac16(4000)+\tfrac56(-1000)=\tfrac{4000-5000}{6}\approx-167. \]
+    پس در بلندمدت در هر بازی حدود ۱۶۷ تومان می‌بازید. اگر جایزه $J$ باشد، $\mathbb E[W]=\frac{J}{6}-1000$؛ پس بازی با $J=6000$ منصفانه است.
+  \end{solution}
 \end{example}
 
 \begin{proposition}[label=prop:expect-ind]{امید ریاضی نشانگر}
-برای هر پیشامد $A$: \ $\mathbb E[\ind_A]=\P(A)$.
+  برای هر پیشامد $A$: \ $\mathbb E[\ind_A]=\P(A)$.
 \end{proposition}
 
 \begin{proof}
-$\ind_A$ با احتمال $\P(A)$ برابر ۱ و وگرنه ۰ است: $\mathbb E[\ind_A]=1\cdot\P(A)+0\cdot(1-\P(A))=\P(A)$.
+  $\ind_A$ با احتمال $\P(A)$ برابر ۱ و وگرنه ۰ است: $\mathbb E[\ind_A]=1\cdot\P(A)+0\cdot(1-\P(A))=\P(A)$.
 \end{proof}
 
 این گزاره پل بین «احتمال» و «امید ریاضی» است: احتمال هر پیشامد، امید ریاضیِ نشانگر آن است.
 
 \subsection{امید ریاضیِ تابعی از یک متغیر}
 
-چون $g(X)$ یک متغیر تصادفی است، امید ریاضی دارد. خبر خوب این است که برای حساب کردنش لازم نیست اول توزیع $g(X)$ را (با روش‌های جلسهٔ ۱۰) پیدا کنیم:
+$g(X)$ یک متغیر تصادفی است، بنابراین امید ریاضی دارد. خبر خوب این است که برای حساب کردنش لازم نیست اول توزیع $g(X)$ را (با روش‌های جلسهٔ ۱۰) پیدا کنیم:
 
 \begin{theorem}[label=thm:lotus]{امید ریاضیِ $g(X)$}
-\[ \mathbb E[g(X)]=\sum_xg(x)\,p_X(x)\qquad\text{\rl{یا}}\qquad \mathbb E[g(X)]=\int_{-\infty}^{\infty}g(x)\,f_X(x)\,dx \]
-(به شرط همگرایی مطلق).
+  \[ \mathbb E[g(X)]=\sum_xg(x)\,p_X(x)\qquad\text{\rl{یا}}\qquad \mathbb E[g(X)]=\int_{-\infty}^{\infty}g(x)\,f_X(x)\,dx \]
+  (به شرط همگرایی مطلق).
 \end{theorem}
 
 \begin{proof}
-حالت گسسته: مقادیر $x$ را بر اساس مقدار $g(x)$ دسته‌بندی کنید. چون $\P(Y=y)=\sum_{x:\,g(x)=y}p_X(x)$،
-\[ \mathbb E[Y]=\sum_yy\!\!\sum_{x:\,g(x)=y}\!\!p_X(x)=\sum_y\sum_{x:\,g(x)=y}\!\!g(x)\,p_X(x)=\sum_xg(x)\,p_X(x). \]
-حالت پیوسته با همان ایدهٔ نوارهای کوچک: $g(X)$ وقتی $X\in[x,x+dx]$ تقریباً $g(x)$ است و این با احتمال $f_X(x)\,dx$ رخ می‌دهد.
+  حالت گسسته: مقادیر $x$ را بر اساس مقدار $g(x)$ دسته‌بندی کنید. چون $\P(Y=y)=\sum_{x:\,g(x)=y}p_X(x)$،
+  \[ \mathbb E[Y]=\sum_yy\!\!\sum_{x:\,g(x)=y}\!\!p_X(x)=\sum_y\sum_{x:\,g(x)=y}\!\!g(x)\,p_X(x)=\sum_xg(x)\,p_X(x). \]
+  حالت پیوسته با همان ایدهٔ نوارهای کوچک: $g(X)$ وقتی $X\in[x,x+dx]$ تقریباً $g(x)$ است و این با احتمال $f_X(x)\,dx$ رخ می‌دهد.
 \end{proof}
 
 \begin{example}[label=ex:lotus]{دو راه برای یک جواب}
-(الف) $X$ مقادیر $-1$، $0$ و $1$ را هر کدام با احتمال $\tfrac13$ می‌گیرد. در جلسهٔ ۱۰ دیدیم $Y=X^2$ با احتمال $\tfrac13$ صفر و با احتمال $\tfrac23$ یک است. $\mathbb E[X^2]$ را یک بار از توزیع $Y$ و یک بار با قضیهٔ \ref{thm:lotus} حساب کنید. (ب) اگر $X\sim\mathrm{Unif}(0,1)$، در جلسهٔ ۱۰ دیدیم چگالی $Y=\sqrt X$ روی $[0,1]$ برابر $2y$ است. $\mathbb E[\sqrt X]$ را به دو روش حساب کنید. (ج) برای عدد $X$ یک تاس سالم، $\mathbb E[X^2]$ را با $(\mathbb E[X])^2$ مقایسه کنید.
-\begin{solution}
-(الف) از توزیع $Y$: $0\cdot\tfrac13+1\cdot\tfrac23=\tfrac23$. با قضیه: $(-1)^2\cdot\tfrac13+0^2\cdot\tfrac13+1^2\cdot\tfrac13=\tfrac23$.\\
-(ب) از توزیع $Y$: $\int_0^1y\cdot2y\,dy=\tfrac23$. با قضیه: $\int_0^1\sqrt x\cdot1\,dx=\tfrac23$.\\
-(ج) $\mathbb E[X^2]=\frac{1+4+9+16+25+36}{6}=\frac{91}{6}\approx15.17$، ولی $(\mathbb E[X])^2=3.5^2=12.25$.\\
-پس در حالت کلی $\mathbb E[g(X)]\ne g(\mathbb E[X])$. (فاصلهٔ این دو، $\mathbb E[X^2]-(\mathbb E[X])^2$، همان چیزی است که جلسهٔ بعد \emph{واریانس} می‌نامیم.)
-\end{solution}
+  (الف) $X$ مقادیر $-1$، $0$ و $1$ را هر کدام با احتمال $\tfrac13$ می‌گیرد. در جلسهٔ ۱۰ دیدیم $Y=X^2$ با احتمال $\tfrac13$ صفر و با احتمال $\tfrac23$ یک است. $\mathbb E[X^2]$ را یک بار از توزیع $Y$ و یک بار با قضیهٔ \ref{thm:lotus} حساب کنید. (ب) اگر $X\sim\mathrm{Unif}(0,1)$، در جلسهٔ ۱۰ دیدیم چگالی $Y=\sqrt X$ روی $[0,1]$ برابر $2y$ است. $\mathbb E[\sqrt X]$ را به دو روش حساب کنید. (ج) برای عدد $X$ یک تاس سالم، $\mathbb E[X^2]$ را با $(\mathbb E[X])^2$ مقایسه کنید.
+  \begin{solution}
+    (الف) از توزیع $Y$: $0\cdot\tfrac13+1\cdot\tfrac23=\tfrac23$. با قضیه: $(-1)^2\cdot\tfrac13+0^2\cdot\tfrac13+1^2\cdot\tfrac13=\tfrac23$.\\
+    (ب) از توزیع $Y$: $\int_0^1y\cdot2y\,dy=\tfrac23$. با قضیه: $\int_0^1\sqrt x\cdot1\,dx=\tfrac23$.\\
+    (ج) $\mathbb E[X^2]=\frac{1+4+9+16+25+36}{6}=\frac{91}{6}\approx15.17$، ولی $(\mathbb E[X])^2=3.5^2=12.25$.\\
+    پس در حالت کلی $\mathbb E[g(X)]\ne g(\mathbb E[X])$. (فاصلهٔ این دو، $\mathbb E[X^2]-(\mathbb E[X])^2$، همان چیزی است که جلسهٔ بعد \emph{واریانس} می‌نامیم.)
+  \end{solution}
 \end{example}
 
 %% ------------------------------------------------------------
@@ -111,55 +110,55 @@ $\ind_A$ با احتمال $\P(A)$ برابر ۱ و وگرنه ۰ است: $\math
 %% ------------------------------------------------------------
 
 \begin{theorem}[label=thm:expect-props]{ویژگی‌های امید ریاضی}
-فرض کنید امیدهای ریاضی زیر وجود داشته باشند و $a,b,c$ اعداد ثابت باشند.
-\begin{enumerate}
-  \item \textbf{ثابت:} $\mathbb E[c]=c$.
-  \item \textbf{تبدیل خطی:} $\mathbb E[aX+b]=a\,\mathbb E[X]+b$.
-  \item \textbf{خطی بودن:} برای هر دو متغیر $X$ و $Y$ (روی یک فضای نمونه): $\mathbb E[X+Y]=\mathbb E[X]+\mathbb E[Y]$؛ و در نتیجه
-  \[ \mathbb E\Bigl[\sum_{i=1}^na_iX_i+b\Bigr]=\sum_{i=1}^na_i\,\mathbb E[X_i]+b. \]
-  \key{برای این ویژگی هیچ استقلالی لازم نیست.}
-  \item \textbf{یکنوایی:} اگر $X\ge0$ آنگاه $\mathbb E[X]\ge0$؛ و اگر $X\le Y$ آنگاه $\mathbb E[X]\le\mathbb E[Y]$.
-\end{enumerate}
+  فرض کنید امیدهای ریاضی زیر وجود داشته باشند و $a,b,c$ اعداد ثابت باشند.
+  \begin{enumerate}
+    \item \textbf{ثابت:} $\mathbb E[c]=c$.
+    \item \textbf{تبدیل خطی:} $\mathbb E[aX+b]=a\,\mathbb E[X]+b$.
+    \item \textbf{خطی بودن:} برای هر دو متغیر $X$ و $Y$ (روی یک فضای نمونه): $\mathbb E[X+Y]=\mathbb E[X]+\mathbb E[Y]$؛ و در نتیجه
+          \[ \mathbb E\Bigl[\sum_{i=1}^na_iX_i+b\Bigr]=\sum_{i=1}^na_i\,\mathbb E[X_i]+b. \]
+          \key{برای این ویژگی هیچ استقلالی لازم نیست.}
+    \item \textbf{یکنوایی:} اگر $X\ge0$ آنگاه $\mathbb E[X]\ge0$؛ و اگر $X\le Y$ آنگاه $\mathbb E[X]\le\mathbb E[Y]$.
+  \end{enumerate}
 \end{theorem}
 
 \begin{proof}
-(۱) متغیر ثابت $c$ با احتمال ۱ مقدار $c$ را می‌گیرد.\\
-(۲) با قضیهٔ \ref{thm:lotus} و $g(x)=ax+b$ (در حالت پیوسته با انتگرال، همین‌طور):
-\[ \mathbb E[aX+b]=\sum_x(ax+b)\,p_X(x)=a\sum_xx\,p_X(x)+b\sum_xp_X(x)=a\,\mathbb E[X]+b. \]
-(۳) برای فضای نمونهٔ شمارا: با دسته‌بندی برآمدها بر اساس مقدار $X$ داریم $\mathbb E[X]=\sum_{\omega}X(\omega)\,\P(\{\omega\})$، یعنی امید ریاضی «میانگین وزن‌دارِ $X$ روی همهٔ برآمدها» است. پس
-\[ \mathbb E[X+Y]=\sum_\omega\bigl(X(\omega)+Y(\omega)\bigr)\P(\{\omega\})=\sum_\omega X(\omega)\P(\{\omega\})+\sum_\omega Y(\omega)\P(\{\omega\})=\mathbb E[X]+\mathbb E[Y]. \]
-در هیچ جای این محاسبه از ارتباط $X$ و $Y$ استفاده نکردیم. (برای متغیرهای پیوسته اثبات دقیق به توزیع توأم نیاز دارد و بعداً می‌آید، ولی نتیجه همین است.)\\
-(۴) اگر $X\ge0$، همهٔ جمله‌های $x\,p_X(x)$ (یا $x\,f_X(x)$) نامنفی‌اند. برای دومی، $Y-X\ge0$ و طبق (۳) $\mathbb E[Y]-\mathbb E[X]=\mathbb E[Y-X]\ge0$.
+  \newline (۱) متغیر ثابت $c$ با احتمال ۱ مقدار $c$ را می‌گیرد.\\
+  (۲) با قضیهٔ \ref{thm:lotus} و $g(x)=ax+b$ (در حالت پیوسته با انتگرال، همین‌طور):
+  \[ \mathbb E[aX+b]=\sum_x(ax+b)\,p_X(x)=a\sum_xx\,p_X(x)+b\sum_xp_X(x)=a\,\mathbb E[X]+b. \]
+  (۳) برای فضای نمونهٔ شمارا: با دسته‌بندی برآمدها بر اساس مقدار $X$ داریم $\mathbb E[X]=\sum_{\omega}X(\omega)\,\P(\{\omega\})$، یعنی امید ریاضی «میانگین وزن‌دارِ $X$ روی همهٔ برآمدها» است. پس
+  \[ \mathbb E[X+Y]=\sum_\omega\bigl(X(\omega)+Y(\omega)\bigr)\P(\{\omega\})=\sum_\omega X(\omega)\P(\{\omega\})+\sum_\omega Y(\omega)\P(\{\omega\})=\mathbb E[X]+\mathbb E[Y]. \]
+  در هیچ جای این محاسبه از ارتباط $X$ و $Y$ استفاده نکردیم. (برای متغیرهای پیوسته اثبات دقیق به توزیع توأم نیاز دارد و بعداً می‌آید، ولی نتیجه همین است.)\\
+  (۴) اگر $X\ge0$، همهٔ جمله‌های $x\,p_X(x)$ (یا $x\,f_X(x)$) نامنفی‌اند. برای دومی، $Y-X\ge0$ و طبق (۳) \newline $\mathbb E[Y]-\mathbb E[X]=\mathbb E[Y-X]\ge0$.
 \end{proof}
 
 \begin{example}[label=ex:sum-two-mean]{جمع دو گردونه}
-دو گردونهٔ سالم مستقلاً یکی از اعداد $1$، $2$ و $3$ را نشان می‌دهند و $Z=X+Y$ جمع آن‌هاست. ۹ زوجِ $(x,y)$ هم‌احتمال‌اند و با شمردن زوج‌هایی که جمعشان ۲، ۳، ۴، ۵ و ۶ است، $Z$ این مقادیر را با احتمال‌های $\tfrac19,\tfrac29,\tfrac39,\tfrac29,\tfrac19$ می‌گیرد. $\mathbb E[Z]$ را یک بار از این \lr{PMF} و یک بار با خطی بودن حساب کنید.
-\begin{solution}
-از \lr{PMF}: $\mathbb E[Z]=\frac{2\cdot1+3\cdot2+4\cdot3+5\cdot2+6\cdot1}{9}=\frac{36}{9}=4$. با خطی بودن: $\mathbb E[X]=\mathbb E[Y]=\frac{1+2+3}{3}=2$ و $\mathbb E[Z]=2+2=4$، بدون اینکه توزیع $Z$ را لازم داشته باشیم. برای مجموع دو تاس هم بلافاصله $3.5+3.5=7$.
-\end{solution}
+  دو گردونهٔ سالم مستقلاً یکی از اعداد $1$، $2$ و $3$ را نشان می‌دهند و $Z=X+Y$ جمع آن‌هاست. ۹ زوجِ $(x,y)$ هم‌احتمال‌اند و با شمردن زوج‌هایی که جمعشان ۲، ۳، ۴، ۵ و ۶ است، $Z$ این مقادیر را با احتمال‌های $\tfrac19,\tfrac29,\tfrac39,\tfrac29,\tfrac19$ می‌گیرد. $\mathbb E[Z]$ را یک بار از این \lr{PMF} و یک بار با خطی بودن حساب کنید.
+  \begin{solution}
+    از \lr{PMF}: $\mathbb E[Z]=\frac{2\cdot1+3\cdot2+4\cdot3+5\cdot2+6\cdot1}{9}=\frac{36}{9}=4$.\newline با خطی بودن: $\mathbb E[X]=\mathbb E[Y]=\frac{1+2+3}{3}=2$ و $\mathbb E[Z]=2+2=4$، بدون اینکه توزیع $Z$ را لازم داشته باشیم. برای مجموع دو تاس هم $3.5+3.5=7$.
+  \end{solution}
 \end{example}
 
 \begin{warning}
-خطی بودن فقط برای \emph{جمع} و \emph{ضرب در عدد ثابت} است:
-\begin{itemize}
-  \item در حالت کلی $\mathbb E[g(X)]\ne g(\mathbb E[X])$؛ مثلاً $\mathbb E[X^2]\ne(\mathbb E[X])^2$، $\mathbb E[\sqrt X]\ne\sqrt{\mathbb E[X]}$ و $\mathbb E[\frac1X]\ne\frac{1}{\mathbb E[X]}$. (در مثال \ref{ex:lotus} با $X\sim\mathrm{Unif}(0,1)$: $\mathbb E[\sqrt X]=\frac23$ ولی $\sqrt{\mathbb E[X]}=\sqrt{1/2}\approx0.71$.)
-  \item در حالت کلی $\mathbb E[XY]\ne\mathbb E[X]\,\mathbb E[Y]$. مثلاً اگر $X=Y\sim\mathrm{Bern}(\tfrac12)$، آنگاه $XY=X$ و $\mathbb E[XY]=\tfrac12$، ولی $\mathbb E[X]\,\mathbb E[Y]=\tfrac14$. (برای متغیرهای مستقل تساوی برقرار است؛ این را بعداً ثابت می‌کنیم.)
-\end{itemize}
+  خطی بودن فقط برای \emph{جمع} و \emph{ضرب در عدد ثابت} است:
+  \begin{itemize}
+    \item در حالت کلی $\mathbb E[g(X)]\ne g(\mathbb E[X])$ \newline مثال: \quad \quad $\mathbb E[X^2]\ne(\mathbb E[X])^2$ \quad \quad $\mathbb E[\sqrt X]\ne\sqrt{\mathbb E[X]}$ \quad \quad $\mathbb E[\frac1X]\ne\frac{1}{\mathbb E[X]}$.  \newline (در مثال \ref{ex:lotus} با $X\sim\mathrm{Unif}(0,1)$: $\mathbb E[\sqrt X]=\frac23$ ولی $\sqrt{\mathbb E[X]}=\sqrt{1/2}\approx0.71$.)
+    \item در حالت کلی $\mathbb E[XY]\ne\mathbb E[X]\,\mathbb E[Y]$. مثلاً اگر $X=Y\sim\mathrm{Bern}(\tfrac12)$، آنگاه $XY=X$ و $\mathbb E[XY]=\tfrac12$، ولی $\mathbb E[X]\,\mathbb E[Y]=\tfrac14$. (برای متغیرهای مستقل تساوی برقرار است؛ این را در ادامه اثبات می‌کنیم.)
+  \end{itemize}
 \end{warning}
 
 \subsection{قدرت خطی بودن: جمعِ نشانگرها}
 
-در جلسهٔ ۵ گفتیم که متغیرهای شمارشی را می‌شود جمع نشانگرها نوشت. حالا با ترکیب خطی بودن و $\mathbb E[\ind_A]=\P(A)$ یک روش بسیار قوی داریم:
+در جلسهٔ ۵ گفتیم که متغیرهای شمارشی را می‌شود جمع نشانگرها نوشت. حالا با ترکیب خطی بودن و $\mathbb E[\ind_A]=\P(A)$ نشان می‌دهیم:
 \[ X=\sum_{i=1}^n\ind_{A_i}\qquad\Longrightarrow\qquad \mathbb E[X]=\sum_{i=1}^n\P(A_i), \]
 \key{حتی اگر پیشامدهای $A_i$ مستقل نباشند}، و بدون اینکه توزیع $X$ را بدانیم.
 
 \begin{example}[label=ex:hats-mean]{مسئلهٔ کلاه‌ها}
-$n$ نفر کلاه‌هایشان را به صورت یک جایگشت کاملاً تصادفی پس می‌گیرند. به طور متوسط چند نفر کلاه خودشان را می‌گیرند؟
-\begin{solution}
-$N=I_1+\cdots+I_n$ که $I_i$ نشانگر «نفر $i$ کلاه خودش را بگیرد» است و $\P(I_i=1)=\frac1n$. در جلسهٔ ۵ دیدیم این نشانگرها مستقل نیستند و $N$ دوجمله‌ای نیست؛ ولی خطی بودن به استقلال نیازی ندارد:
-\[ \mathbb E[N]=n\cdot\frac1n=1. \]
-جالب اینکه جواب به $n$ بستگی ندارد: چه ۳ نفر باشند چه ۳ میلیون نفر، به طور متوسط دقیقاً یک نفر کلاه خودش را می‌گیرد.
-\end{solution}
+  $n$ نفر کلاه‌هایشان را به صورت یک جایگشت کاملاً تصادفی پس می‌گیرند. به طور متوسط چند نفر کلاه خودشان را می‌گیرند؟
+  \begin{solution}
+    $N=I_1+\cdots+I_n$ که $I_i$ نشانگر «نفر $i$ کلاه خودش را بگیرد» است و $\P(I_i=1)=\frac1n$. در جلسهٔ ۵ دیدیم این نشانگرها مستقل نیستند و $N$ دوجمله‌ای نیست؛ ولی خطی بودن به استقلال نیازی ندارد:
+    \[ \mathbb E[N]=n\cdot\frac1n=1. \]
+    جواب به $n$ بستگی ندارد: چه ۳ نفر باشند چه ۳ میلیون نفر، به طور متوسط دقیقاً یک نفر کلاه خودش را می‌گیرد.
+  \end{solution}
 \end{example}
 
 %% ------------------------------------------------------------
@@ -167,147 +166,147 @@ $N=I_1+\cdots+I_n$ که $I_i$ نشانگر «نفر $i$ کلاه خودش را �
 \label{sec:expect-dists}
 %% ------------------------------------------------------------
 
-در این بخش امید ریاضی هر توزیع را مستقیم از تعریف حساب می‌کنیم. الگوی کار همیشه یکی است: (۱) \lr{PMF} یا \lr{PDF} را در تعریف بگذار؛ (۲) جمع یا انتگرال را به شکلی برگردان که قبلاً مقدارش را می‌دانیم (معمولاً «جمع کل احتمال‌ها $=1$» یا یک سری معروف)؛ (۳) نتیجه را با شهود بررسی کن.
+در این بخش امید ریاضی هر توزیع را مستقیم از تعریف حساب می‌کنیم. الگوی کار همیشه یکی است:\newline (۱) \lr{PMF} یا \lr{PDF} را در تعریف قرار بده. \newline (۲) جمع یا انتگرال را به شکلی تبدیل کن که قبلاً مقدارش را می‌دانیم (معمولاً «جمع کل احتمال‌ها برابر با 1» یا یک سری معروف) .\newline (۳) نتیجه را با شهود بررسی کن.
 
 \begin{proposition}[label=prop:E-bern]{امید ریاضی برنولی}
-اگر $X\sim\mathrm{Bern}(p)$: \ $\mathbb E[X]=p$.
+  اگر $X\sim\mathrm{Bern}(p)$: \ $\mathbb E[X]=p$.
 \end{proposition}
 \begin{proof}
-$X$ فقط دو مقدار دارد: $0$ با احتمال $1-p$ و $1$ با احتمال $p$. طبق تعریف، هر مقدار را در احتمالش ضرب و جمع می‌کنیم:
-\[ \mathbb E[X]=0\cdot(1-p)+1\cdot p=p. \]
-این همان گزارهٔ $\mathbb E[\ind_A]=\P(A)$ است، چون هر متغیر برنولی نشانگرِ پیشامد $\{X=1\}$ است.
+  $X$ فقط دو مقدار دارد: $0$ با احتمال $1-p$ و $1$ با احتمال $p$. طبق تعریف، هر مقدار را در احتمالش ضرب و جمع می‌کنیم:
+  \[ \mathbb E[X]=0\cdot(1-p)+1\cdot p=p. \]
+  این همان گزارهٔ $\mathbb E[\ind_A]=\P(A)$ است، چون هر متغیر برنولی نشانگرِ پیشامد $\{X=1\}$ است.
 \end{proof}
 
 \begin{proposition}[label=prop:E-bin]{امید ریاضی دوجمله‌ای}
-اگر $X\sim\mathrm{Bin}(n,p)$: \ $\mathbb E[X]=np$.
+  اگر $X\sim\mathrm{Bin}(n,p)$: \ $\mathbb E[X]=np$.
 \end{proposition}
 \begin{proof}
-\textbf{راه ۱: مستقیم از تعریف.} طبق تعریف
-\[ \mathbb E[X]=\sum_{k=0}^{n}k\binom nkp^k(1-p)^{n-k}. \]
-جملهٔ $k=0$ صفر است، پس جمع از $k=1$ شروع می‌شود. برای ساده کردن $k\binom nk$ از این اتحاد استفاده می‌کنیم:
-\[ k\binom nk=k\cdot\frac{n!}{k!\,(n-k)!}=\frac{n!}{(k-1)!\,(n-k)!}=n\cdot\frac{(n-1)!}{(k-1)!\,\bigl((n-1)-(k-1)\bigr)!}=n\binom{n-1}{k-1}. \]
-(شهود اتحاد: انتخاب یک گروه $k$ نفره از $n$ نفر و سپس یک سرگروه از بین آن $k$ نفر، همان انتخاب اول سرگروه از $n$ نفر و سپس $k-1$ عضو دیگر از $n-1$ نفر باقی‌مانده است.) با جای‌گذاری و بیرون کشیدن $np$:
-\[ \mathbb E[X]=\sum_{k=1}^{n}n\binom{n-1}{k-1}p^k(1-p)^{n-k}=np\sum_{k=1}^{n}\binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}. \]
-حالا اندیس را عوض می‌کنیم: $j=k-1$ که از $0$ تا $n-1$ تغییر می‌کند و $n-k=(n-1)-j$:
-\[ \mathbb E[X]=np\sum_{j=0}^{n-1}\binom{n-1}{j}p^{j}(1-p)^{(n-1)-j}=np\,\bigl(p+(1-p)\bigr)^{n-1}=np. \]
-جمع آخر طبق بسط دوجمله‌ای ۱ است؛ به بیان دیگر، جمعِ کل احتمال‌های $\mathrm{Bin}(n-1,p)$ است.\\[3pt]
-\textbf{راه ۲: با خطی بودن.} طبق جلسهٔ ۵، $X=I_1+\cdots+I_n$ که $I_i$ نشانگر موفقیت آزمایش $i$-ام و $I_i\sim\mathrm{Bern}(p)$ است. طبق خطی بودن و گزارهٔ قبل:
-\[ \mathbb E[X]=\mathbb E[I_1]+\cdots+\mathbb E[I_n]=\underbrace{p+p+\cdots+p}_{n}=np. \]
+  \textbf{راه ۱: مستقیم از تعریف.} طبق تعریف
+  \[ \mathbb E[X]=\sum_{k=0}^{n}k\binom nkp^k(1-p)^{n-k}. \]
+  جملهٔ $k=0$ صفر است، پس جمع از $k=1$ شروع می‌شود. برای ساده کردن $k\binom nk$ از این اتحاد استفاده می‌کنیم:
+  \[ k\binom nk=k\cdot\frac{n!}{k!\,(n-k)!}=\frac{n!}{(k-1)!\,(n-k)!}=n\cdot\frac{(n-1)!}{(k-1)!\,\bigl((n-1)-(k-1)\bigr)!}=n\binom{n-1}{k-1}. \]
+  شهود اتحاد: انتخاب یک گروه $k$ نفره از $n$ نفر و سپس یک سرگروه از بین آن $k$ نفر، همان انتخاب اول سرگروه از $n$ نفر و سپس $k-1$ عضو دیگر از $n-1$ نفر باقی‌مانده است. \newline با جای‌گذاری و بیرون کشیدن $np$:
+  \[ \mathbb E[X]=\sum_{k=1}^{n}n\binom{n-1}{k-1}p^k(1-p)^{n-k}=np\sum_{k=1}^{n}\binom{n-1}{k-1}p^{k-1}(1-p)^{n-k}. \]
+  حالا اندیس را عوض می‌کنیم: $j=k-1$ که از $0$ تا $n-1$ تغییر می‌کند و $n-k=(n-1)-j$:
+  \[ \mathbb E[X]=np\sum_{j=0}^{n-1}\binom{n-1}{j}p^{j}(1-p)^{(n-1)-j}=np\,\bigl(p+(1-p)\bigr)^{n-1}=np. \]
+  جمع آخر طبق بسط دوجمله‌ای ۱ است؛ به بیان دیگر، جمعِ کل احتمال‌های $\mathrm{Bin}(n-1,p)$ است.\\[3pt]
+  \textbf{راه ۲: با خطی بودن.} طبق جلسهٔ ۵، $X=I_1+\cdots+I_n$ که $I_i$ نشانگر موفقیت آزمایش $i$-ام و $I_i\sim\mathrm{Bern}(p)$ است. طبق خطی بودن و گزارهٔ قبل:
+  \[ \mathbb E[X]=\mathbb E[I_1]+\cdots+\mathbb E[I_n]=\underbrace{p+p+\cdots+p}_{n}=np. \]
 \end{proof}
 مقایسهٔ دو راه نشان می‌دهد خطی بودن چقدر کار را ساده می‌کند. نتیجه هم با شهود جور است: در $n$ آزمایش با احتمال موفقیت $p$، به طور متوسط کسرِ $p$ از آزمایش‌ها موفق‌اند؛ و همان جایی است که قلهٔ نمودار دوجمله‌ای قرار داشت (جلسهٔ ۵).
 
 \begin{proposition}[label=prop:E-geom]{امید ریاضی هندسی}
-اگر $X\sim\mathrm{Geom}(p)$: \ $\mathbb E[X]=\dfrac1p$.
+  اگر $X\sim\mathrm{Geom}(p)$: \ $\mathbb E[X]=\dfrac1p$.
 \end{proposition}
 \begin{proof}
-با $q=1-p$، طبق تعریف
-\[ \mathbb E[X]=\sum_{k=1}^{\infty}k\,p\,q^{k-1}=p\sum_{k=1}^{\infty}k\,q^{k-1}. \]
-\textbf{گام ۱: یک سری کمکی.} برای $|r|<1$ سری هندسی را می‌شناسیم:
-\[ \sum_{k=0}^{\infty}r^k=1+r+r^2+r^3+\cdots=\frac{1}{1-r}. \]
-\textbf{گام ۲: مشتق جمله به جمله.} از دو طرف نسبت به $r$ مشتق می‌گیریم (برای سری توانی داخل بازهٔ همگرایی مجاز است). مشتق $r^k$ برابر $k\,r^{k-1}$ و مشتق $\frac1{1-r}$ برابر $\frac{1}{(1-r)^2}$ است:
-\[ \sum_{k=1}^{\infty}k\,r^{k-1}=1+2r+3r^2+\cdots=\frac{1}{(1-r)^2}. \]
-\textbf{گام ۳: جای‌گذاری.} با $r=q$ (که $0\le q<1$):
-\[ \mathbb E[X]=p\cdot\frac{1}{(1-q)^2}=p\cdot\frac{1}{p^2}=\frac1p. \]
+  با $q=1-p$، طبق تعریف
+  \[ \mathbb E[X]=\sum_{k=1}^{\infty}k\,p\,q^{k-1}=p\sum_{k=1}^{\infty}k\,q^{k-1}. \]
+  \textbf{گام ۱: یک سری کمکی.} برای $|r|<1$ سری هندسی را می‌شناسیم:
+  \[ \sum_{k=0}^{\infty}r^k=1+r+r^2+r^3+\cdots=\frac{1}{1-r}. \]
+  \textbf{گام ۲: مشتق جمله به جمله.} از دو طرف نسبت به $r$ مشتق می‌گیریم (برای سری توانی داخل بازهٔ همگرایی مجاز است). مشتق $r^k$ برابر $k\,r^{k-1}$ و مشتق $\frac1{1-r}$ برابر $\frac{1}{(1-r)^2}$ است:
+  \[ \sum_{k=1}^{\infty}k\,r^{k-1}=1+2r+3r^2+\cdots=\frac{1}{(1-r)^2}. \]
+  \textbf{گام ۳: جای‌گذاری.} با $r=q$ (که $0\le q<1$):
+  \[ \mathbb E[X]=p\cdot\frac{1}{(1-q)^2}=p\cdot\frac{1}{p^2}=\frac1p. \]
 \end{proof}
 اگر احتمال موفقیت $p$ باشد، به طور متوسط $\frac1p$ آزمایش لازم است. مثلاً به طور متوسط ۶ بار تاس می‌ریزیم تا ۶ بیاید و ۱۰۰۰ بلیت بخت‌آزمایی (با احتمال برد $\frac1{1000}$) می‌خریم تا یکی برنده شود. هرچه $p$ کوچک‌تر باشد، انتظار طولانی‌تر است.
 
 \begin{proposition}[label=prop:E-pois]{امید ریاضی پواسون}
-اگر $X\sim\mathrm{Poisson}(\lambda)$: \ $\mathbb E[X]=\lambda$.
+  اگر $X\sim\mathrm{Poisson}(\lambda)$: \ $\mathbb E[X]=\lambda$.
 \end{proposition}
 \begin{proof}
-طبق تعریف
-\[ \mathbb E[X]=\sum_{k=0}^{\infty}k\,e^{-\lambda}\frac{\lambda^k}{k!}. \]
-\textbf{گام ۱:} جملهٔ $k=0$ صفر است؛ پس جمع از $k=1$ شروع می‌شود. برای $k\ge1$: \ $\frac{k}{k!}=\frac{1}{(k-1)!}$.\\
-\textbf{گام ۲:} یک $\lambda$ و عامل ثابت $e^{-\lambda}$ را بیرون می‌کشیم:
-\[ \mathbb E[X]=\sum_{k=1}^{\infty}e^{-\lambda}\frac{\lambda^k}{(k-1)!}=\lambda e^{-\lambda}\sum_{k=1}^{\infty}\frac{\lambda^{k-1}}{(k-1)!}. \]
-\textbf{گام ۳:} با تغییر اندیس $j=k-1$، جمع باقی‌مانده همان سری تیلور $e^\lambda$ است:
-\[ \mathbb E[X]=\lambda e^{-\lambda}\sum_{j=0}^{\infty}\frac{\lambda^{j}}{j!}=\lambda e^{-\lambda}\,e^{\lambda}=\lambda. \]
-(به بیان دیگر، جمع آخر $e^\lambda$ برابرِ جمع کل احتمال‌های پواسون است.)
+  طبق تعریف
+  \[ \mathbb E[X]=\sum_{k=0}^{\infty}k\,e^{-\lambda}\frac{\lambda^k}{k!}. \]
+  \textbf{گام ۱:} جملهٔ $k=0$ صفر است؛ پس جمع از $k=1$ شروع می‌شود. برای $k\ge1$: \ $\frac{k}{k!}=\frac{1}{(k-1)!}$.\\
+  \textbf{گام ۲:} یک $\lambda$ و عامل ثابت $e^{-\lambda}$ را بیرون می‌کشیم:
+  \[ \mathbb E[X]=\sum_{k=1}^{\infty}e^{-\lambda}\frac{\lambda^k}{(k-1)!}=\lambda e^{-\lambda}\sum_{k=1}^{\infty}\frac{\lambda^{k-1}}{(k-1)!}. \]
+  \textbf{گام ۳:} با تغییر اندیس $j=k-1$، جمع باقی‌مانده همان سری تیلور $e^\lambda$ است:
+  \[ \mathbb E[X]=\lambda e^{-\lambda}\sum_{j=0}^{\infty}\frac{\lambda^{j}}{j!}=\lambda e^{-\lambda}\,e^{\lambda}=\lambda. \]
+  (به بیان دیگر، جمع آخر $e^\lambda$ برابرِ جمع کل احتمال‌های پواسون است.)
 \end{proof}
 پس پارامتر $\lambda$ دقیقاً «تعداد متوسط پیشامدها» است. این با ساختن پواسون در جلسهٔ ۶ هم سازگار است: $\mathrm{Poisson}(\lambda)$ حدِ $\mathrm{Bin}(n,\frac\lambda n)$ است و میانگین آن $n\cdot\frac\lambda n=\lambda$ است.
 
 \begin{proposition}[label=prop:E-unif]{امید ریاضی یکنواخت}
-اگر $X\sim\mathrm{Unif}(a,b)$: \ $\mathbb E[X]=\dfrac{a+b}{2}$.
+  اگر $X\sim\mathrm{Unif}(a,b)$: \ $\mathbb E[X]=\dfrac{a+b}{2}$.
 \end{proposition}
 \begin{proof}
-چگالی بیرون از $[a,b]$ صفر است، پس انتگرال فقط روی این بازه است و روی آن $f_X(x)=\frac{1}{b-a}$ ثابت است:
-\[ \mathbb E[X]=\int_a^b x\cdot\frac{1}{b-a}\,dx=\frac{1}{b-a}\Bigl[\frac{x^2}{2}\Bigr]_a^b=\frac{b^2-a^2}{2(b-a)}=\frac{(b-a)(b+a)}{2(b-a)}=\frac{a+b}{2}. \]
+  چگالی بیرون از $[a,b]$ صفر است، پس انتگرال فقط روی این بازه است و روی آن $f_X(x)=\frac{1}{b-a}$ ثابت است:
+  \[ \mathbb E[X]=\int_a^b x\cdot\frac{1}{b-a}\,dx=\frac{1}{b-a}\Bigl[\frac{x^2}{2}\Bigr]_a^b=\frac{b^2-a^2}{2(b-a)}=\frac{(b-a)(b+a)}{2(b-a)}=\frac{a+b}{2}. \]
 \end{proof}
-یعنی وسط بازه. این را بدون انتگرال هم می‌شد دید: مستطیل نسبت به وسطش متقارن است، پس نقطهٔ تعادلش همان وسط است.
+یعنی وسط بازه. این موضوع را بدون انتگرال هم می‌توان دید: مستطیل نسبت به وسطش متقارن است، پس نقطهٔ تعادلش همان وسط است.
 
 \begin{proposition}[label=prop:E-exp]{امید ریاضی نمایی}
-اگر $X\sim\mathrm{Exp}(\lambda)$: \ $\mathbb E[X]=\dfrac1\lambda$.
+  اگر $X\sim\mathrm{Exp}(\lambda)$: \ $\mathbb E[X]=\dfrac1\lambda$.
 \end{proposition}
 \begin{proof}
-چگالی برای $x<0$ صفر است؛ پس
-\[ \mathbb E[X]=\int_0^\infty x\,\lambda e^{-\lambda x}\,dx. \]
-\textbf{راه ۱: جزء به جزء.} با $u=x$ و $dv=\lambda e^{-\lambda x}dx$ داریم $du=dx$ و $v=-e^{-\lambda x}$:
-\[ \mathbb E[X]=\Bigl[-x\,e^{-\lambda x}\Bigr]_0^\infty+\int_0^\infty e^{-\lambda x}\,dx=0+\frac1\lambda=\frac1\lambda. \]
-(جملهٔ مرزی صفر است، چون در $x=0$ مقدارش صفر است و وقتی $x\to\infty$، نمایی $e^{-\lambda x}$ سریع‌تر از رشد $x$ به صفر می‌رود.)\\[3pt]
-\textbf{راه ۲: مشتق نسبت به پارامتر.} برای هر $\alpha>0$ می‌دانیم $\int_0^\infty e^{-\alpha x}dx=\frac1\alpha$. از دو طرف نسبت به $\alpha$ مشتق می‌گیریم؛ مشتق $e^{-\alpha x}$ نسبت به $\alpha$ برابر $-x\,e^{-\alpha x}$ است:
-\[ -\int_0^\infty x\,e^{-\alpha x}\,dx=-\frac{1}{\alpha^2}\qquad\Longrightarrow\qquad \int_0^\infty x\,e^{-\alpha x}\,dx=\frac{1}{\alpha^2}. \]
-با $\alpha=\lambda$: \ $\mathbb E[X]=\lambda\cdot\frac{1}{\lambda^2}=\frac1\lambda$.
+  چگالی برای $x<0$ صفر است؛ پس
+  \[ \mathbb E[X]=\int_0^\infty x\,\lambda e^{-\lambda x}\,dx. \]
+  \textbf{راه ۱: جزء به جزء.} با $u=x$ و $dv=\lambda e^{-\lambda x}dx$ داریم $du=dx$ و $v=-e^{-\lambda x}$:
+  \[ \mathbb E[X]=\Bigl[-x\,e^{-\lambda x}\Bigr]_0^\infty+\int_0^\infty e^{-\lambda x}\,dx=0+\frac1\lambda=\frac1\lambda. \]
+  (جملهٔ مرزی صفر است، چون در $x=0$ مقدارش صفر است و وقتی $x\to\infty$، نمایی $e^{-\lambda x}$ سریع‌تر از رشد $x$ به صفر می‌رود.)\\[3pt]
+  \textbf{راه ۲: مشتق نسبت به پارامتر.} برای هر $\alpha>0$ می‌دانیم $\int_0^\infty e^{-\alpha x}dx=\frac1\alpha$. از دو طرف نسبت به $\alpha$ مشتق می‌گیریم؛ مشتق $e^{-\alpha x}$ نسبت به $\alpha$ برابر $-x\,e^{-\alpha x}$ است:
+  \[ -\int_0^\infty x\,e^{-\alpha x}\,dx=-\frac{1}{\alpha^2}\qquad\Longrightarrow\qquad \int_0^\infty x\,e^{-\alpha x}\,dx=\frac{1}{\alpha^2}. \]
+  با $\alpha=\lambda$: \ $\mathbb E[X]=\lambda\cdot\frac{1}{\lambda^2}=\frac1\lambda$.
 \end{proof}
-شهود: اگر پیشامدها با نرخ $\lambda$ رخ دهند، در هر واحد زمان به طور متوسط $\lambda$ پیشامد داریم (پواسون)، پس فاصلهٔ متوسط بین دو پیشامد $\frac1\lambda$ است. مثلاً اگر به طور متوسط ۲ مشتری در دقیقه بیاید، به طور متوسط نیم دقیقه منتظر مشتری بعدی می‌مانیم. این همان $\frac1p$ هندسی است، در زمان پیوسته.
+شهود: اگر پیشامدها با نرخ $\lambda$ رخ دهند، در هر واحد زمان به طور متوسط $\lambda$ پیشامد داریم (پواسون)، پس فاصلهٔ متوسط بین دو پیشامد $\frac1\lambda$ است. مثلاً اگر به طور متوسط ۲ مشتری در دقیقه بیاید، به طور متوسط نیم دقیقه منتظر مشتری بعدی می‌مانیم. این همان $\frac1p$ هندسی در زمان پیوسته است.
 
 \begin{proposition}[label=prop:E-gauss]{امید ریاضی گاوسی}
-اگر $X\sim\mathcal N(\mu,\sigma^2)$: \ $\mathbb E[X]=\mu$.
+  اگر $X\sim\mathcal N(\mu,\sigma^2)$: \ $\mathbb E[X]=\mu$.
 \end{proposition}
 \begin{proof}
-\textbf{گام ۱: وجود.} \lr{tail} گاوسی مثل $e^{-x^2/2}$ کم می‌شود که از هر توانی سریع‌تر است؛ پس $\int|x|\,f_X(x)\,dx$ متناهی است و امید ریاضی وجود دارد.\\
-\textbf{گام ۲: تغییر متغیر.} مثل جلسهٔ ۸، $x=\mu+\sigma z$ می‌گذاریم. آنگاه $dx=\sigma\,dz$ و
-\[ f_X(x)\,dx=\frac{1}{\sigma\sqrt{2\pi}}e^{-z^2/2}\cdot\sigma\,dz=\varphi(z)\,dz. \]
-پس
-\[ \mathbb E[X]=\int_{-\infty}^{\infty}(\mu+\sigma z)\,\varphi(z)\,dz=\mu\int_{-\infty}^{\infty}\varphi(z)\,dz+\sigma\int_{-\infty}^{\infty}z\,\varphi(z)\,dz. \]
-\textbf{گام ۳: دو انتگرال.} اولی مساحت زیر چگالی گاوسی استاندارد است، یعنی $1$ (جلسهٔ ۸). برای دومی دقت کنید که $\varphi'(z)=-z\,\varphi(z)$؛ پس $-\varphi$ پادمشتقِ $z\varphi(z)$ است:
-\[ \int_{-\infty}^{\infty}z\,\varphi(z)\,dz=\Bigl[-\varphi(z)\Bigr]_{-\infty}^{\infty}=0-0=0. \]
-(همین را از تقارن هم می‌شد دید: $z\varphi(z)$ تابعی فرد است.) در نتیجه $\mathbb E[X]=\mu\cdot1+\sigma\cdot0=\mu$.
+  \textbf{گام ۱: وجود.} \lr{tail} گاوسی مثل $e^{-x^2/2}$ کم می‌شود که از هر توانی سریع‌تر است؛ پس $\int|x|\,f_X(x)\,dx$ متناهی است و امید ریاضی وجود دارد.\\
+  \textbf{گام ۲: تغییر متغیر.} مثل جلسهٔ ۸، $x=\mu+\sigma z$ می‌گذاریم. آنگاه $dx=\sigma\,dz$ و
+  \[ f_X(x)\,dx=\frac{1}{\sigma\sqrt{2\pi}}e^{-z^2/2}\cdot\sigma\,dz=\varphi(z)\,dz. \]
+  پس
+  \[ \mathbb E[X]=\int_{-\infty}^{\infty}(\mu+\sigma z)\,\varphi(z)\,dz=\mu\int_{-\infty}^{\infty}\varphi(z)\,dz+\sigma\int_{-\infty}^{\infty}z\,\varphi(z)\,dz. \]
+  \textbf{گام ۳: دو انتگرال.} اولی مساحت زیر چگالی گاوسی استاندارد است، یعنی $1$ (جلسهٔ ۸). برای دومی دقت کنید که $\varphi'(z)=-z\,\varphi(z)$؛ پس $-\varphi$ پادمشتقِ $z\varphi(z)$ است:
+  \[ \int_{-\infty}^{\infty}z\,\varphi(z)\,dz=\Bigl[-\varphi(z)\Bigr]_{-\infty}^{\infty}=0-0=0. \]
+  (همین را از تقارن هم می‌شد دید: $z\varphi(z)$ تابعی فرد است.) در نتیجه $\mathbb E[X]=\mu\cdot1+\sigma\cdot0=\mu$.
 \end{proof}
 پس پارامتر $\mu$، که در جلسهٔ ۸ آن را «مرکز» نامیدیم، واقعاً میانگین است و نام «میانگین» برایش توجیه شد.
 
 \begin{proposition}[label=prop:E-lap]{امید ریاضی لاپلاس}
-اگر $f_X(x)=\frac\lambda2e^{-\lambda|x-\mu|}$: \ $\mathbb E[X]=\mu$.
+  اگر $f_X(x)=\frac\lambda2e^{-\lambda|x-\mu|}$: \ $\mathbb E[X]=\mu$.
 \end{proposition}
 \begin{proof}
-با تغییر متغیر $t=x-\mu$:
-\[ \mathbb E[X]=\int_{-\infty}^{\infty}(\mu+t)\,\frac\lambda2e^{-\lambda|t|}\,dt=\mu\cdot1+\int_{-\infty}^{\infty}t\,\frac\lambda2e^{-\lambda|t|}\,dt. \]
-انتگرال دوم را در صفر به دو نیمه می‌شکنیم. نیمهٔ راست نصفِ میانگین نمایی است:
-\[ \int_0^\infty t\,\frac\lambda2e^{-\lambda t}\,dt=\frac12\int_0^\infty t\,\lambda e^{-\lambda t}\,dt=\frac12\cdot\frac1\lambda, \]
-و نیمهٔ چپ، با تغییر متغیر $t\to-t$، دقیقاً منفیِ همین مقدار است. پس جمع دو نیمه صفر است و $\mathbb E[X]=\mu$. هر دو نیمه متناهی‌اند؛ پس $\int|t|\,\frac\lambda2e^{-\lambda|t|}dt=\frac1\lambda$ هم متناهی است و امید ریاضی واقعاً وجود دارد.
+  با تغییر متغیر $t=x-\mu$:
+  \[ \mathbb E[X]=\int_{-\infty}^{\infty}(\mu+t)\,\frac\lambda2e^{-\lambda|t|}\,dt=\mu\cdot1+\int_{-\infty}^{\infty}t\,\frac\lambda2e^{-\lambda|t|}\,dt. \]
+  انتگرال دوم را در صفر به دو نیمه می‌شکنیم. نیمهٔ راست نصفِ میانگین نمایی است:
+  \[ \int_0^\infty t\,\frac\lambda2e^{-\lambda t}\,dt=\frac12\int_0^\infty t\,\lambda e^{-\lambda t}\,dt=\frac12\cdot\frac1\lambda, \]
+  و نیمهٔ چپ، با تغییر متغیر $t\to-t$، دقیقاً منفیِ همین مقدار است. پس جمع دو نیمه صفر است و $\mathbb E[X]=\mu$. هر دو نیمه متناهی‌اند؛ پس $\int|t|\,\frac\lambda2e^{-\lambda|t|}dt=\frac1\lambda$ هم متناهی است و امید ریاضی واقعاً وجود دارد.
 \end{proof}
 
 \begin{proposition}[label=prop:E-cauchy]{کوشی امید ریاضی ندارد}
-اگر $X$ کوشی استاندارد باشد، $\mathbb E[X]$ وجود ندارد.
+  اگر $X$ کوشی استاندارد باشد، $\mathbb E[X]$ وجود ندارد.
 \end{proposition}
 \begin{proof}
-باید ببینیم شرط همگرایی مطلق، $\int|x|\,f_X(x)\,dx<\infty$، برقرار است یا نه. چون $|x|f_X(x)$ زوج است، دو برابرِ انتگرال روی $[0,\infty)$ است. برای هر $M>0$:
-\[ \int_0^M\frac{x}{\pi(1+x^2)}\,dx=\frac{1}{2\pi}\Bigl[\ln(1+x^2)\Bigr]_0^M=\frac{\ln(1+M^2)}{2\pi}\ \xrightarrow{\ M\to\infty\ }\ \infty. \]
-پس $\int|x|f_X(x)dx=\infty$ و طبق تعریف، $X$ امید ریاضی ندارد.
+  باید ببینیم شرط همگرایی مطلق، $\int|x|\,f_X(x)\,dx<\infty$، برقرار است یا نه. چون $|x|f_X(x)$ زوج است، دو برابرِ انتگرال روی $[0,\infty)$ است. برای هر $M>0$:
+  \[ \int_0^M\frac{x}{\pi(1+x^2)}\,dx=\frac{1}{2\pi}\Bigl[\ln(1+x^2)\Bigr]_0^M=\frac{\ln(1+M^2)}{2\pi}\ \xrightarrow{\ M\to\infty\ }\ \infty. \]
+  پس $\int|x|f_X(x)dx=\infty$ و طبق تعریف، $X$ امید ریاضی ندارد.
 \end{proof}
 
 \begin{intuition}
-چرا تقارن نجاتمان نمی‌دهد؟ چون مقدارِ «$\int x\,f_X(x)\,dx$» به این بستگی دارد که بازهٔ انتگرال را چطور به بی‌نهایت ببریم:
-\[ \int_{-M}^{M}\frac{x\,dx}{\pi(1+x^2)}=0\ \ \text{\rl{برای هر $M$}},\qquad\text{\rl{ولی}}\qquad \int_{-M}^{2M}\frac{x\,dx}{\pi(1+x^2)}=\frac{1}{2\pi}\ln\frac{1+4M^2}{1+M^2}\ \xrightarrow{\ M\to\infty\ }\ \frac{\ln2}{\pi}. \]
-دو روش طبیعی برای «بزرگ کردن» بازه، دو جواب متفاوت می‌دهند؛ پس هیچ عدد واحدی نمی‌توان میانگین نامید. ریشهٔ ماجرا \lr{heavy tail} است: برای $x$ بزرگ $x\,f_X(x)\approx\frac{1}{\pi x}$، که انتگرالش مثل $\ln x$ بی‌نهایت می‌شود. همین مشکل در گاوسی و لاپلاس پیش نمی‌آید، چون \lr{tail} آن‌ها نمایی یا سریع‌تر کم می‌شود.
+  چرا تقارن نجاتمان نمی‌دهد؟ چون مقدارِ «$\int x\,f_X(x)\,dx$» به این بستگی دارد که بازهٔ انتگرال را چطور به بی‌نهایت ببریم:
+  \[ \int_{-M}^{M}\frac{x\,dx}{\pi(1+x^2)}=0\ \ \text{\rl{برای هر $M$}},\qquad\text{\rl{ولی}}\qquad \int_{-M}^{2M}\frac{x\,dx}{\pi(1+x^2)}=\frac{1}{2\pi}\ln\frac{1+4M^2}{1+M^2}\ \xrightarrow{\ M\to\infty\ }\ \frac{\ln2}{\pi}. \]
+  دو روش طبیعی برای «بزرگ کردن» بازه، دو جواب متفاوت می‌دهند؛ پس هیچ عدد واحدی را نمی‌توان میانگین نامید. ریشهٔ ماجرا \lr{heavy tail} است: برای $x$ بزرگ $x\,f_X(x)\approx\frac{1}{\pi x}$، که انتگرالش مثل $\ln x$ بی‌نهایت می‌شود. همین مشکل در گاوسی و لاپلاس پیش نمی‌آید، چون \lr{tail} آن‌ها نمایی یا سریع‌تر کم می‌شود.
 \end{intuition}
 
 \begin{warning}
-\lr{heavy tail} در حالت گسسته هم همین کار را می‌کند. در جلسهٔ ۵ دیدیم $p_X(k)=\frac{1}{k(k+1)}$ برای $k=1,2,\dots$ یک \lr{PMF} معتبر است؛ ولی به دلیل واگرایی سری هارمونیک
-\[ \mathbb E[X]=\sum_{k\ge1}\frac{k}{k(k+1)}=\sum_{k\ge1}\frac1{k+1}=\infty. \]
-مثال دیگر: چون $\sum_i\frac1{i^2}=\frac{\pi^2}6$، تابع $p_X(i)=\frac{6}{\pi^2i^2}$ برای $i=1,2,\dots$ یک \lr{PMF} معتبر است؛ ولی امید ریاضی ندارد، چون
-\[ \sum_{i\ge1}i\cdot\frac{6}{\pi^2i^2}=\frac{6}{\pi^2}\sum_{i\ge1}\frac1i=\infty. \]
+  \lr{heavy tail} در حالت گسسته هم همین کار را می‌کند. در جلسهٔ ۵ دیدیم $p_X(k)=\frac{1}{k(k+1)}$ برای $k=1,2,\dots$ یک \lr{PMF} معتبر است؛ ولی به دلیل واگرایی سری هارمونیک
+  \[ \mathbb E[X]=\sum_{k\ge1}\frac{k}{k(k+1)}=\sum_{k\ge1}\frac1{k+1}=\infty. \]
+  مثال دیگر: چون $\sum_i\frac1{i^2}=\frac{\pi^2}6$، تابع $p_X(i)=\frac{6}{\pi^2i^2}$ برای $i=1,2,\dots$ یک \lr{PMF} معتبر است؛ ولی امید ریاضی ندارد، چون
+  \[ \sum_{i\ge1}i\cdot\frac{6}{\pi^2i^2}=\frac{6}{\pi^2}\sum_{i\ge1}\frac1i=\infty. \]
 \end{warning}
 
 \begin{keyformula}
-\renewcommand{\arraystretch}{1.5}
-\begin{tabular}{l|c||l|c}
-\rl{توزیع گسسته} & $\mathbb E[X]$ & \rl{توزیع پیوسته} & $\mathbb E[X]$\\\hline
-$\mathrm{Bern}(p)$ & $p$ & $\mathrm{Unif}(a,b)$ & $\frac{a+b}{2}$\\
-$\mathrm{Bin}(n,p)$ & $np$ & $\mathrm{Exp}(\lambda)$ & $\frac1\lambda$\\
-$\mathrm{Geom}(p)$ & $\frac1p$ & $\mathcal N(\mu,\sigma^2)$ & $\mu$\\
-$\mathrm{Poisson}(\lambda)$ & $\lambda$ & \rl{لاپلاس} & $\mu$\\
- & & \rl{کوشی} & \rl{وجود ندارد}
-\end{tabular}
+  \renewcommand{\arraystretch}{1.5}
+  \begin{tabular}{l|c||l|c}
+    \rl{توزیع گسسته}        \quad & $\mathbb E[X]$ \quad & \rl{توزیع پیوسته}    \quad & $\mathbb E[X]$  \\\hline
+    $\mathrm{Bern}(p)$            & $p$                  & $\mathrm{Unif}(a,b)$       & $\frac{a+b}{2}$ \\
+    $\mathrm{Bin}(n,p)$           & $np$                 & $\mathrm{Exp}(\lambda)$    & $\frac1\lambda$ \\
+    $\mathrm{Geom}(p)$            & $\frac1p$            & $\mathcal N(\mu,\sigma^2)$ & $\mu$           \\
+    $\mathrm{Poisson}(\lambda)$   & $\lambda$            & \rl{لاپلاس}                & $\mu$           \\
+                                  &                      & \rl{کوشی}                  & \rl{وجود ندارد}
+  \end{tabular}
 \end{keyformula}
 
 %% ------------------------------------------------------------
@@ -315,7 +314,7 @@ $\mathrm{Poisson}(\lambda)$ & $\lambda$ & \rl{لاپلاس} & $\mu$\\
 \label{sec:lln}
 %% ------------------------------------------------------------
 
-در ابتدای بخش امید ریاضی، $\mathbb E[X]$ را با یک استدلالِ شهودی «میانگینِ بلندمدت» نامیدیم: اگر آزمایش را بارها تکرار کنیم، هر مقدار تقریباً به نسبتِ احتمالش ظاهر می‌شود. \emph{قانون اعداد بزرگ} همین شهود را به یک قضیه تبدیل می‌کند و پیوند اصلی بین امید ریاضی (یک عدد نظری) و میانگینِ داده‌ها (چیزی که در عمل می‌بینیم) است.
+در ابتدای بخش امید ریاضی، $\mathbb E[X]$ را با یک استدلالِ شهودی «میانگینِ بلندمدت» نامیدیم: اگر آزمایش را بارها تکرار کنیم، هر مقدار تقریباً به نسبتِ احتمالش ظاهر خواهد شد. \emph{قانون اعداد بزرگ} همین شهود را به یک قضیه تبدیل می‌کند و پیوند بین امید ریاضی (یک عدد نظری) و میانگینِ داده‌ها (چیزی که در عمل می‌بینیم) است.
 
 \subsection{صورت قانون}
 
@@ -326,22 +325,22 @@ $\bar X_n$ خودش یک متغیر تصادفی است، چون از روی $X_
 یعنی میانگین نمونه «به طور متوسط» درست است. قانون اعداد بزرگ چیزی بسیار قوی‌تر می‌گوید:
 
 \begin{theorem}[label=thm:lln]{قانون (قوی) اعداد بزرگ}
-اگر $X_1,X_2,\dots$ مستقل و هم‌توزیع باشند و امید ریاضی $\mu=\mathbb E[X_1]$ وجود داشته باشد، آنگاه با احتمال ۱:
-\[ \lim_{n\to\infty}\frac{X_1+X_2+\cdots+X_n}{n}=\mu. \]
+  اگر $X_1,X_2,\dots$ مستقل و هم‌توزیع باشند و امید ریاضی $\mu=\mathbb E[X_1]$ وجود داشته باشد، آنگاه با احتمال ۱:
+  \[ \lim_{n\to\infty}\frac{X_1+X_2+\cdots+X_n}{n}=\mu. \]
 \end{theorem}
 
-اثبات این قضیه را در جلسه‌های آینده می‌بینیم (نسخهٔ سادهٔ آن به \emph{واریانس} نیاز دارد). فعلاً معنایش مهم است: \key{امید ریاضی همان عددی است که میانگینِ تکرارهای زیاد و مستقلِ یک آزمایش، دیر یا زود، به آن می‌رسد}. پس تعریف ما از امید ریاضی دلبخواهی نبود؛ این دقیقاً عددی است که در دنیای واقعی، با تکرار، دیده می‌شود.
+اثبات این قضیه را در جلسه‌های آینده می‌بینیم (نسخهٔ سادهٔ آن به \emph{واریانس} نیاز دارد). فعلاً معنایش مهم است: \key{امید ریاضی همان عددی است که میانگینِ تکرارهای زیاد و مستقلِ یک آزمایش، دیر یا زود، به آن می‌رسد}.
 
 \begin{example}[label=ex:lln-die]{میانگین پرتاب‌های تاس}
-تاس سالمی را بارها می‌ریزیم. جدول زیر میانگینِ عددهای آمده را بعد از $n$ پرتاب در یک شبیه‌سازی کامپیوتری نشان می‌دهد:
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{c|ccccc}
-$n$ & $10$ & $100$ & $1000$ & $10\,000$ & $100\,000$\\\hline
-$\bar X_n$ & $3.1$ & $3.34$ & $3.435$ & $3.471$ & $3.497$
-\end{tabular}
-\end{center}
-میانگین‌ها به $\mathbb E[X]=3.5$ نزدیک و نزدیک‌تر می‌شوند، با اینکه هیچ پرتابی هرگز $3.5$ نمی‌آید.
+  تاس سالمی را بارها می‌ریزیم. جدول زیر میانگینِ عددهای آمده را بعد از $n$ پرتاب در یک شبیه‌سازی کامپیوتری نشان می‌دهد:
+  \begin{center}
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabular}{c|ccccc}
+      $n$        & $10$  & $100$  & $1000$  & $10\,000$ & $100\,000$ \\\hline
+      $\bar X_n$ & $3.1$ & $3.34$ & $3.435$ & $3.471$   & $3.497$
+    \end{tabular}
+  \end{center}
+  میانگین‌ها به $\mathbb E[X]=3.5$ نزدیک و نزدیک‌تر می‌شوند، با اینکه هیچ پرتابی هرگز $3.5$ نمی‌آید.
 \end{example}
 
 \subsection{چند نتیجه و تعبیر}
@@ -361,17 +360,17 @@ $\bar X_n$ & $3.1$ & $3.34$ & $3.435$ & $3.471$ & $3.497$
 \paragraph{۴. تخمین امید ریاضی از داده (روش مونت‌کارلو).} برعکس هم می‌شود: اگر $\mathbb E[X]$ را نتوانیم حساب کنیم ولی بتوانیم $X$ را بارها شبیه‌سازی کنیم، میانگینِ نمونه‌ها تخمینی از $\mathbb E[X]$ است. این پایهٔ \emph{آمار} و \emph{روش مونت‌کارلو} است.
 
 \begin{example}[label=ex:monte-carlo]{تخمین $\pi$ با نقطه‌های تصادفی}
-نقطهٔ $(U,V)$ را با $U,V\sim\mathrm{Unif}(0,1)$ مستقل، به طور یکنواخت در مربع واحد انتخاب می‌کنیم و $I=\ind\{U^2+V^2\le1\}$ را نشانگرِ افتادن نقطه داخل ربع دایره به شعاع ۱ می‌گیریم. $\mathbb E[I]$ چیست و چطور می‌توان از آن $\pi$ را تخمین زد؟
-\begin{solution}
-احتمال افتادن در ربع دایره، نسبت مساحت‌هاست: $\mathbb E[I]=\P(U^2+V^2\le1)=\frac{\pi/4}{1}=\frac\pi4$. طبق قانون اعداد بزرگ، اگر $n$ نقطه بیندازیم، کسرِ نقطه‌هایی که داخل ربع دایره می‌افتند به $\frac\pi4$ میل می‌کند. پس اگر این کسر را در ۴ ضرب کنیم، تخمینی از $\pi$ به دست می‌آید. در یک شبیه‌سازی:
-\begin{center}
-\renewcommand{\arraystretch}{1.3}
-\begin{tabular}{c|ccc}
-\rl{تعداد نقطه‌ها} & $100$ & $10\,000$ & $1\,000\,000$\\\hline
-\rl{تخمین $\pi$} & $2.88$ & $3.120$ & $3.1436$
-\end{tabular}
-\end{center}
-\end{solution}
+  نقطهٔ $(U,V)$ را با $U,V\sim\mathrm{Unif}(0,1)$ مستقل، به طور یکنواخت در مربع واحد انتخاب می‌کنیم و $I=\ind\{U^2+V^2\le1\}$ را نشانگرِ افتادن نقطه داخل ربع دایره به شعاع ۱ می‌گیریم. $\mathbb E[I]$ چیست و چطور می‌توان از آن $\pi$ را تخمین زد؟
+  \begin{solution}
+    احتمال افتادن در ربع دایره، نسبت مساحت‌هاست: $\mathbb E[I]=\P(U^2+V^2\le1)=\frac{\pi/4}{1}=\frac\pi4$. طبق قانون اعداد بزرگ، اگر $n$ نقطه بیندازیم، کسرِ نقطه‌هایی که داخل ربع دایره می‌افتند به $\frac\pi4$ میل می‌کند. پس اگر این کسر را در ۴ ضرب کنیم، تخمینی از $\pi$ به دست می‌آید. در یک شبیه‌سازی:
+    \begin{center}
+      \renewcommand{\arraystretch}{1.3}
+      \begin{tabular}{c|ccc}
+        \rl{تعداد نقطه‌ها} & $100$  & $10\,000$ & $1\,000\,000$ \\\hline
+        \rl{تخمین $\pi$}  & $2.88$ & $3.120$   & $3.1436$
+      \end{tabular}
+    \end{center}
+  \end{solution}
 \end{example}
 
 %% ------------------------------------------------------------
@@ -380,38 +379,38 @@ $\bar X_n$ & $3.1$ & $3.34$ & $3.435$ & $3.471$ & $3.497$
 %% ------------------------------------------------------------
 
 \begin{summary}
-\begin{itemize}
-  \item \textbf{امید ریاضی:} $\mathbb E[X]=\sum_xx\,p_X(x)$ یا $\int x\,f_X(x)\,dx$ (به شرط همگرایی مطلق)؛ میانگین بلندمدت و نقطهٔ تعادل توزیع. $\mathbb E[\ind_A]=\P(A)$ و $\mathbb E[g(X)]=\sum g(x)p_X(x)$ یا $\int g(x)f_X(x)dx$، ولی در حالت کلی $\mathbb E[g(X)]\ne g(\mathbb E[X])$.
-  \item \textbf{خطی بودن:} $\mathbb E[aX+b]=a\mathbb E[X]+b$ و $\mathbb E[X+Y]=\mathbb E[X]+\mathbb E[Y]$ \emph{بدون نیاز به استقلال}؛ با جمع نشانگرها: $\mathbb E[\sum\ind_{A_i}]=\sum\P(A_i)$.
-  \item \textbf{مقدارها:} برنولی $p$، دوجمله‌ای $np$، هندسی $\frac1p$، پواسون $\lambda$، یکنواخت $\frac{a+b}2$، نمایی $\frac1\lambda$، گاوسی و لاپلاس $\mu$؛ کوشی امید ریاضی ندارد.
-  \item \textbf{قانون اعداد بزرگ:} میانگین $n$ تکرار مستقل، $\bar X_n=\frac{X_1+\cdots+X_n}{n}$، با احتمال ۱ به $\mathbb E[X]$ میل می‌کند؛ پس امید ریاضی همان «میانگین بلندمدت» است و برای نشانگرها، فراوانی نسبی به احتمال میل می‌کند. نسبت‌ها همگرا می‌شوند، نه اختلاف تعدادها؛ و بدون امید ریاضی (کوشی) این قانون برقرار نیست.
-\end{itemize}
+  \begin{itemize}
+    \item \textbf{امید ریاضی:} $\mathbb E[X]=\sum_xx\,p_X(x)$ یا $\int x\,f_X(x)\,dx$ (به شرط همگرایی مطلق)؛ میانگین بلندمدت و نقطهٔ تعادل توزیع. $\mathbb E[\ind_A]=\P(A)$ و $\mathbb E[g(X)]=\sum g(x)p_X(x)$ یا $\int g(x)f_X(x)dx$، ولی در حالت کلی $\mathbb E[g(X)]\ne g(\mathbb E[X])$.
+    \item \textbf{خطی بودن:} $\mathbb E[aX+b]=a\mathbb E[X]+b$ و $\mathbb E[X+Y]=\mathbb E[X]+\mathbb E[Y]$ \emph{بدون نیاز به استقلال}؛ با جمع نشانگرها: $\mathbb E[\sum\ind_{A_i}]=\sum\P(A_i)$.
+    \item \textbf{مقدارها:} برنولی $p$، دوجمله‌ای $np$، هندسی $\frac1p$، پواسون $\lambda$، یکنواخت $\frac{a+b}2$، نمایی $\frac1\lambda$، گاوسی و لاپلاس $\mu$؛ کوشی امید ریاضی ندارد.
+    \item \textbf{قانون اعداد بزرگ:} میانگین $n$ تکرار مستقل، $\bar X_n=\frac{X_1+\cdots+X_n}{n}$، با احتمال ۱ به $\mathbb E[X]$ میل می‌کند؛ پس امید ریاضی همان «میانگین بلندمدت» است و برای نشانگرها، فراوانی نسبی به احتمال میل می‌کند. نسبت‌ها همگرا می‌شوند، نه اختلاف تعدادها؛ و بدون امید ریاضی (کوشی) این قانون برقرار نیست.
+  \end{itemize}
 \end{summary}
 
 \subsection*{تمرین‌های پیشنهادی}
 
 \begin{exercise}
-اگر $X\sim\mathcal N(1,4)$، $Y\sim\mathrm{Poisson}(2)$ و $W\sim\mathrm{Geom}(\tfrac14)$، امید ریاضی $3X-2W+Y+1$ را بیابید.
-\answer{$3-8+2+1=-2$}
+  اگر $X\sim\mathcal N(1,4)$، $Y\sim\mathrm{Poisson}(2)$ و $W\sim\mathrm{Geom}(\tfrac14)$، امید ریاضی $3X-2W+Y+1$ را بیابید.
+  \answer{$3-8+2+1=-2$}
 \end{exercise}
 
 \begin{exercise}
-اگر $X\sim\mathrm{Unif}(0,1)$، امیدهای ریاضی $\mathbb E[X^3]$ و $\mathbb E[e^X]$ را بیابید.
-\answer{$\tfrac14$ \ و \ $e-1\approx1.718$}
+  اگر $X\sim\mathrm{Unif}(0,1)$، امیدهای ریاضی $\mathbb E[X^3]$ و $\mathbb E[e^X]$ را بیابید.
+  \answer{$\tfrac14$ \ و \ $e-1\approx1.718$}
 \end{exercise}
 
 \begin{exercise}
-عمر یک لامپ (به ساعت) $\mathrm{Exp}(\tfrac1{1000})$ است. عمر متوسط و میانهٔ عمر (زمانی که با احتمال $\tfrac12$ لامپ تا آن موقع سوخته است) را بیابید. کدام بزرگ‌تر است؟
-\answer{میانگین $1000$ ساعت؛ میانه $1000\ln2\approx693$ ساعت؛ میانگین بزرگ‌تر است.}
+  عمر یک لامپ (به ساعت) $\mathrm{Exp}(\tfrac1{1000})$ است. عمر متوسط و میانهٔ عمر (زمانی که با احتمال $\tfrac12$ لامپ تا آن موقع سوخته است) را بیابید. کدام بزرگ‌تر است؟
+  \answer{میانگین $1000$ ساعت؛ میانه $1000\ln2\approx693$ ساعت؛ میانگین بزرگ‌تر است.}
 \end{exercise}
 
 \begin{exercise}
-۴ دانشجو هر کدام یک تاس سالم می‌ریزند. $Z$ را تعداد \emph{زوج‌هایی} از دانشجوها بگیرید که عدد یکسان آورده‌اند. $\mathbb E[Z]$ را بیابید. (راهنمایی: $Z$ جمع ۶ نشانگر است.)
-\answer{$6\times\tfrac16=1$}
+  ۴ دانشجو هر کدام یک تاس سالم می‌ریزند. $Z$ را تعداد \emph{زوج‌هایی} از دانشجوها بگیرید که عدد یکسان آورده‌اند. $\mathbb E[Z]$ را بیابید. (راهنمایی: $Z$ جمع ۶ نشانگر است.)
+  \answer{$6\times\tfrac16=1$}
 \end{exercise}
 
 \begin{exercise}
-سکه‌ای را که با احتمال $p$ شیر می‌آید $n$ بار پرتاب می‌کنیم. «تغییر» یعنی جایی که پرتاب $i$ با پرتاب $i+1$ متفاوت است. تعداد متوسط تغییرها را بیابید.
-\answer{$2(n-1)\,p(1-p)$}
+  سکه‌ای را که با احتمال $p$ شیر می‌آید $n$ بار پرتاب می‌کنیم. «تغییر» یعنی جایی که پرتاب $i$ با پرتاب $i+1$ متفاوت است. تعداد متوسط تغییرها را بیابید.
+  \answer{$2(n-1)\,p(1-p)$}
 \end{exercise}
 

@@ -1,0 +1,20 @@
+# فایل‌های موقت کامپایل (build.ps1 و VS Code این‌ها را می‌سازند)
+build/
+*.aux
+*.log
+*.out
+*.toc
+*.xdv
+*.synctex.gz
+*.fls
+*.fdb_latexmk
+
+# تنظیمات شخصی ویرایشگر؛ settings.json پروژه (دستور ساخت در VS Code) در گیت می‌ماند
+.vscode/*
+!.vscode/settings.json
+
+# فایل‌های سیستم‌عامل
+Thumbs.db
+desktop.ini
+.DS_Store
+*~
